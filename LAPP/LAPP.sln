@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPP.BAL", "LAPP.BAL\LAPP.BAL.csproj", "{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPP.DAL", "LAPP.DAL\LAPP.DAL.csproj", "{6FCFEA1B-4B43-4A89-A697-9C549CA81643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPP.ENTITY", "LAPP.ENTITY\LAPP.ENTITY.csproj", "{0415ABB4-AB3E-4B3B-A6A6-7DBEEA9BC838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPP.CORE", "LAPP.CORE\LAPP.CORE.csproj", "{92F47D89-596B-4FDA-B53E-798944D7E154}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPP.ENUM", "LAPP.ENUM\LAPP.ENUM.csproj", "{E87694DC-4C85-43F3-83AF-E59F7770AC84}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "LAPP_Web", "LAPP_Web\", "{965740F7-1CEF-4B31-A884-028CF8AC09A2}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "Svn"
+		SccAuxPath = "Svn"
+		SccLocalPath = "Svn"
+		SccProvider = "SubversionScc"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{0d518dcb-bbf1-499a-8c91-c1b4c3bb2337}|LAPP.BAL.dll;{92f47d89-596b-4fda-b53e-798944d7e154}|LAPP.CORE.dll;{0415abb4-ab3e-4b3b-a6a6-7dbeea9bc838}|LAPP.ENTITY.dll;{e87694dc-4c85-43f3-83af-e59f7770ac84}|LAPP.ENUM.dll;{2e44a0ad-f8bd-41b0-94ea-5abde5e1e409}|LAPP.CONFIG.dll;{6FCFEA1B-4B43-4A89-A697-9C549CA81643}|LAPP.DAL.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/LAPP_Web"
+		Debug.AspNetCompiler.PhysicalPath = "LAPP_Web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\LAPP_Web\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/LAPP_Web"
+		Release.AspNetCompiler.PhysicalPath = "LAPP_Web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\LAPP_Web\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1843"
+		SlnRelativePath = "LAPP_Web\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+	ProjectSection(SvnOrigin) = preProject
+		@Keys = Enlist,Svn.Uri
+		Enlist = Required
+		Svn.Uri = LAPP_Web/
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPP.CONFIG", "LAPP.CONFIG\LAPP.CONFIG.csproj", "{2E44A0AD-F8BD-41B0-94EA-5ABDE5E1E409}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FCFEA1B-4B43-4A89-A697-9C549CA81643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCFEA1B-4B43-4A89-A697-9C549CA81643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCFEA1B-4B43-4A89-A697-9C549CA81643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCFEA1B-4B43-4A89-A697-9C549CA81643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0415ABB4-AB3E-4B3B-A6A6-7DBEEA9BC838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0415ABB4-AB3E-4B3B-A6A6-7DBEEA9BC838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0415ABB4-AB3E-4B3B-A6A6-7DBEEA9BC838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0415ABB4-AB3E-4B3B-A6A6-7DBEEA9BC838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92F47D89-596B-4FDA-B53E-798944D7E154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92F47D89-596B-4FDA-B53E-798944D7E154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92F47D89-596B-4FDA-B53E-798944D7E154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92F47D89-596B-4FDA-B53E-798944D7E154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E87694DC-4C85-43F3-83AF-E59F7770AC84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E87694DC-4C85-43F3-83AF-E59F7770AC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E87694DC-4C85-43F3-83AF-E59F7770AC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E87694DC-4C85-43F3-83AF-E59F7770AC84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{965740F7-1CEF-4B31-A884-028CF8AC09A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{965740F7-1CEF-4B31-A884-028CF8AC09A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{965740F7-1CEF-4B31-A884-028CF8AC09A2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{965740F7-1CEF-4B31-A884-028CF8AC09A2}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{2E44A0AD-F8BD-41B0-94EA-5ABDE5E1E409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E44A0AD-F8BD-41B0-94EA-5ABDE5E1E409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E44A0AD-F8BD-41B0-94EA-5ABDE5E1E409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E44A0AD-F8BD-41B0-94EA-5ABDE5E1E409}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal

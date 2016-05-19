@@ -1,0 +1,324 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AccountMaster.master.cs"
+    Inherits="NVBMT_WebProject_MasterPage_AccountMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>California Massage Therapy Council</title>
+    <script type="text/javascript" src="../../App_Themes/Theme1/js/jquery-1.8.0.min.js?">
+    </script>
+    <link rel="stylesheet" href="../../App_Themes/Theme1/jquery-ui/css/start/jquery-ui-1.8.23.custom.css?" />
+    <script type="text/javascript" src="../../App_Themes/Theme1/js/jquery-ui-1.8.23.custom.min.js?"> </script>
+    <link rel="stylesheet" href="../../App_Themes/Theme1/css/style.css?" />
+    <link rel="stylesheet" href="../../App_Themes/Theme1/css/navigation.css?" />
+ 
+    <link rel="stylesheet" href="../../App_Themes/Theme1/slider/css/coda-slider.css?" />
+    <script>
+        $(function () {
+            $('#tabs').tabs();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.calender').datepicker();
+        });
+
+        function showDivSlide(div) {
+            // alert('si');
+            $(div).slideDown();
+        }
+        function hideDivSlide(div) {
+            // alert('hi');
+            $(div).slideUp();
+        }
+
+        function navigateToURL(url) {
+
+            window.location = url;
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".w_effect").focus(function () {
+                if ($(this).val() == this.title) {
+                    $(this).val("");
+                    $(this).removeClass("w_effect");
+                }
+            });
+            $(".w_effect").blur(function () {
+                if ($.trim($(this).val()) == "") {
+                    $(this).val(this.title);
+                    $(this).addClass("w_effect");
+                }
+
+            });
+
+            $(".w_effect").each(function () {
+
+                $(this).val($(this).attr('title'));
+            });
+            $('.calender').datepicker();
+        });
+    </script>
+    <style type="text/css">
+        .w_effect
+        {
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 75%;
+            color: #ddd !important;
+        }
+        
+        .forgetPassword
+        {
+            width: 470px;
+            min-height: 200px;
+            padding: 20px;
+            background: rgb(252, 250, 250);
+            border: 1px solid #666;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .signup .posRelative label
+        {
+            width: 100px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 50px;
+            padding-right: 20px;
+        }
+        .Clear
+        {
+            clear: both;
+        }
+        .mrgn5
+        {
+            margin: 5px;
+        }
+        h4.fontSize17
+        {
+            font-size: 17px;
+            margin: 10px;
+        }
+        .flsForgotPassword
+        {
+            border: none;
+        }
+        .toolBar
+        {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin-top: 4px;
+            background: #ddd;
+        }
+        .signup input[type="text"], input[type="password"], .signup textarea, .signup select
+        {
+            background-color: rgb(252, 253, 253);
+            border-width: 1px;
+            border-style: solid;
+            border-color: #3D4E61 #9CB0C2 #9CB0C2 #3D4E61;
+            -webkit-box-shadow: 0 1px #e5e5e5 inset;
+            -moz-box-shadow: 0 1px #e5e5e5 inset;
+            box-shadow: 0 1px #e5e5e5 inset;
+            -o-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            width: 250px;
+            height: 30px;
+            padding-left: 3px;
+        }
+        .signup textarea
+        {
+            height: initial;
+        }
+        .signup fieldset
+        {
+            border: none;
+        }
+        /* .signup input[type="text"], .signup input[type="password"], .signup textarea, .signup select
+        {
+            border-top: solid 1px #abadb3;
+            border-right: solid 1px #dbdfe6;
+            border-bottom: solid 1px #e3e9ef;
+            border-left: solid 1px #e2e3ea;
+        }*/
+        .signup input[type="text"]:focus, .signup input[type="password"]:focus, .signup textarea:focus, .signup select:focus, .signup input[type="text"]:active, .signup input[type="password"]:active, .signup textarea:active, .signup select:active
+        {
+            border-color: #638213 #ABCD4E #ABCD4E #638213;
+        }
+        .signup select, .signup input, .signup textarea
+        {
+            font-family: Verdana,sans-serif;
+            font-size: 12px;
+            line-height: normal;
+            padding: 3px;
+            margin: 0;
+        }
+        .signup .posRelative
+        {
+            line-height: 39px;
+        }
+        .ajax__validatorcallout
+        {
+            line-height: initial !important;
+        }
+        .signup .posRelative label
+        {
+            width: 100px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 50px;
+        }
+        input[type="text"].error, input[type="password"].error, select.error, textarea.error
+        {
+            color: #bd2727;
+            border: 1px solid rgb(255, 116, 116) !important;
+            background: #ffebeb !important;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+        .span-24
+        {
+            width: 513px !important;
+            margin: 0 auto;
+            float: none !important;
+        }
+        .greyline3
+        {
+            border-bottom: 1px solid #e1e1e1;
+        }
+        .footer-base
+        {
+            padding: 24px 20px;
+            overflow: hidden;
+            font-size: 12px;
+        }
+        .marg-t-20
+        {
+            margin-top: 20px;
+        }
+        .container
+        {
+            margin: 0 auto;
+        }
+        .header, .main, .container
+        {
+            text-align: center;
+        }
+    </style>
+    <link href="../../App_Themes/Theme1/css/button.css" rel="stylesheet" type="text/css" />
+    <!--[if ie]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+       <style>
+        .signup input[type="text"], input[type="password"], .signup textarea, .signup select
+        {
+            background-color: rgb(252, 253, 253);
+            border-width: 1px;
+            border-style: solid;
+            border-color: #3D4E61 #9CB0C2 #9CB0C2 #3D4E61;
+            -webkit-box-shadow: 0 1px #e5e5e5 inset;
+            -moz-box-shadow: 0 1px #e5e5e5 inset;
+            box-shadow: 0 1px #e5e5e5 inset;
+            -o-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            width: 250px;
+           height:22px;
+        }
+        .signup select{
+        height:28px !important;
+        width:258px !important;
+        }
+        .ajax__validatorcallout
+        {
+            line-height: normal !important;
+        }
+       </style>
+        <script>
+        $(function () {
+            $('#tabs').tabs();
+        });
+    </script>
+	<![endif]-->
+    <!--[if IE 9]>
+		 <link rel="stylesheet" type="text/css" href="../../App_Themes/Theme1/css/ie9.css" />
+       
+	<![endif]-->
+    <!--[if IE 8]>
+		 <link rel="stylesheet" type="text/css" href="../../App_Themes/Theme1/css/ie8.css" />
+       
+	<![endif]-->
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="srm" runat="server">
+    </asp:ScriptManager>
+    <div class="header">
+        <div class="container">
+            <ul class="nav-toplinks">
+                <li class="last"><a id="nav-log-out" class="" href="../">Log In</a> </li>
+                <li class=""><a id="nav-help" class="" href="javascript:void();">Help</a> </li>
+            </ul>
+            <div class="logo-container fltlft" style="height: 120px; width: 100px;">
+                <img alt="" src="../../App_Themes/Theme1/images/logo.png" style="width: 200px; margin-top: 18px;">
+            </div>
+            <h2 class="fltlft" style="font-size: 28px; color: #062858; margin-top: 43px; font-weight: 800;
+                padding-left: 125px;">
+                California Massage Therapy Council</h2>
+            <div class="clear">
+            </div>
+            <hr />
+            <h1 style="text-align: left">
+                <%= this.Page.Title %>
+            </h1>
+            <%-- <div class="nav-mainlinks-container ">
+                <ul class="nav-mainlinks custom-background">
+                    <li class="first active custom-background-dark-hover" id="liHome"><a class="" href="javascript:void();">
+                        <%= this.Page.Title %></a> </li>
+                    <li class="last custom-background-dark-hover" id="liReports"><a class="" href="../">
+                        Login</a> </li>
+                </ul>
+            </div>--%>
+        </div>
+    </div>
+    <div class="main" style="height: 90%">
+        <div class="container primary-content ">
+            <div class="primary-column span-24" style="width: 600px; margin-top: 30px">
+                <div class="clear">
+                </div>
+                <div id="dashboard-panels">
+                    <div class="relative-box peel-shadows">
+                        <asp:ContentPlaceHolder ID="Content" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="alignCenter">
+        <div class="container greyline3 marg-t-20 marg-b-20">
+        </div>
+        <div class="container footer-base alignLeft" style="text-align: left">
+            Copyright © 2014. All rights reserved.
+        </div>
+    </div>
+    </form>
+</body>
+</html>

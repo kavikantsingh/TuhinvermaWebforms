@@ -1,0 +1,7 @@
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\bin\Debug\LAPP.ENTITY.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\bin\Debug\LAPP.ENTITY.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.csprojResolveAssemblyReference.cache
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.pdb

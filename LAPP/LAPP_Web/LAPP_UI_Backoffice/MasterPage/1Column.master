@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/LAPP_UI_Backoffice/MasterPage/MainPage.master" AutoEventWireup="true" CodeFile="1Column.master.cs" Inherits="LAPP_UI_Backoffice_MasterPage_1Column" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%--<script src="../App_Themes/Theme1/js/ebsoft-loader.js" type="text/javascript">
+    
+</script>--%>
+    <script>
+        $(function () {
+
+            $('.calender').datepicker({
+                constrainInput: true,
+                inline: true,
+                changeMonth: true,
+                changeYear: true, minDate: "-50Y",
+                yearRange: "1950:2023"
+            });
+        });
+
+        function EnableTb(el) {
+
+            $(el).removeAttr('disabled');
+            $(el).removeClass('aspNetDisabled');
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="main">
+        <div class="clearb">
+            <br />
+            <br />
+        </div>
+
+        <script src="../../App_Themes/Theme1/js/ebsoft-loader.js" type="text/javascript">
+    
+        </script>
+        <div class="container primary-content ">
+            <div class="primary-column ">
+                <div id="dashboard-panels ">
+                    <%--<div class="loader2" style="display: none">
+                        <img src="../App_Themes/Theme1/images/ajax-loader.gif" /><br />
+                        please wait...
+                    </div>--%>
+                    <div class="relative-box peel-shadows">
+                        <div class="dynamic-panels ui-sortable" style="">
+                            <div id="Cashflow" class="dashboard-panel clearfix rounded">
+                                <asp:ContentPlaceHolder ID="MidContent" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>
+
+

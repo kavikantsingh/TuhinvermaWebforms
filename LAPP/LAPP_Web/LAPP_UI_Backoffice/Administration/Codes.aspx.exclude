@@ -1,0 +1,69 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/LAPP_UI_Backoffice/MasterPage/MainPage.master" AutoEventWireup="true" CodeFile="Codes.aspx.cs" Inherits="LAPP_UI_Backoffice_Administration_Codes" %>
+
+
+
+<%@ Register Src="../../Module/UI_Backoffice/Administration/ucCodes.ascx" TagName="ucCodes" TagPrefix="uc1" %>
+
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link href="../App_Themes/Theme1/css/Codes.css?" rel="stylesheet" type="text/css" />
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $('.nav-mainlinks li').each(function () {
+                $(this).removeClass('active');
+            });
+            $('#liAdministration').addClass('active');
+        });
+    </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <uc1:ucCodes ID="ucCodes1" runat="server" />
+    &nbsp;<!--
+    ********************************
+    Start
+    Update Panel Request Handler
+    Javascript Method on Update
+    ********************************
+    --><script type="text/javascript">
+           Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+           Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+           //Begin request handler
+           function BeginRequestHandler(sender, args) {
+
+               ShowLoader();
+
+               onUpdate();
+               BeginScroll();
+
+           }
+           //End request handler
+           function EndRequestHandler(sender, args) {
+
+               HideLoader();
+               onUpdate();
+               EndScroll();
+
+
+           }
+           function onUpdate() {
+               //gridEvent(); 
+               //Masking section
+               $('.phone_us').mask('(000) 000-0000');
+               $('.ssn').mask('999-99-9999');
+           }
+
+    </script><!--
+    ********************************
+    END
+    Update Panel Request Handler
+    Javascript Method on Update
+    ********************************
+    -->
+</asp:Content>
+

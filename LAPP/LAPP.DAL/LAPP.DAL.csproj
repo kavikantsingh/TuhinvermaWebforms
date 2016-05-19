@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6FCFEA1B-4B43-4A89-A697-9C549CA81643}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LAPP.DAL</RootNamespace>
+    <AssemblyName>LAPP.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\LAPP_Web\LIB\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseDAL.cs" />
+    <Compile Include="LAPP_administration_board_infoDAL.cs" />
+    <Compile Include="LAPP_administration_board_info_histDAL.cs" />
+    <Compile Include="lapp_applicant_individual_login_infoDAL.cs" />
+    <Compile Include="lapp_application_deficiency_reasonDAL.cs" />
+    <Compile Include="Lapp_application_feeDAL.cs" />
+    <Compile Include="lapp_application_fee_detailsDAL.cs" />
+    <Compile Include="LAPP_application_statusDAL.cs" />
+    <Compile Include="Lapp_application_status_typeDAL.cs" />
+    <Compile Include="LAPP_audit_infoDAL.cs" />
+    <Compile Include="LAPP_codeDAL.cs" />
+    <Compile Include="LAPP_code_histDAL.cs" />
+    <Compile Include="LAPP_code_typeDAL.cs" />
+    <Compile Include="LAPP_code_type_histDAL.cs" />
+    <Compile Include="LAPP_configurationDAL.cs" />
+    <Compile Include="LAPP_configuration_histDAL.cs" />
+    <Compile Include="lapp_contentDAL.cs" />
+    <Compile Include="LAPP_country_codeDAL.cs" />
+    <Compile Include="lapp_documentsDAL.cs" />
+    <Compile Include="Lapp_document_masterDAL.cs" />
+    <Compile Include="Lapp_Document_TypeDAL.cs" />
+    <Compile Include="LAPP_exception_logDAL.cs" />
+    <Compile Include="LAPP_feeDAL.cs" />
+    <Compile Include="LAPP_fee_histDAL.cs" />
+    <Compile Include="LAPP_file_holderDAL.cs" />
+    <Compile Include="LAPP_home_page_messageDAL.cs" />
+    <Compile Include="LAPP_home_page_message_histDAL.cs" />
+    <Compile Include="LAPP_IndividualDAL.cs" />
+    <Compile Include="lapp_individual_addressDAL.cs" />
+    <Compile Include="lapp_individual_application_lkDAL.cs" />
+    <Compile Include="LAPP_individual_namesDAL.cs" />
+    <Compile Include="lapp_license_print_queue_holderDAL.cs" />
+    <Compile Include="LAPP_menu_masterDAL.cs" />
+    <Compile Include="LAPP_message_template_apply_toDAL.cs" />
+    <Compile Include="LAPP_message_template_apply_to_histDAL.cs" />
+    <Compile Include="lapp_notesDAL.cs" />
+    <Compile Include="LAPP_page_alert_messageDAL.cs" />
+    <Compile Include="LAPP_page_alert_message_histDAL.cs" />
+    <Compile Include="Lapp_paymentDAL.cs" />
+    <Compile Include="lapp_report_tableDAL.cs" />
+    <Compile Include="LAPP_roleDAL.cs" />
+    <Compile Include="lapp_role_application_doc_lkDAL.cs" />
+    <Compile Include="LAPP_role_histDAL.cs" />
+    <Compile Include="LAPP_role_menu_master_lkDAL.cs" />
+    <Compile Include="LAPP_serialsDAL.cs" />
+    <Compile Include="LAPP_state_codeDAL.cs" />
+    <Compile Include="lapp_taskDAL.cs" />
+    <Compile Include="LAPP_transaction_fee_configDAL.cs" />
+    <Compile Include="LAPP_userDAL.cs" />
+    <Compile Include="LAPP_user_membershipDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LAPP.CORE\LAPP.CORE.csproj">
+      <Project>{92f47d89-596b-4fda-b53e-798944d7e154}</Project>
+      <Name>LAPP.CORE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.ENTITY\LAPP.ENTITY.csproj">
+      <Project>{0415abb4-ab3e-4b3b-a6a6-7dbeea9bc838}</Project>
+      <Name>LAPP.ENTITY</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

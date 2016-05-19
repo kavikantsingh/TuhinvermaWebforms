@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LAPP.BAL</RootNamespace>
+    <AssemblyName>LAPP.BAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseBAL.cs" />
+    <Compile Include="LAPP_administration_board_infoBAL.cs" />
+    <Compile Include="LAPP_administration_board_info_histBAL.cs" />
+    <Compile Include="lapp_applicant_individual_login_infoBAL.cs" />
+    <Compile Include="lapp_application_deficiency_reasonBAL.cs" />
+    <Compile Include="Lapp_application_feeBAL.cs" />
+    <Compile Include="lapp_application_fee_detailsBAL.cs" />
+    <Compile Include="LAPP_application_statusBAL.cs" />
+    <Compile Include="Lapp_application_status_typeBAL.cs" />
+    <Compile Include="LAPP_audit_infoBAL.cs" />
+    <Compile Include="LAPP_codeBAL.cs" />
+    <Compile Include="LAPP_code_histBAL.cs" />
+    <Compile Include="LAPP_code_typeBAL.cs" />
+    <Compile Include="LAPP_code_type_histBAL.cs" />
+    <Compile Include="LAPP_configurationBAL.cs" />
+    <Compile Include="LAPP_configuration_histBAL.cs" />
+    <Compile Include="lapp_contentBAL.cs" />
+    <Compile Include="LAPP_country_codeBAL.cs" />
+    <Compile Include="lapp_documentsBAL.cs" />
+    <Compile Include="Lapp_document_masterBAL.cs" />
+    <Compile Include="Lapp_Document_TypeBAL.cs" />
+    <Compile Include="LAPP_exception_logbAL.cs" />
+    <Compile Include="LAPP_feeBAL.cs" />
+    <Compile Include="LAPP_fee_histBAL.cs" />
+    <Compile Include="LAPP_file_holderBAL.cs" />
+    <Compile Include="LAPP_home_page_messageBAL.cs" />
+    <Compile Include="LAPP_home_page_message_histBAL.cs" />
+    <Compile Include="LAPP_individualBAL.cs" />
+    <Compile Include="lapp_individual_addressBAL.cs" />
+    <Compile Include="lapp_individual_application_lkBAL.cs" />
+    <Compile Include="LAPP_individual_namesBAL.cs" />
+    <Compile Include="lapp_license_print_queue_holderBAL.cs" />
+    <Compile Include="LAPP_menu_masterBAL.cs" />
+    <Compile Include="LAPP_message_template_apply_toBAL.cs" />
+    <Compile Include="LAPP_message_template_apply_to_histBAL.cs" />
+    <Compile Include="lapp_notesBAL.cs" />
+    <Compile Include="LAPP_page_alert_messageBAL.cs" />
+    <Compile Include="LAPP_page_alert_message_histBAL.cs" />
+    <Compile Include="Lapp_paymentBAL.cs" />
+    <Compile Include="lapp_report_tableBAL.cs" />
+    <Compile Include="LAPP_roleBAL.cs" />
+    <Compile Include="lapp_role_application_doc_lkBAL.cs" />
+    <Compile Include="LAPP_role_histBAL.cs" />
+    <Compile Include="LAPP_role_menu_master_lkBAL.cs" />
+    <Compile Include="LAPP_serialsBAL.cs" />
+    <Compile Include="LAPP_state_codeBAL.cs" />
+    <Compile Include="lapp_taskBAL.cs" />
+    <Compile Include="LAPP_transaction_fee_configBAL.cs" />
+    <Compile Include="LAPP_userBAL.cs" />
+    <Compile Include="LAPP_user_membershipBAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LAPP.CORE\LAPP.CORE.csproj">
+      <Project>{92f47d89-596b-4fda-b53e-798944d7e154}</Project>
+      <Name>LAPP.CORE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.DAL\LAPP.DAL.csproj">
+      <Project>{6fcfea1b-4b43-4a89-a697-9c549ca81643}</Project>
+      <Name>LAPP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.ENTITY\LAPP.ENTITY.csproj">
+      <Project>{0415abb4-ab3e-4b3b-a6a6-7dbeea9bc838}</Project>
+      <Name>LAPP.ENTITY</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,10 @@
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\LAPP.DAL.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\LAPP.DAL.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\LAPP.CORE.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\LAPP.ENTITY.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\MySql.Data.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\LAPP.CORE.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\bin\Debug\LAPP.ENTITY.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.csprojResolveAssemblyReference.cache
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.pdb

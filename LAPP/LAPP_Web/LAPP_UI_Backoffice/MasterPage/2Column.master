@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/LAPP_UI_Backoffice/MasterPage/MainPage.master" AutoEventWireup="true" CodeFile="2Column.master.cs" Inherits="LAPP_UI_Backoffice_MasterPage_2Column" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="clear">
+        <br />
+        <br />
+    </div>
+    <div class="main">
+        <div class="container primary-content ">
+            <div class="clearb">
+            </div>
+            <asp:ContentPlaceHolder ID="UpperContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <div class="clearb">
+            </div>
+            <div>
+                <div class="span-180 span-13 home-sidebar append-1">
+                    <asp:ContentPlaceHolder ID="LeftSideContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="primary-column span-24" style="width: 600px;">
+                    <div id="dashboard-panels">
+                        <div class="relative-box peel-shadows">
+                            <div class="dynamic-panels ui-sortable" style="">
+                                <div id="Cashflow" class=" clearfix">
+                                    <asp:ContentPlaceHolder ID="RightSideContent" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearb">
+            </div>
+        </div>
+    </div>
+</asp:Content>
+
+

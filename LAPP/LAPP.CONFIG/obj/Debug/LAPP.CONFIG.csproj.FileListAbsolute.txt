@@ -1,0 +1,16 @@
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CONFIG.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CONFIG.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.BAL.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CORE.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENTITY.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENUM.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.DAL.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\MySql.Data.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.BAL.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CORE.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENTITY.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENUM.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\bin\Debug\LAPP.DAL.pdb
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.csprojResolveAssemblyReference.cache
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.dll
+C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.pdb
