@@ -21,14 +21,15 @@
         rel="stylesheet" type="text/css" />
     <%-- <link href="../../App_Themes/Public/css/LoginPage.css" rel="stylesheet" type="text/css" />--%>
     <!-- Feeds and Pingback -->
+   
     <link href="../../App_Themes/Public/css/OnlineApplication.css?" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Public/css/screen.css?" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Public/css/skin.css?" rel="stylesheet" type="text/css" />
-    <script type='text/javascript' src='../App_Themes/Theme1/js/l10n.js?ver=20101110'></script>
-    <script type='text/javascript' src='../App_Themes/Theme1/js/jqueryslidemenu.js?ver=3.2.1'></script>
-    <script type='text/javascript' src='../App_Themes/Theme1/js/jquery.tools.tabs.min.js?ver=1.2.5'></script>
-    <script type='text/javascript' src='../App_Themes/Theme1/js/jquery.swfobject.1-1-1.min.js?ver=1.1.1'></script>
-    <script type='text/javascript' src='../App_Themes/Theme1/js/video.js?ver=2.0.2'></script>
+    <script type='text/javascript' src='../../App_Themes/Agency/js/l10n.js?ver=20101110'></script>
+    <script type='text/javascript' src='../../App_Themes/Agency/js/jqueryslidemenu.js?ver=3.2.1'></script>
+    <script type='text/javascript' src='../../App_Themes/Agency/js/jquery.tools.tabs.min.js?ver=1.2.5'></script>
+    <script type='text/javascript' src='../../App_Themes/Agency/js/jquery.swfobject.1-1-1.min.js?ver=1.1.1'></script>
+    <script type='text/javascript' src='../../App_Themes/Agency/js/video.js?ver=2.0.2'></script>
     <link href="../../App_Themes/Public/css/Publicscreen.css?" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Public/css/Publicskin.css?" rel="stylesheet" type="text/css" />
     <!--[if IE 8 ]>

@@ -418,42 +418,45 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
     protected void btnSavePersonalInfo_Click(object sender, EventArgs e)
     {
+    #region comment
+        /*
         string strErr;
         strErr = "";
 
         if (txtFirstNameEdit.Text == "")
         {
-            strErr = "Please enter school name.";
+            strErr = "<span class='notok'></span> Please enter school name.";
+            txtFirstNameEdit.CssClass = "error";
         }
 
 
         if (txtschoolwebsite.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter school website.";
+                strErr = "<span class='notok'></span> Please enter school website.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter school website.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter school website.";
             }
         }
 
         if (txtschool_Add.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter school address.";
+                strErr = "<span class='notok'></span> Please enter school address.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter school address.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter school address.";
             }
         }
 
         if (txtCityResEdit.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter city of school.";
+                strErr = "<span class='notok'></span> Please enter city of school.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter city of school.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter city of school.";
             }
         }
 
@@ -461,60 +464,60 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         if (ddlStateResEdit.SelectedValue == "-1")
         {
             if (strErr == "")
-                strErr = "Please enter school state.";
+                strErr = "<span class='notok'></span> Please enter school state.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter school state.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter school state.";
             }
         }
 
         if (txtZipResEdit.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter zip code of school.";
+                strErr = "<span class='notok'></span> Please enter zip code of school.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter zip code of school.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter zip code of school.";
             }
         }
 
         if (txtMailingAdd.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter mailing address.";
+                strErr = "<span class='notok'></span> Please enter mailing address.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter mailing address.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter mailing address.";
             }
         }
 
         if (txtMailingCity.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter mailing city.";
+                strErr = "<span class='notok'></span> Please enter mailing city.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter mailing city.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter mailing city.";
             }
         }
 
         if (ddlMailingState.SelectedValue == "-1")
         {
             if (strErr == "")
-                strErr = "Please select mailing state.";
+                strErr = "<span class='notok'></span> Please select mailing state.";
             else
             {
-                strErr = strErr + "<br />" + "Please select mailing state.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please select mailing state.";
             }
         }
 
         if (txtMailngZip.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter mailing zip code.";
+                strErr = "<span class='notok'></span> Please enter mailing zip code.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter mailing zip code.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter mailing zip code.";
             }
         }
 
@@ -523,40 +526,40 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         if (txtSatelliteLoc.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter satellite location address.";
+                strErr = "<span class='notok'></span> Please enter satellite location address.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter satellite location address.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter satellite location address.";
             }
         }
 
         if (txtSatelliteCity.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter satellite location city.";
+                strErr = "<span class='notok'></span> Please enter satellite location city.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter satellite location city.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter satellite location city.";
             }
         }
 
         if (ddlSatelliteState.SelectedValue == "-1")
         {
             if (strErr == "")
-                strErr = "Please select satellite location state.";
+                strErr = "<span class='notok'></span> Please select satellite location state.";
             else
             {
-                strErr = strErr + "<br />" + "Please select satellite location state.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please select satellite location state.";
             }
         }
 
         if (txtSatelliteZip.Text == "")
         {
             if (strErr == "")
-                strErr = "Please enter satellite location zip.";
+                strErr = "<span class='notok'></span> Please enter satellite location zip.";
             else
             {
-                strErr = strErr + "<br />" + "Please enter satellite location zip.";
+                strErr = strErr + "<br />" + "<span class='notok'></span> Please enter satellite location zip.";
             }
         }
 
@@ -642,14 +645,13 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         if (txtschool_Add.Text == "")
         {
-
-
             divEMail.Focus();
-            divEMail.Visible = true;
+            tst.InnerHtml = strErr;
+            tst.Style.Add("color","red");
 
         }
-
-      
+        */
+    #endregion
 
         //if ( strErr=="")
         btnSection2_Click(sender, e);
@@ -4272,7 +4274,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
 
-        if (TextBox8.Text == "")
+        if (txtSchoolCity.Text == "")
         {
             if (strErrAddRelSchools == "")
                 strErrAddRelSchools = "Please enter City.";
@@ -4528,15 +4530,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     public void fillverifyschooladdress()
     {
-        TextBox3.Text = AddressHelper.GetFormatedPOBOx(TextBox3.Text);
+        txtSchoolStreet.Text = AddressHelper.GetFormatedPOBOx(txtSchoolStreet.Text);
         txtschool_Add.Text = AddressHelper.GetFormatedPOBOx(txtschool_Add.Text);
 
-        lblUSchoolStreet1.Text = TextBox3.Text;
+        lblUSchoolStreet1.Text = txtSchoolStreet.Text;
         lblUSchoolStreet2.Text = txtschool_Add.Text;
         lblUSchoolCity.Text = txtCityResEdit.Text;
         lblUSchoolState.Text = ddlStateResEdit.SelectedItem.Text;
         lblUSchoolZip.Text = txtZipResEdit.Text;
-        components objComponenets = GNF.APIAddressValidation.ValidateAddress(TextBox3.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);
+        components objComponenets = GNF.APIAddressValidation.ValidateAddress(txtSchoolStreet.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);
         if (objComponenets != null)
         {
             lblVSchoolStreet1.Text = objComponenets.street1;
@@ -4575,7 +4577,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         divVerifySchoolAddressBtn.Visible = true;
         divVerifySchoolAddressPnl.Visible = false;
-        TextBox3.Text = lblVSchoolStreet1.Text;
+        txtSchoolStreet.Text = lblVSchoolStreet1.Text;
         txtschool_Add.Text = lblVSchoolStreet2.Text;
         txtCityResEdit.Text = lblVSchoolCity.Text;
         ddlStateResEdit.SelectedValue = lblVSchoolState.Text;
@@ -4646,15 +4648,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     #region Previous Address
     public void fillverifyPreviousaddress()
     {
-        TextBox3.Text = AddressHelper.GetFormatedPOBOx(TextBox3.Text);///////////////
+        txtSchoolStreet.Text = AddressHelper.GetFormatedPOBOx(txtSchoolStreet.Text);///////////////
         txtschool_Add.Text = AddressHelper.GetFormatedPOBOx(txtschool_Add.Text);
 
-        lblUPreviousStreet1.Text = TextBox3.Text;//////////////
+        lblUPreviousStreet1.Text = txtSchoolStreet.Text;//////////////
         lblUPreviousStreet2.Text = txtschool_Add.Text;
         lblUPreviousCity.Text = txtCityResEdit.Text;
         lblUPreviousState.Text = ddlStateResEdit.SelectedItem.Text;
         lblUPreviousZip.Text = txtZipResEdit.Text;
-        components objComponenets = GNF.APIAddressValidation.ValidateAddress(TextBox3.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);/////////////////
+        components objComponenets = GNF.APIAddressValidation.ValidateAddress(txtSchoolStreet.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);/////////////////
         if (objComponenets != null)
         {
             lblVPreviousStreet1.Text = objComponenets.street1;
@@ -4693,7 +4695,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         divVerifyPreviousAddressBtn.Visible = true;
         divVerifyPreviousAddressPnl.Visible = false;
-        TextBox3.Text = lblVPreviousStreet1.Text;////////////////
+        txtSchoolStreet.Text = lblVPreviousStreet1.Text;////////////////
         txtschool_Add.Text = lblVPreviousStreet2.Text;
         txtCityResEdit.Text = lblVPreviousCity.Text;
         ddlStateResEdit.SelectedValue = lblVPreviousState.Text;
@@ -4705,15 +4707,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     public void fillverifySatelliteLocationaddress()
     {
-        TextBox3.Text = AddressHelper.GetFormatedPOBOx(TextBox3.Text);///////////////
+        txtSchoolStreet.Text = AddressHelper.GetFormatedPOBOx(txtSchoolStreet.Text);///////////////
         txtschool_Add.Text = AddressHelper.GetFormatedPOBOx(txtschool_Add.Text);
 
-        lblUSatelliteLocationStreet1.Text = TextBox3.Text;//////////////
+        lblUSatelliteLocationStreet1.Text = txtSchoolStreet.Text;//////////////
         lblUSatelliteLocationStreet2.Text = txtschool_Add.Text;
         lblUSatelliteLocationCity.Text = txtCityResEdit.Text;
         lblUSatelliteLocationState.Text = ddlStateResEdit.SelectedItem.Text;
         lblUSatelliteLocationZip.Text = txtZipResEdit.Text;
-        components objComponenets = GNF.APIAddressValidation.ValidateAddress(TextBox3.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);/////////////////
+        components objComponenets = GNF.APIAddressValidation.ValidateAddress(txtSchoolStreet.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);/////////////////
         if (objComponenets != null)
         {
             lblVSatelliteLocationStreet1.Text = objComponenets.street1;
@@ -4752,7 +4754,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         divVerifySatelliteLocationAddressBtn.Visible = true;
         divVerifySatelliteLocationAddressPnl.Visible = false;
-        TextBox3.Text = lblVSatelliteLocationStreet1.Text;////////////////
+        txtSchoolStreet.Text = lblVSatelliteLocationStreet1.Text;////////////////
         txtschool_Add.Text = lblVSatelliteLocationStreet2.Text;
         txtCityResEdit.Text = lblVSatelliteLocationCity.Text;
         ddlStateResEdit.SelectedValue = lblVSatelliteLocationState.Text;
@@ -4767,15 +4769,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     public void fillverifySchoolMailingaddress()
     {
-        TextBox3.Text = AddressHelper.GetFormatedPOBOx(TextBox3.Text);///////////////
+        txtSchoolStreet.Text = AddressHelper.GetFormatedPOBOx(txtSchoolStreet.Text);///////////////
         txtschool_Add.Text = AddressHelper.GetFormatedPOBOx(txtschool_Add.Text);
 
-        lblUSchoolMailingStreet1.Text = TextBox3.Text;//////////////
+        lblUSchoolMailingStreet1.Text = txtSchoolStreet.Text;//////////////
         lblUSchoolMailingStreet2.Text = txtschool_Add.Text;
         lblUSchoolMailingCity.Text = txtCityResEdit.Text;
         lblUSchoolMailingState.Text = ddlStateResEdit.SelectedItem.Text;
         lblUSchoolMailingZip.Text = txtZipResEdit.Text;
-        components objComponenets = GNF.APIAddressValidation.ValidateAddress(TextBox3.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);/////////////////
+        components objComponenets = GNF.APIAddressValidation.ValidateAddress(txtSchoolStreet.Text, txtschool_Add.Text, txtCityResEdit.Text, ddlStateResEdit.SelectedItem.Text, txtZipResEdit.Text);/////////////////
         if (objComponenets != null)
         {
             lblVSchoolMailingStreet1.Text = objComponenets.street1;
@@ -4814,7 +4816,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         divVerifySchoolMailingAddressBtn.Visible = true;
         divVerifySchoolMailingAddressPnl.Visible = false;
-        TextBox3.Text = lblVSchoolMailingStreet1.Text;////////////////
+        txtSchoolStreet.Text = lblVSchoolMailingStreet1.Text;////////////////
         txtschool_Add.Text = lblVSchoolMailingStreet2.Text;
         txtCityResEdit.Text = lblVSchoolMailingCity.Text;
         ddlStateResEdit.SelectedValue = lblVSchoolMailingState.Text;

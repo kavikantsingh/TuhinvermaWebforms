@@ -1,6 +1,7 @@
 ﻿function ValidateTextbox(message, element, value) {
     if (value !== "" && value !== "undefined") {
         $(element).removeClass('error'); return "";
+
     }
     else {
         $(element).addClass('error');
@@ -51,7 +52,7 @@ function ValidateRadio(message, element, value) {
     }
 }
 function ValidateEmail(message, element, value) {
-    if (value !== "" && value !== "undefined") {
+    if (value !== "undefined") {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         if (emailReg.test(value)) {
             $(element).removeClass('error'); return "";
@@ -203,7 +204,6 @@ function OnChangeClass(element, value) {
 }
 
 // message styles
-
 
 function BuildValidationMessage(str, MessageType) {
     var DivOk = "  <div id=\"DivAlertMessage\" class='alertMessageCustom' onclick=\"RemoveElement(this);\" style=\"margin: 10px auto;    text-align: left;    width: 80%;\"><div class=\"confirmbox\"><span class=\"ok\"></span>" + str + "</div></div>";

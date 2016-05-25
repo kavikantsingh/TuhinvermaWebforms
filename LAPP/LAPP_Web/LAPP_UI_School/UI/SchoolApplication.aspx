@@ -6,6 +6,8 @@
     <script src="../../Validation/FormValidation.js" type="text/javascript"></script>
     <link href="../../App_Themes/Public/css/NewButton.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Public/css/epay2.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="../../App_Themes/Theme1/js/jquery.validation.net.webforms.js"></script>
     <script>
         function RemoveElement(e) {
             $(e).remove();
