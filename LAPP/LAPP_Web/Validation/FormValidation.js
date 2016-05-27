@@ -261,3 +261,39 @@ function ValidateWebsite(message, element, value) {
         return message;
     }
 }
+
+function ValidateCheckboxList(message, element, value) {
+    var CHK = document.getElementById(element);
+    var checkbox = CHK.getElementsByTagName("input");
+    var counter = 0;
+    for (var i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+            counter++;
+        }
+    }
+    if (counter > 0) {
+        $("#"+element).removeClass('error'); return "";
+    }
+    else {
+        $("#"+element).addClass('error');
+        return message;
+    }
+}
+
+function ValidateRadioList(message, element, value) {
+    var CHK = document.getElementById(element);
+    var checkbox = CHK.getElementsByTagName("input");
+    var counter = 0;
+    for (var i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+            counter++;
+        }
+    }
+    if (counter > 0) {
+        $("#" + element).removeClass('error'); return "";
+    }
+    else {
+        $("#" + element).addClass('error');
+        return message;
+    }
+}
