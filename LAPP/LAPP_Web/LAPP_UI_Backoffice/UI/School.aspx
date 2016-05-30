@@ -40,6 +40,7 @@
   <link href="../../App_Themes/Theme1/css/NewButton.css" rel="stylesheet" type="text/css" />
     <script src="../../App_Themes/Theme1/js/jquery.mask.min.js" type="text/javascript"></script>
     <script src="../../App_Themes/Theme1/Expandables/expand.js" type="text/javascript"></script>
+    <script src="../../Validation/FormValidation.js" type="text/javascript"></script>
     <script>
         window.onload = function () {
             showDivSlide('.userHide');
@@ -156,6 +157,44 @@ h2 a, .demo {position:relative; height:1%}
             //$("#content").expandAll({ trigger: "h4.expand", ref: "div.demo", localLinks: "p.top a" });
         });
         //--><!]]>
+    </script>
+     <%--- School information validation--%>
+    <script>
+        function btnSavePersonalInfo() {
+            $('#error_validation').text('');
+            var error = '';
+            var txtDirectorEmailF = '';
+            var txtval = $('#<%= txtFirstNameEdit.ClientID %>').val();
+            var ch = ValidateTextbox('<span class="notok"></span> Please enter school name.<br/>', '#<%= txtFirstNameEdit.ClientID %>', txtval);
+            var schteli = ValidateTextbox('<span class="notok"></span> Please enter school Teliphone.<br/>', '#<%= txtSchoolTel.ClientID %>', $('#<%= txtSchoolTel.ClientID %>').val());
+            var schWebsite = ValidateTextbox('<span class="notok"></span> Please enter school Website.<br/>', '#<%= txtschoolwebsite.ClientID %>', $('#<%= txtschoolwebsite.ClientID %>').val());
+
+            var street = ValidateTextbox('<span class="notok"></span> Please enter school address.<br/>', '#<%= TextBox3.ClientID %>', $('#<%= TextBox3.ClientID %>').val());
+            var city = ValidateTextbox('<span class="notok"></span> Please enter city of school.<br/>', '#<%= txtCityResEdit.ClientID %>', $('#<%= txtCityResEdit.ClientID %>').val());
+            var state = ValidateTextbox('<span class="notok"></span> Please enter school state.<br/>', '#<%= ddlStateResEdit.ClientID %>', $('#<%= ddlStateResEdit.ClientID %>').val());
+            var zip = ValidateTextbox('<span class="notok"></span> Please enter school zip.<br/>', '#<%= txtZipResEdit.ClientID %>', $('#<%= txtZipResEdit.ClientID %>').val());
+
+            var txtDirFirstName = ValidateTextbox('<span class="notok"></span> Please enter Director/Administrator first name.<br/>', '#<%= TextBox141.ClientID %>', $('#<%= TextBox141.ClientID %>').val());
+
+            var txtDirectorEmail = ValidateTextbox('<span class="notok"></span> Please enter Director/Administrator email.<br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%= txtDirectorEmail.ClientID %>').val());
+
+            var txtSclInfoJobTitle = ValidateTextbox('<span class="notok"></span> Please enter Designation(Job Title).<br/>', '#<%= txtSclInfoJobTitle.ClientID %>', $('#<%= txtSclInfoJobTitle.ClientID %>').val());
+            var txtSclInfoPriNumber = ValidateTextbox('<span class="notok"></span> Please enter Director/Administrator telephone number.<br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%= txtDirectorEmail.ClientID %>').val());
+            if (txtDirectorEmail == '') {
+                txtDirectorEmailF = ValidateEmail('<span class="notok"></span> Please enter Director/Administrator email correct format.<br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%= txtDirectorEmail.ClientID %>').val());
+            }
+            error = ch + schteli + schWebsite + street + city + state + zip + txtDirFirstName + txtDirectorEmail + txtDirectorEmailF + txtSclInfoPriNumber;
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnSavePersonalInfo').attr('type', 'button');
+                $(document).scrollTop(0);
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnSavePersonalInfo').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
     </script>
     <!--<![endif]-->
     <link href="../../App_Themes/Theme1/css/Individual.css?" rel="stylesheet" type="text/css" />
@@ -1190,8 +1229,11 @@ table { border-collapse: collapse; border-spacing: 0px;}
                                                         </div>
                                                     </asp:Panel>
                                                 </div>
-
+                                                <div>
+                                                    <div id="error_validation" class="address-box posFixed" style=" display:none; color:red; margin-top: 0px; border-radius: 5px;"></div>
+                                                </div>
                                                 <div id="divPanelList" style="border: 1px solid rgb(222, 222, 222); margin-top: 10px;">
+                                                    
                                                     <asp:Panel ID="pnlGeneralInfo" Enabled="true"  Visible="true"  runat="server">
 
                                                         <div>
@@ -1216,7 +1258,8 @@ table { border-collapse: collapse; border-spacing: 0px;}
                                                                                     </label>
                                                                                 </td>
                                                                                 <td colspan="6">
-                                                                                    <asp:TextBox ID="txtFirstNameEdit"  style="width:482px !important;" runat="server" CssClass="tooltip OnlyAlphabet inputTextbox 
+                                                                                    <asp:TextBox ID="txtFirstNameEdit"  style="width:482px !important;" runat="server" CssClass="tooltip OnlyAlphabet inputTextbox 
+
 capitalize-text NewAppPersonalTxtbx"
                                                                                         title="Only A-Z characters are allowed."></asp:TextBox>
                                                                                 </td>
@@ -1244,7 +1287,8 @@ capitalize-text NewAppPersonalTxtbx"
                                                                             </label>
                                                                         </td>
                                                                         <td colspan="6">
-                                                                            <asp:TextBox ID="txtschoolwebsite" runat="server" CssClass="inputTextbox 
+                                                                            <asp:TextBox ID="txtschoolwebsite" runat="server" CssClass="inputTextbox 
+
 NewAppPersonalTxtbx"
                                                                                 autocomplete="off"
                                                                                 MaxLength="150"></asp:TextBox>
@@ -1488,7 +1532,8 @@ NewAppPersonalTxtbx"
                                                                 </td>
                                                                 <td>
                                                                     <asp:TextBox ID="txtZipResEdit" runat="server" placeholder="xxxxx-xxxx or xxxxx"
-                                                                        CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: 
+                                                                        CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: 
+
 XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                 </td>
                                                             </tr>
@@ -1796,7 +1841,8 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </td>
                                                                     <td>
                                                                         <asp:TextBox ID="txtPreviousAddzip" runat="server" placeholder="xxxxx-xxxx or xxxxx"
-                                                                            CssClass="tooltip zip_us calWidth" Width="125px" MaxLength="500" title="Enter valid Zip eg: 
+                                                                            CssClass="tooltip zip_us calWidth" Width="125px" MaxLength="500" title="Enter valid Zip eg: 
+
 XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </td>
                                                                 </tr>
@@ -1961,7 +2007,8 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     <asp:Button ID="btnSchoolInfoPreviousAddNewSave" CssClass="buttonGreen medium"
                                                                         runat="server" Text="Save" CausesValidation="true"
                                                                         OnClick="btnSchoolInfoPreviousAddNewSave_Click" />
-                                                                    <asp:LinkButton ID="lnkSchoolInfoPreviousAddNewCancel" CssClass="secondary medium bottom 
+                                                                    <asp:LinkButton ID="lnkSchoolInfoPreviousAddNewCancel" CssClass="secondary medium bottom 
+
 buttonalignment"
                                                                         runat="server"
                                                                         OnClick="lnkSchoolInfoPreviousAddNewCancel_Click">Cancel</asp:LinkButton></span>
@@ -2051,7 +2098,7 @@ buttonalignment"
                                                                                                         <asp:ListItem Value="AL">ALABAMA</asp:ListItem>
                                                                                                         <asp:ListItem Value="AR">ARKANSAS</asp:ListItem>
                                                                                                         <asp:ListItem Value="AZ">ARIZONA</asp:ListItem>
-                                                                                                        <asp:ListItem Selected="True" Value="CA">CALIFORNIA</asp:ListItem>
+                                                                                                        <asp:ListItem Value="CA">CALIFORNIA</asp:ListItem>
                                                                                                         <asp:ListItem Value="CO">COLORADO</asp:ListItem>
                                                                                                         <asp:ListItem Value="CT">CONNECTICUT</asp:ListItem>
                                                                                                         <asp:ListItem Value="DC">DISTRICT OF COLUMBIA</asp:ListItem>
@@ -2081,7 +2128,7 @@ buttonalignment"
                                                                                                         <asp:ListItem Value="NJ">NEW JERSEY</asp:ListItem>
                                                                                                         <asp:ListItem Value="NM">NEW MEXICO</asp:ListItem>
                                                                                                         <asp:ListItem Value="NY">NEW YORK</asp:ListItem>
-                                                                                                        <asp:ListItem Value="NV">NEVADA</asp:ListItem>
+                                                                                                        <asp:ListItem Selected="True" Value="NV">NEVADA</asp:ListItem>
                                                                                                         <asp:ListItem Value="OH">OHIO</asp:ListItem>
                                                                                                         <asp:ListItem Value="OK">OKLAHOMA</asp:ListItem>
                                                                                                         <asp:ListItem Value="OR">OREGON</asp:ListItem>
@@ -2122,7 +2169,8 @@ buttonalignment"
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <asp:TextBox ID="txtSateliteAddzipEdit" runat="server" placeholder="xxxxx-xxxx or xxxxx"
-                                                                                                        CssClass="tooltip zip_us calWidth" Width="127px" MaxLength="500" title="Enter valid Zip eg: 
+                                                                                                        CssClass="tooltip zip_us calWidth" Width="127px" MaxLength="500" title="Enter valid Zip eg: 
+
 XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                                                 </td>
                                                                                             </tr>
@@ -2135,7 +2183,8 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                                                     CssClass="buttonGreen medium" runat="server" Text="Update"
                                                                                                     CausesValidation="true"
                                                                                                     OnClick="btnSchoolInfoPreviousUpdate_Click" />
-                                                                                                <asp:LinkButton ID="lnkSchoolInfoPreviousCancelUpdate" CssClass="secondary 
+                                                                                                <asp:LinkButton ID="lnkSchoolInfoPreviousCancelUpdate" CssClass="secondary 
+
 medium bottom buttonalignment"
                                                                                                     runat="server"
                                                                                                     OnClick="lnkSchoolInfoPreviousCancelUpdate_Click">Cancel</asp:LinkButton></span>
@@ -2320,7 +2369,8 @@ medium bottom buttonalignment"
                                                                 </td>
                                                                 <td>
                                                                     <asp:TextBox ID="txtMailngZip" runat="server" placeholder="xxxxx-xxxx or xxxxx"
-                                                                        CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: 
+                                                                        CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: 
+
 XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                 </td>
                                                             </tr>
@@ -2786,7 +2836,8 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </td>
                                                                     <td>
                                                                         <asp:TextBox ID="txtSatelliteZip" runat="server" placeholder="xxxxx-xxxx or xxxxx"
-                                                                            CssClass="tooltip zip_us calWidth" Width="125px" MaxLength="500" title="Enter valid Zip eg: 
+                                                                            CssClass="tooltip zip_us calWidth" Width="125px" MaxLength="500" title="Enter valid Zip eg: 
+
 XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </td>
                                                                 </tr>
@@ -2955,7 +3006,8 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                 <span class="fltrt">
                                                                     <asp:Button ID="btnSatelliteLocationAddNewSave" CssClass="buttonGreen medium"
                                                                         runat="server" Text="Save" CausesValidation="true" OnClick="btnSatelliteLocationAddNewSave_Click" />
-                                                                    <asp:LinkButton ID="lnkSatelliteLocationAddNewCancel" CssClass="secondary medium bottom 
+                                                                    <asp:LinkButton ID="lnkSatelliteLocationAddNewCancel" CssClass="secondary medium bottom 
+
 buttonalignment"
                                                                         runat="server"
                                                                         OnClick="lnkSatelliteLocationAddNewCancel_Click">Cancel</asp:LinkButton></span>
@@ -3117,7 +3169,8 @@ buttonalignment"
                                                                                                 </td>
                                                                                                 <td>
                                                                                                     <asp:TextBox ID="txtPreviousAddzipEdit" runat="server" placeholder="xxxxx-xxxx or xxxxx"
-                                                                                                        CssClass="tooltip zip_us calWidth" Width="127px" MaxLength="500" title="Enter valid Zip eg: 
+                                                                                                        CssClass="tooltip zip_us calWidth" Width="127px" MaxLength="500" title="Enter valid Zip eg: 
+
 XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                                                 </td>
                                                                                             </tr>
@@ -3130,7 +3183,8 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                                                     CssClass="buttonGreen medium" runat="server" Text="Update"
                                                                                                     CausesValidation="true"
                                                                                                     OnClick="btnSatelliteLocationUpdate_Click" />
-                                                                                                <asp:LinkButton ID="lnkSatelliteLocationCancelUpdate" CssClass="secondary medium 
+                                                                                                <asp:LinkButton ID="lnkSatelliteLocationCancelUpdate" CssClass="secondary medium 
+
 bottom buttonalignment"
                                                                                                     runat="server"
                                                                                                     OnClick="lnkSatelliteLocationCancelUpdate_Click">Cancel</asp:LinkButton></span>
@@ -3518,7 +3572,7 @@ bottom buttonalignment"
                                                     
                                                     <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                         <span class="fltrt">
-                                                            <asp:Button ID="btnSavePersonalInfo" CssClass="buttonGreen medium" runat="server"
+                                                            <asp:Button ID="btnSavePersonalInfo" CssClass="buttonGreen medium" runat="server" OnClientClick="btnSavePersonalInfo()"
                                                                 Text="Save"  />
                                                             <asp:LinkButton ID="lnkCancelPersonalInfo" CssClass="secondary medium bottom buttonalignment"
                                                                 runat="server">Cancel</asp:LinkButton></span>
@@ -16462,6 +16516,7 @@ Therapy Council approved school does not guarantee certification by CAMTC. Appli
             });
         });
     </script>
+   
     <!--
     ********************************
     END
