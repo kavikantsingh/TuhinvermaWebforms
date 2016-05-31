@@ -130,7 +130,17 @@ function ValidateDate(message, element, value) {
     if (value !== "" && value !== "undefined") {
         var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
         if (emailReg.test(value)) {
-            $(element).removeClass('error'); return "";
+            var pickDate = new Date(value);
+            var curentdate = new Date();
+            if (curentdate > pickDate) {
+                $(element).removeClass('error'); return "";
+            }
+            else {
+                message = "<span class="+"notok"+"></span> Could not accept future date. <br/>";
+                $(element).addClass('error');
+                return message;
+            }
+            
         }
         else {
             $(element).addClass('error');
@@ -246,13 +256,14 @@ function numeric(evt) {
 }
 
 function ValidateWebsite(message, element, value) {
-    if (value !== "undefined") {
-        var emailReg = '/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/';
-        if (emailReg.test(value)) {
+    if (value!=="" && value !== "undefined") {
+        var websiteReg = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/;
+        if (websiteReg.test(value)) {
             $(element).removeClass('error'); return "";
         }
         else {
             $(element).addClass('error');
+            message = "<span class=" + "notok" + "></span> Please enter Website in correct format . <br/>";
             return message;
         }
     }
@@ -296,4 +307,58 @@ function ValidateRadioList(message, element, value) {
         $("#" + element).addClass('error');
         return message;
     }
+}
+
+function CheckEmail(message, element, value) {
+    if (value !=="" && value !== "undefined") {
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (emailReg.test(value)) {
+            $(element).removeClass('error'); return "";
+        }
+        else {
+            $(element).addClass('error');
+            return message;
+        }
+    }
+    else {
+        $(element).addClass('error');
+        return message;
+    }
+}
+
+function CheckDate(message, element, value) {
+    if (value !=="" && value !== "undefined") {
+        var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+        if (emailReg.test(value)) {
+            var pickDate = new Date(value);
+            var curentdate = new Date();
+            if (curentdate > pickDate) {
+                $(element).removeClass('error'); return "";
+            }
+            else {
+                message = "<span class=" + "notok" + "></span> Could not accept future date. <br/>";
+                $(element).addClass('error');
+                return message;
+            }
+        }
+        else {
+            $(element).addClass('error');
+            return message;
+        }
+    }
+    else {
+        return "";
+    }
+}
+
+function CheckWebsite(message, element, value) {
+    var websiteReg = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/;
+    if (websiteReg.test(value)) {
+            $(element).removeClass('error'); return "";
+        }
+        else {
+            $(element).addClass('error');
+            message = "<span class=" + "notok" + "></span> Please enter Website in correct format . <br/>";
+            return message;
+        }
 }
