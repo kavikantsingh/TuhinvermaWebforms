@@ -64,6 +64,7 @@ function ValidateEmail(message, element, value) {
             $(element).removeClass('error'); return "";
         }
         else {
+            message = "<span class=" + "notok" + "></span> Please enter Email in valid format. <br/>";
             $(element).addClass('error');
             return message;
         }
@@ -143,6 +144,7 @@ function ValidateDate(message, element, value) {
             
         }
         else {
+            message = "<span class=" + "notok" + "></span> Please enter Date in correct format (MM/DD/YYYY). <br/>";
             $(element).addClass('error');
             return message;
         }
@@ -320,10 +322,6 @@ function CheckEmail(message, element, value) {
             return message;
         }
     }
-    else {
-        $(element).addClass('error');
-        return message;
-    }
 }
 
 function CheckDate(message, element, value) {
@@ -351,14 +349,32 @@ function CheckDate(message, element, value) {
     }
 }
 
-function CheckWebsite(message, element, value) {
-    var websiteReg = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/;
-    if (websiteReg.test(value)) {
+function CheckDateFormat(message, element, value) {
+    if (value !== "" && value !== "undefined") {
+        var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+        if (emailReg.test(value)) {
             $(element).removeClass('error'); return "";
         }
         else {
             $(element).addClass('error');
-            message = "<span class=" + "notok" + "></span> Please enter Website in correct format . <br/>";
             return message;
         }
+    }
+    else {
+        return "";
+    }
+}
+
+function CheckWebsite(message, element, value) {
+    if (value !== "" && value !== "undefined") {
+        var websiteReg = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/;
+        if (websiteReg.test(value)) {
+            $(element).removeClass('error'); return "";
+        }
+        else {
+            $(element).addClass('error');
+            return message;
+        }
+    }
+    
 }
