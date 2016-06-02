@@ -322,6 +322,9 @@ function CheckEmail(message, element, value) {
             return message;
         }
     }
+    else {
+        return "";
+    }
 }
 
 function CheckDate(message, element, value) {
@@ -375,6 +378,9 @@ function CheckWebsite(message, element, value) {
             $(element).addClass('error');
             return message;
         }
+    }
+    else {
+        return "";
     }
     
 }
