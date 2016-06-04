@@ -102,5 +102,6 @@ public class ErrorMessage
     public static string TextBox394 = "Please enter education/qualification to teach this subject.";
     public static string SubmitinFormSchoolName = "Please enter name of school for which you are submitting this form.";
 
-    
+    public static string Password = "Please enter password.";
+
 }
