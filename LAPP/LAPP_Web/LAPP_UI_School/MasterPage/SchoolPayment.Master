@@ -406,8 +406,7 @@
             InitiateMasking();
             InitiateTooltip();
             
-        }
-        
+        }        
     </script>
     </form>
 </body>
