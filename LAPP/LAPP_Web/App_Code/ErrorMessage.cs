@@ -18,14 +18,6 @@ public class ErrorMessage
     {
         return "An error has occurred. Please try after sometime or contact Nevada State Board of Massage Therapists.";
     }
-
-    //Field Required    
-    public static string Password = "Please enter password";
-    public static string DOB = "Please enter D.O.B";
-    public static string FirstName = "Please enter first name";
-    public static string LastName = "Please enter last name";
-
-
     //Format Validation
     public static string EmailFormat = "Please enter email in correct format (joe@email.com)";
     public static string WebsiteFormat = "Please enter website in correct format (www.websitename.com)";
@@ -45,5 +37,5 @@ public class ErrorMessage
     public static string AdministratorEmail = "Please enter administrator email";
     public static string JobTitle = "Please enter administrator job title";
     public static string PrimaryNumber = "Please enter administrator primary number";
-
+    
 }

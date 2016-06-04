@@ -10,15 +10,3 @@ C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\bin\Debug\LAPP.ENTITY.pdb
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.csprojResolveAssemblyReference.cache
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.dll
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.pdb
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.BAL.dll
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.BAL.pdb
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.CORE.dll
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.DAL.dll
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.ENTITY.dll
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\MySql.Data.dll
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.CORE.pdb
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.DAL.pdb
-E:\BitBucket\camtc\LAPP\LAPP.BAL\bin\Debug\LAPP.ENTITY.pdb
-E:\BitBucket\camtc\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.csprojResolveAssemblyReference.cache
-E:\BitBucket\camtc\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.dll
-E:\BitBucket\camtc\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.pdb

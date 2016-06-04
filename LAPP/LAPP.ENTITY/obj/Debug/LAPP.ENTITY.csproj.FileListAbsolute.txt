@@ -5,10 +5,3 @@ C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.pdb
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.csprojResolveAssemblyReference.cache
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.dll
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.pdb
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\bin\Debug\LAPP.ENTITY.dll
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\bin\Debug\LAPP.ENTITY.pdb
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.dll
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.pdb
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.csprojResolveAssemblyReference.cache
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.dll
-E:\BitBucket\camtc\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.pdb
