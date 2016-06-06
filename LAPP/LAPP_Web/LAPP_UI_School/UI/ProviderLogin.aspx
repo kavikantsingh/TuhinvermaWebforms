@@ -113,7 +113,7 @@
                         <b class="tooltip tooltip-bottom-right">Please Enter Password</b>
                     </label>
                     <div class="note">
-                        <asp:LinkButton ID="lnkForgot" runat="server" PostBackUrl="~/LAPP_UI_Individual/UI/ForgotPassword.aspx">Forgot password?</asp:LinkButton>
+                        <asp:LinkButton ID="lnkForgot" runat="server" PostBackUrl="ForgotPassword.aspx">Forgot password?</asp:LinkButton>
                     </div>
                 </section>
 
@@ -194,11 +194,14 @@
                     success: function (data) {
                         if (data.Status) {
                             $('#error_validation').hide();
-
+                            //if(!IsPasswordChange)
+                            //Redirect to Change Password
+                            //else
+                            //Redirect to appropriate [Dashboard/SchoolApplication] page
                         }
                         else {
                             $('#error_validation').show();
-                            $('#error_validation').html("<span class='notok'></span> Oops! Something went wrong. <br/>");
+                            $('#error_validation').html("<span class='notok'></span>" + data.Message + "<br/>");
                         }
                     },
                     error: function () {

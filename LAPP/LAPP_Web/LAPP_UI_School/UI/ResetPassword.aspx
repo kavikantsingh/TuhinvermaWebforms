@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProviderRegistration.aspx.cs" Inherits="LAPP_UI_Individual_UI_ProviderRegistration" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ResetPassword.aspx.cs" Inherits="LAPP_UI_School_UI_ResetPassword" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
+
+    <title>Reset Password</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -93,12 +94,12 @@
 
         <form action="" runat="server" class="sky-form">
 
-            <header>Registration</header>
+            <header>Reset Password</header>
 
-            <div id="pnlSignUpStep2" style="display: none">
+            <div id="pnlSuccess" style="display: none">
                 <fieldset>
                     <section>
-                        <asp:Label ID="ltrSignUpSuccess" runat="server"></asp:Label>
+                        <asp:Label ID="ltrSuccess" runat="server"></asp:Label>
                     </section>
                 </fieldset>
                 <footer>
@@ -106,7 +107,7 @@
                 </footer>
             </div>
 
-            <div id="upRegistration">
+            <div id="upReset">
                 <fieldset>
 
                     <section>
@@ -115,51 +116,29 @@
 
                     <section>
                         <label class="input">
-                            <input type="text" id="txtFirstName" class="OnlyAlphabet" placeholder="First Name">
-                            <b class="tooltip  tooltip-bottom-right">Please Enter First Name</b>
+                            <input type="password" id="txtCurrentPassword" class="OnlyAlphabet" placeholder="Temporary/Current Password">
+                            <b class="tooltip  tooltip-bottom-right">Please Enter Temporary/Current Password</b>
                         </label>
                     </section>
 
                     <section>
                         <label class="input">
-                            <input type="text" id="txtMiddleName" class="OnlyAlphabet" placeholder="Middle Name">
-                            <b class="tooltip tooltip-bottom-right">Please Enter Middle Name</b>
+                            <input type="password" id="txtNewPassword" class="OnlyAlphabet" placeholder="New Password">
+                            <b class="tooltip tooltip-bottom-right">Please Enter New Password</b>
                         </label>
                     </section>
 
                     <section>
                         <label class="input">
-                            <input type="text" id="txtLastName" class="OnlyAlphabet" placeholder="Last Name">
-                            <b class="tooltip tooltip-bottom-right">Please Enter Last Name</b>
-                        </label>
-                    </section>
-
-                    <section>
-                        <label class="input">
-                            <input type="text" readonly="readonly" id="txtDOB" class="inputTextbox" placeholder="Date of Birth (mm/dd/yyyy)" style="background-image: none;" data-beatpicker="true" data-beatpicker-format="['MM','DD','YYYY'],separator:'/'" data-beatpicker-position="['right','*']" data-beatpicker-module="gotoDate,clear">
-                            <b class="tooltip tooltip-bottom-right">Enter Date of Birth</b>
-                            <script src="../../App_Themes/Login/js/BeatPicker.min.js" type="text/javascript"></script>
-                        </label>
-                    </section>
-
-                    <section>
-                        <label class="input">
-                            <input type="text" id="txtEmail" placeholder="Email Address">
-                            <b class="tooltip tooltip-bottom-right">Please Enter Email Address</b>
-                        </label>
-                    </section>
-
-                    <section>
-                        <label class="input">
-                            <input type="text" id="txtSchoolName" class="OnlyAlphabet" placeholder="School Name">
-                            <b class="tooltip tooltip-bottom-right">Please Enter School Name</b>
+                            <input type="password" id="txtConfirmPassword" class="OnlyAlphabet" placeholder="Confirm Password">
+                            <b class="tooltip tooltip-bottom-right">Please Enter Confirm Password</b>
                         </label>
                     </section>
 
                 </fieldset>
 
                 <footer>
-                    <input id="btnRegister" style="width: 100%" class="button" value="Submit" type="button" />
+                    <input id="btnReset" style="width: 100%" class="button" value="Submit" type="button" />
                     <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
                 </footer>
 
@@ -186,11 +165,14 @@
 
             $('#error_validation').text('');
             var error = '';
-            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.FirstName%><br/>', '#txtFirstName', $('#txtFirstName').val());
-            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.LastName%><br/>', '#txtLastName', $('#txtLastName').val());
-            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.DateofBirth%><br/>', '#txtDOB', $('#txtDOB').val());
-            error += ValidateEmail('<span class="notok"></span> <%=ErrorMessage.EmailFormat%><br/>', '#txtEmail', $('#txtEmail').val());
-            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.SchoolName%><br/>', '#txtSchoolName', $('#txtSchoolName').val());
+            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.CurrentPassword%><br/>', '#txtCurrentPassword', $('#txtCurrentPassword').val());
+            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.NewPassword%><br/>', '#txtNewPassword', $('#txtNewPassword').val());
+            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.ConfirmPassword%><br/>', '#txtConfirmPassword', $('#txtConfirmPassword').val());
+
+
+            if ($("#txtNewPassword").val() !== $("#txtConfirmPassword").val()) {
+                error += 'Password and Confirm Password did not match.'
+            }            
 
             if (error != '') {
                 $('#error_validation').show();
@@ -209,7 +191,7 @@
 
         $(document).ready(function () {
 
-            $("#btnRegister").click(function (event) {
+            $("#btnReset").click(function (event) {
 
                 event.preventDefault();
 
@@ -218,24 +200,22 @@
                     ShowLoader();
 
                     $.ajax({
-                        url: "http://96.31.91.68/lappws/api/Provider/ProviderRegister/key", //ToDo: Send Key to the API 
+                        url: "http://96.31.91.68/lappws/api/User/ChangePassword/Key", //ToDo: Send Key to the API 
                         type: "POST",
                         data: JSON.stringify({
-                            FirstName: $("#txtFirstName").val(),
-                            MiddleName: $("#txtMiddleName").val(),
-                            LastName: $("#txtLastName").val(),
-                            DateofBirth: $("#txtDOB").val(),
-                            Email: $("#txtEmail").val(),
-                            SchoolName: $("#txtSchoolName").val()
+                            UserId: 1,//This should return from the Registration Page. Needs discussion suppose a user registers i save the UserId but he close the browser and try to re login again then this UserId = 0
+                            OldPassword: $("#txtCurrentPassword").val(),
+                            NewPassword: $("#txtNewPassword").val(),
+                            ConfirmPassword: $("#txtConfirmPassword").val()
                         }),
 
                         contentType: 'application/json; charset=utf-8',
 
                         success: function (data) {
                             if (data.Status) {
-                                $('#upRegistration').hide();
-                                $('#pnlSignUpStep2').show();
-                                $('#ltrSignUpSuccess').text('Please check your email a temporary password has been sent to you. You need to login using that password.');
+                                $('#upReset').hide();
+                                $('#pnlSuccess').show();
+                                $('#ltrSuccess').text('Password Reset has been successful. You need to login using your new password.');
                             }
                             else {
                                 $('#error_validation').show();

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class LAPP_UI_Individual_UI_ForgotPassword : System.Web.UI.Page
+public partial class LAPP_UI_School_UI_ResetPassword : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
