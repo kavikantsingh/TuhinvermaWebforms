@@ -101,8 +101,14 @@ public class ErrorMessage
     public static string SubjectTaught = "Please enter subject taught.";
     public static string TextBox394 = "Please enter education/qualification to teach this subject.";
     public static string SubmitinFormSchoolName = "Please enter name of school for which you are submitting this form.";
+    public static string SSN = "Please enter social security number. ";
+    public static string CAMTCID = "Please enter CAMTC ID. ";
 
     public static string Password = "Please enter password.";
+    public static string CurrentPassword = "Please enter current password.";
+    public static string NewPassword = "Please enter new password.";
+    public static string ConfirmPassword = "Please enter confirm password.";
+    
 
     public static string CurrentPassword = "Please enter Temporary/Current password.";
     public static string NewPassword = "Please enter New password.";
