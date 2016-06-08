@@ -57,24 +57,6 @@ function ValidateRadio(message, element, value) {
     }
 }
 
-function ValidateEmail(message, element, value) {
-    if (value !== "" && value !== "undefined") {
-        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-        if (emailReg.test(value)) {
-            $(element).removeClass('error'); return "";
-        }
-        else {
-            message = "<span class=" + "notok" + "></span> Please enter Email in valid format. <br/>";
-            $(element).addClass('error');
-            return message;
-        }
-    }
-    else {
-        $(element).addClass('error');
-        return message;
-    }
-}
-
 function ValidateZipCode(message, element, value) {
     if (value !== "" && value !== "undefined") {
         var emailReg = /^\d{5}(?:[-\s]\d{4})?$/;
@@ -116,35 +98,6 @@ function ValidateSSN(message, element, value) {
             $(element).removeClass('error'); return "";
         }
         else {
-            $(element).addClass('error');
-            return message;
-        }
-    }
-    else {
-        $(element).addClass('error');
-        return message;
-    }
-}
-
-function ValidateDate(message, element, value) {
-
-    if (value !== "" && value !== "undefined") {
-        var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-        if (emailReg.test(value)) {
-            var pickDate = new Date(value);
-            var curentdate = new Date();
-            if (curentdate > pickDate) {
-                $(element).removeClass('error'); return "";
-            }
-            else {
-                message = "<span class="+"notok"+"></span> Could not accept future date. <br/>";
-                $(element).addClass('error');
-                return message;
-            }
-            
-        }
-        else {
-            message = "<span class=" + "notok" + "></span> Please enter Date in correct format (MM/DD/YYYY). <br/>";
             $(element).addClass('error');
             return message;
         }
@@ -257,24 +210,6 @@ function numeric(evt) {
     }
 }
 
-function ValidateWebsite(message, element, value) {
-    if (value!=="" && value !== "undefined") {
-        var websiteReg = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/;
-        if (websiteReg.test(value)) {
-            $(element).removeClass('error'); return "";
-        }
-        else {
-            $(element).addClass('error');
-            message = "<span class=" + "notok" + "></span> Please enter Website in correct format . <br/>";
-            return message;
-        }
-    }
-    else {
-        $(element).addClass('error');
-        return message;
-    }
-}
-
 function ValidateCheckboxList(message, element, value) {
     var CHK = document.getElementById(element);
     var checkbox = CHK.getElementsByTagName("input");
@@ -327,31 +262,6 @@ function CheckEmail(message, element, value) {
     }
 }
 
-function CheckDate(message, element, value) {
-    if (value !=="" && value !== "undefined") {
-        var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-        if (emailReg.test(value)) {
-            var pickDate = new Date(value);
-            var curentdate = new Date();
-            if (curentdate > pickDate) {
-                $(element).removeClass('error'); return "";
-            }
-            else {
-                message = "<span class=" + "notok" + "></span> Could not accept future date. <br/>";
-                $(element).addClass('error');
-                return message;
-            }
-        }
-        else {
-            $(element).addClass('error');
-            return message;
-        }
-    }
-    else {
-        return "";
-    }
-}
-
 function CheckDateFormat(message, element, value) {
     if (value !== "" && value !== "undefined") {
         var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
@@ -382,5 +292,91 @@ function CheckWebsite(message, element, value) {
     else {
         return "";
     }
-    
+
 }
+//Change Method
+function CheckDate(futuredate, message, element, value) {
+    if (value !== "" && value !== "undefined") {
+        var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+        if (emailReg.test(value)) {
+            var pickDate = new Date(value);
+            var curentdate = new Date();
+            if (curentdate > pickDate) {
+                $(element).removeClass('error'); return "";
+            }
+            else {
+                $(element).addClass('error');
+                return futuredate;
+            }
+        }
+        else {
+            $(element).addClass('error');
+            return message;
+        }
+    }
+    else {
+        return "";
+    }
+}
+
+function ValidateWebsite(format,message, element, value) {
+    if (value !== "" && value !== "undefined") {
+        var websiteReg = /^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)/;
+        if (websiteReg.test(value)) {
+            $(element).removeClass('error'); return "";
+        }
+        else {
+            $(element).addClass('error');
+            return format;
+        }
+    }
+    else {
+        $(element).addClass('error');
+        return message;
+    }
+}
+
+function ValidateDate(futuredate,format,message, element, value) {
+
+    if (value !== "" && value !== "undefined") {
+        var emailReg = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+        if (emailReg.test(value)) {
+            var pickDate = new Date(value);
+            var curentdate = new Date();
+            if (curentdate > pickDate) {
+                $(element).removeClass('error'); return "";
+            }
+            else {
+                $(element).addClass('error');
+                return futuredate;
+            }
+
+        }
+        else {
+            $(element).addClass('error');
+            return format;
+        }
+    }
+    else {
+        $(element).addClass('error');
+        return message;
+    }
+}
+
+function ValidateEmail(format,message, element, value) {
+    if (value !== "" && value !== "undefined") {
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (emailReg.test(value)) {
+            $(element).removeClass('error'); return "";
+        }
+        else {
+            $(element).addClass('error');
+            return format;
+        }
+    }
+    else {
+        $(element).addClass('error');
+        return message;
+    }
+}
+
