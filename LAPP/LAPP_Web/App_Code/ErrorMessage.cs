@@ -108,10 +108,5 @@ public class ErrorMessage
     public static string CurrentPassword = "Please enter current password.";
     public static string NewPassword = "Please enter new password.";
     public static string ConfirmPassword = "Please enter confirm password.";
-    
-
-    public static string CurrentPassword = "Please enter Temporary/Current password.";
-    public static string NewPassword = "Please enter New password.";
-    public static string ConfirmPassword = "Please enter Confirm password.";
 
 }
