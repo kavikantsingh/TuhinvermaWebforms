@@ -113,8 +113,4 @@ public class ErrorMessage
     public static string TypeofSiteVisit="Please select type of site visit.";
     public static string SiteInspector = "Please select site inspector.";
 
-    public static string CurrentPassword = "Please enter Temporary/Current password.";
-    public static string NewPassword = "Please enter New password.";
-    public static string ConfirmPassword = "Please enter Confirm password.";
-
 }
