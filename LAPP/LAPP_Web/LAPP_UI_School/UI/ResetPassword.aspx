@@ -169,10 +169,9 @@
             error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.NewPassword%><br/>', '#txtNewPassword', $('#txtNewPassword').val());
             error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.ConfirmPassword%><br/>', '#txtConfirmPassword', $('#txtConfirmPassword').val());
 
-
             if ($("#txtNewPassword").val() !== $("#txtConfirmPassword").val()) {
                 error += 'Password and Confirm Password did not match.'
-            }            
+            }
 
             if (error != '') {
                 $('#error_validation').show();
@@ -191,6 +190,13 @@
 
         $(document).ready(function () {
 
+            if (sessionStorage.IsPasswordTemporary) {
+                setTimeout(function () {
+                    $('#error_validation').show();
+                    $('#error_validation').html("<span class='notok'></span> Please Create new password and login again.<br/>");
+                }, 50);
+            }
+
             $("#btnReset").click(function (event) {
 
                 event.preventDefault();
@@ -200,10 +206,10 @@
                     ShowLoader();
 
                     $.ajax({
-                        url: "http://96.31.91.68/lappws/api/User/ChangePassword/Key", //ToDo: Send Key to the API 
+                        url: "http://96.31.91.68/lappws/api/User/ChangePassword/" + sessionStorage.Key, //ToDo: Send Key to the API 
                         type: "POST",
                         data: JSON.stringify({
-                            UserId: 1,//This should return from the Registration Page. Needs discussion suppose a user registers i save the UserId but he close the browser and try to re login again then this UserId = 0
+                            UserId: sessionStorage.UserId,//This should return from the Registration Page. Needs discussion suppose a user registers i save the UserId but he close the browser and try to re login again then this UserId = 0
                             OldPassword: $("#txtCurrentPassword").val(),
                             NewPassword: $("#txtNewPassword").val(),
                             ConfirmPassword: $("#txtConfirmPassword").val()
@@ -216,6 +222,8 @@
                                 $('#upReset').hide();
                                 $('#pnlSuccess').show();
                                 $('#ltrSuccess').text('Password Reset has been successful. You need to login using your new password.');
+
+                                sessionStorage.IsPasswordTemporary = false;
                             }
                             else {
                                 $('#error_validation').show();

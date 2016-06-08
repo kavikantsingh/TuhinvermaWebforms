@@ -182,7 +182,7 @@
                 ShowLoader();
 
                 $.ajax({
-                    url: "http://96.31.91.68/lappws/api/Provider/ProviderLogin",
+                    url: "http://96.31.91.68/lappws/api/Provider/ProviderLogin/Key",
                     type: "POST",
                     data: JSON.stringify({
                         Email: $("#txtEmail").val(),
@@ -192,12 +192,28 @@
                     contentType: 'application/json; charset=utf-8',
 
                     success: function (data) {
-                        if (data.Status) {
+                        if (data.Status === true) {
+
                             $('#error_validation').hide();
-                            //if(!IsPasswordChange)
-                            //Redirect to Change Password
-                            //else
-                            //Redirect to appropriate [Dashboard/SchoolApplication] page
+
+                            sessionStorage.ApplicationId = data.ApplicationId;
+                            sessionStorage.ApplicationStatus = data.ApplicationStatus;
+                            sessionStorage.IndividualId = data.IndividualId;
+                            sessionStorage.IndividualNameId = data.IndividualNameId;
+                            sessionStorage.ProviderId = data.ProviderId;
+                            sessionStorage.UserId = data.UserId;
+                            sessionStorage.Key = data.Key;
+                            sessionStorage.IsPasswordTemporary = data.IsPasswordTemporary;
+
+                            if (data.IsPasswordTemporary) {                                
+                                window.location.replace("ResetPassword.aspx");
+                            }
+                            else {
+                                if (data.ApplicationStatus !== "Pending")
+                                    window.location.replace("SchoolDashboard.aspx");
+                                else
+                                    window.location.replace("SchoolApplication.aspx");
+                            }
                         }
                         else {
                             $('#error_validation').show();
@@ -205,7 +221,8 @@
                         }
                     },
                     error: function () {
-                        alert('error');
+                        $('#error_validation').show();
+                        $('#error_validation').html("<span class='notok'></span>Oops! Something went wrong.<br/>");
                     },
                     complete: function () {
                         HideLoader();

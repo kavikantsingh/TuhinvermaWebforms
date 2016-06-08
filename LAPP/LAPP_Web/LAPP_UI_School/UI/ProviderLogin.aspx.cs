@@ -3,12 +3,14 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using LAPP.ENTITY.Enumerations;
+using System.Web.Services;
 
 public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 {
 
     protected void Page_Load(object sender, EventArgs e)
-    {        
+    {
     }
 
     protected void btnLogIn_Click(object sender, EventArgs e)
@@ -19,7 +21,7 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
         validateMsg += ValidationHelper.IsValidEmail(txtEmail.Text, "<li>Please enter valid Username (Email).</li>");
         validateMsg += ValidationHelper.IsRequired(txtPassword.Text, "<li>Please enter Password.</li>", true);
 
-        if (!String.IsNullOrEmpty(validateMsg))
+        if (!string.IsNullOrEmpty(validateMsg))
         {
             string vmsg = validateMsg;
             ltrError.Text = MessageBox.BuildValidationMessage(vmsg, 2);
@@ -37,20 +39,39 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         if (res.Status)
         {
-            //ToDo : store value in session if needed.
+            //sIndividualLoginInfo sObjeIndividualLoginInfo = new sIndividualLoginInfo();
+            //sObjeIndividualLoginInfo.Password = "";
+            //sObjeIndividualLoginInfo.Applicant_Id = 1;
+            //sObjeIndividualLoginInfo.Last_Name = "School";
+            //sObjeIndividualLoginInfo.First_Name = "Public";
+            //sObjeIndividualLoginInfo.Application_Number = "";
+            //sObjeIndividualLoginInfo.User_Name = "School Pub";
+            //sObjeIndividualLoginInfo.Email = "schoolpubinst@inlumon.com";
+            //sObjeIndividualLoginInfo.Individual_ID = 1;
+            //Session["sObjSchoolLoginInfo"] = sObjeIndividualLoginInfo;
+            //Session["sUserLoginInfo"] = "SchoolContact";
+            //Session["sUserLoginEmail"] = "schoolpubinst@inlumon.com";
 
-            Response.Redirect("SchoolDashboard.aspx", false);
+            Session["ApplicationId"] = res.ApplicationId;
+            Session["ApplicationStatus"] = res.ApplicationStatus;
+            Session["IndividualId"] = res.IndividualId;
+            Session["IndividualNameId"] = res.IndividualNameId;
+            Session["ProviderId"] = res.ProviderId;
+            Session["UserId"] = res.UserId;
+            Session["Key"] = res.Key;
+
+            if (res.IsPasswordTemporary)
+                Response.Redirect("ResetPassword.aspx", false);
+
+            if (res.ApplicationStatus != "Pending")
+                Response.Redirect("SchoolDashboard.aspx", false);
+            else
+                Response.Redirect("SchoolApplication.aspx", false);
+
         }
         else
             ltrError.Text = MessageBox.BuildValidationMessage("Invalid username or password.", 2);
 
-    }
-
-    protected void lnkForgot_Click(object sender, EventArgs e)
-    {
-        //RowForgot.Visible = true;
-        //RowLogin.Visible = false;
-        //RowPassword.Visible = false;
     }
 
     public void CallWebAPI<T>(string ApiUrl, object input, out object outputObj)
@@ -85,11 +106,22 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
     public class ProviderLoginRS
     {
-        public bool IsPasswordChange { get; set; }
+        public int UserId { get; set; }
+        public int ProviderId { get; set; }
+        public int ApplicationId { get; set; }
+        public int IndividualId { get; set; }
+        public int IndividualNameId { get; set; }
+
         public string Message { get; set; }
-        public bool Status { get; set; }
-        public string StatusCode { get; set; }
+
+        public string ApplicationStatus { get; set; }
         public string ResponseReason { get; set; }
+        public string StatusCode { get; set; }
+
+        public string Key { get; set; }
+
+        public bool Status { get; set; }
+        public bool IsPasswordTemporary { get; set; }
     }
 
 }

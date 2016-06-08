@@ -18,7 +18,7 @@ public class ErrorMessage
     {
         return "An error has occurred. Please try after sometime or contact Nevada State Board of Massage Therapists.";
     }
-   //Format Validation
+    //Format Validation
     public static string EmailFormat = "Please enter email in correct format (joe@email.com)";
     public static string WebsiteFormat = "Please enter website in correct format (www.websitename.com)";
     public static string DateFormat = "Please enter date in correct format (mm/dd/yyyy)";
@@ -41,8 +41,8 @@ public class ErrorMessage
     public static string txtappagenDocNAme = "Please enter document name";
     public static string ddlAppAgencSup = "Please select document type";
 
-    public static string txtAddmessageProgName="Please enter message program name.";
-    public static string txtAddProgrameHours="Please enter total number of program hours.";
+    public static string txtAddmessageProgName = "Please enter message program name.";
+    public static string txtAddProgrameHours = "Please enter total number of program hours.";
 
     public static string FirstName = "Please enter first name.";
     public static string LastName = "Please enter last name.";
@@ -103,5 +103,9 @@ public class ErrorMessage
     public static string SubmitinFormSchoolName = "Please enter name of school for which you are submitting this form.";
 
     public static string Password = "Please enter password.";
+
+    public static string CurrentPassword = "Please enter Temporary/Current password.";
+    public static string NewPassword = "Please enter New password.";
+    public static string ConfirmPassword = "Please enter Confirm password.";
 
 }
