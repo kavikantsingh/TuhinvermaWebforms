@@ -109,5 +109,8 @@ public class ErrorMessage
     public static string NewPassword = "Please enter new password.";
     public static string ConfirmPassword = "Please enter confirm password.";
     
+    public static string SiteVisitDate="Please enter site visit date.";
+    public static string TypeofSiteVisit="Please select type of site visit.";
+    public static string SiteInspector = "Please select site inspector.";
 
 }

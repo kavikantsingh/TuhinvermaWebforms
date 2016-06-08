@@ -163,35 +163,117 @@ h2 a, .demo {position:relative; height:1%}
         function btnSavePersonalInfo() {
             $('#error_validation').text('');
             var error = '';
-            var txtDirectorEmailF = '';
-            var txtval = $('#<%= txtFirstNameEdit.ClientID %>').val();
-            var ch = ValidateTextbox('<span class="notok"></span> Please enter school name.<br/>', '#<%= txtFirstNameEdit.ClientID %>', txtval);
-            var schteli = ValidateTextbox('<span class="notok"></span> Please enter school Teliphone.<br/>', '#<%= txtSchoolTel.ClientID %>', $('#<%= txtSchoolTel.ClientID %>').val());
-            var schWebsite = ValidateTextbox('<span class="notok"></span> Please enter school Website.<br/>', '#<%= txtschoolwebsite.ClientID %>', $('#<%= txtschoolwebsite.ClientID %>').val());
+            var  txtFirstNameEdit =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolName%> <br/>', '#<%= txtFirstNameEdit.ClientID %>', $('#<%=  txtFirstNameEdit.ClientID %>').val());
+            var  txtSchoolTel =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolTelephone%> <br/>', '#<%= txtSchoolTel.ClientID %>', $('#<%=  txtSchoolTel.ClientID %>').val());
+            var  txtschoolwebsite =ValidateWebsite('<span class=notok></span> <%=ErrorMessage.WebsiteFormat%> <br/>','<span class=notok></span> <%=ErrorMessage.SchoolWebsite%> <br/>', '#<%= txtschoolwebsite.ClientID %>', $('#<%=  txtschoolwebsite.ClientID %>').val());
+            
+            var  TextBox3 =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolAddress%> <br/>', '#<%= TextBox3.ClientID %>', $('#<%=  TextBox3.ClientID %>').val());
+            var  txtCityResEdit =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolCity%> <br/>', '#<%= txtCityResEdit.ClientID %>', $('#<%=  txtCityResEdit.ClientID %>').val());
+            var  ddlStateResEdit =ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.SchoolState%> <br/>', '#<%= ddlStateResEdit.ClientID %>', $('#<%=  ddlStateResEdit.ClientID %>').val());
+            var  txtZipResEdit =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolZip%> <br/>', '#<%= txtZipResEdit.ClientID %>', $('#<%=  txtZipResEdit.ClientID %>').val());
+            var  TextBox141 =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.DirectorFirstName%> <br/>', '#<%= TextBox141.ClientID %>', $('#<%=  TextBox141.ClientID %>').val());
+            var  txtDirectorEmail =ValidateEmail('<span class=notok></span> <%=ErrorMessage.EmailFormat%> <br/>','<span class=notok></span> <%=ErrorMessage.AdministratorEmail%> <br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%=  txtDirectorEmail.ClientID %>').val());
+            var  txtSclInfoJobTitle =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.JobTitle%> <br/>', '#<%= txtSclInfoJobTitle.ClientID %>', $('#<%=  txtSclInfoJobTitle.ClientID %>').val());
+            var  txtDirectorTel =ValidateTextbox('<span class=notok></span> <%=ErrorMessage.PrimaryNumber%> <br/>', '#<%= txtDirectorTel.ClientID %>', $('#<%=  txtDirectorTel.ClientID %>').val());
+            var txtApplicationEmail =CheckEmail('<span class=notok></span> <%=ErrorMessage.EmailFormat%> <br/>', '#<%=txtApplicationEmail.ClientID %>', $('#<%= txtApplicationEmail.ClientID %>').val());
 
-            var street = ValidateTextbox('<span class="notok"></span> Please enter school address.<br/>', '#<%= TextBox3.ClientID %>', $('#<%= TextBox3.ClientID %>').val());
-            var city = ValidateTextbox('<span class="notok"></span> Please enter city of school.<br/>', '#<%= txtCityResEdit.ClientID %>', $('#<%= txtCityResEdit.ClientID %>').val());
-            var state = ValidateTextbox('<span class="notok"></span> Please enter school state.<br/>', '#<%= ddlStateResEdit.ClientID %>', $('#<%= ddlStateResEdit.ClientID %>').val());
-            var zip = ValidateTextbox('<span class="notok"></span> Please enter school zip.<br/>', '#<%= txtZipResEdit.ClientID %>', $('#<%= txtZipResEdit.ClientID %>').val());
+            error = txtFirstNameEdit + txtSchoolTel + txtschoolwebsite + TextBox3 + txtCityResEdit + ddlStateResEdit + txtZipResEdit + TextBox141 + txtDirectorEmail + txtSclInfoJobTitle + txtDirectorTel + txtApplicationEmail;
 
-            var txtDirFirstName = ValidateTextbox('<span class="notok"></span> Please enter Director/Administrator first name.<br/>', '#<%= TextBox141.ClientID %>', $('#<%= TextBox141.ClientID %>').val());
-
-            var txtDirectorEmail = ValidateTextbox('<span class="notok"></span> Please enter Director/Administrator email.<br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%= txtDirectorEmail.ClientID %>').val());
-
-            var txtSclInfoJobTitle = ValidateTextbox('<span class="notok"></span> Please enter Designation(Job Title).<br/>', '#<%= txtSclInfoJobTitle.ClientID %>', $('#<%= txtSclInfoJobTitle.ClientID %>').val());
-            var txtSclInfoPriNumber = ValidateTextbox('<span class="notok"></span> Please enter Director/Administrator telephone number.<br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%= txtDirectorEmail.ClientID %>').val());
-            if (txtDirectorEmail == '') {
-                txtDirectorEmailF = ValidateEmail('<span class="notok"></span> Please enter Director/Administrator email correct format.<br/>', '#<%= txtDirectorEmail.ClientID %>', $('#<%= txtDirectorEmail.ClientID %>').val());
-            }
-            error = ch + schteli + schWebsite + street + city + state + zip + txtDirFirstName + txtDirectorEmail + txtDirectorEmailF + txtSclInfoPriNumber;
             if (error != '') {
                 $('#error_validation').show();
                 $('#ContentPlaceHolder1_btnSavePersonalInfo').attr('type', 'button');
-                $(document).scrollTop(0);
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);                    
+                }
+                else {
+                    $(document).scrollTop(465);
+                }                
             }
             else {
                 $('#error_validation').hide();
                 $('#ContentPlaceHolder1_btnSavePersonalInfo').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+        function btnVerifySchoolAddress() {
+            $('#error_validation').text('');
+            var error = '';
+            var TextBox3 = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolAddress%> <br/>', '#<%= TextBox3.ClientID %>', $('#<%=  TextBox3.ClientID %>').val());
+            var txtCityResEdit = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolCity%> <br/>', '#<%= txtCityResEdit.ClientID %>', $('#<%=  txtCityResEdit.ClientID %>').val());
+            var ddlStateResEdit = ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.SchoolState%> <br/>', '#<%= ddlStateResEdit.ClientID %>', $('#<%=  ddlStateResEdit.ClientID %>').val());
+            var txtZipResEdit = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolZip%> <br/>', '#<%= txtZipResEdit.ClientID %>', $('#<%=  txtZipResEdit.ClientID %>').val());
+            error = TextBox3 + txtCityResEdit + ddlStateResEdit + txtZipResEdit;
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnVerifySchoolAddress').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnVerifySchoolAddress').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
+        function btnVerifySchoolMailingAddress() {
+            $('#error_validation').text('');
+            var error = '';
+            var txtMailingAdd = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolAddress%> <br/>', '#<%= txtMailingAdd.ClientID %>', $('#<%=  txtMailingAdd.ClientID %>').val());
+            var txtMailingCity = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolCity%> <br/>', '#<%= txtMailingCity.ClientID %>', $('#<%=  txtMailingCity.ClientID %>').val());
+            var ddlMailingState = ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.SchoolState%> <br/>', '#<%= ddlMailingState.ClientID %>', $('#<%=  ddlMailingState.ClientID %>').val());
+            var txtMailngZip = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolZip%> <br/>', '#<%= txtMailngZip.ClientID %>', $('#<%=  txtMailngZip.ClientID %>').val());
+            error = TextBox3 + txtCityResEdit + ddlStateResEdit + txtZipResEdit;
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnVerifySchoolMailingAddress').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnVerifySchoolMailingAddress').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
+        function Button6() {
+            $('#error_validation').text('');
+            var error = '';
+            var TextBox15 = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SiteVisitDate%> <br/>', '#<%=TextBox15.ClientID %>', $('#<%= TextBox15.ClientID %>').val());
+            var DropDownList6 = ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.TypeofSiteVisit%> <br/>', '#<%=DropDownList6.ClientID %>', $('#<%= DropDownList6.ClientID %>').val());
+            var DropDownList8 = ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.SiteInspector%> <br/>', '#<%=DropDownList8.ClientID %>', $('#<%= DropDownList8.ClientID %>').val());
+            var TextBox13 = ValidateTextbox('<span class=notok></span> <%=ErrorMessage.DocumentName%> <br/>', '#<%=TextBox13.ClientID %>', $('#<%= TextBox13.ClientID %>').val());
+            var DropDownList5 = ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.ddlOwnStaffType%> <br/>', '#<%=DropDownList5.ClientID %>', $('#<%= DropDownList5.ClientID %>').val());
+            error = TextBox15 + DropDownList6 + DropDownList8 + TextBox13 + DropDownList5;
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_Button6').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_Button6').attr('type', 'submit');
             }
             $('#error_validation').html(error);
         }
@@ -1542,7 +1624,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                  </div>
                                                                  <div id="divVerifySchoolAddressBtn" runat="server" style="padding: 10px;">
                                                             <span class="fltrt" style="margin-right: 74px;">
-                                                                <asp:Button ID="btnVerifySchoolAddress" CssClass="btn-success btn-xs" runat="server"
+                                                                <asp:Button ID="btnVerifySchoolAddress" CssClass="btn-success btn-xs" runat="server" OnClientClick="btnVerifySchoolAddress()"
                                                                     OnClick="btnVerifySchoolAddress_Click" Text="Verify Address" />
                                                             </span>
                                                         </div>
@@ -2381,7 +2463,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
 
                                                         <div id="divVerifySchoolMailingAddressBtn" runat="server" style="padding: 10px;">
                                                             <span class="fltrt" style="margin-right: 74px;">
-                                                                <asp:Button ID="btnVerifySchoolMailingAddress" CssClass="btn-success btn-xs" runat="server"
+                                                                <asp:Button ID="btnVerifySchoolMailingAddress" CssClass="btn-success btn-xs" runat="server" OnClientClick="btnVerifySchoolMailingAddress()"
                                                                     OnClick="btnVerifySchoolMailingAddress_Click" Text="Verify Address" />
                                                             </span>
                                                         </div>
@@ -3493,7 +3575,7 @@ bottom buttonalignment"
 
 <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                                 <span class="fltrt">
-                                                                    <asp:Button ID="Button6" CssClass="buttonGreen medium"
+                                                                    <asp:Button ID="Button6" CssClass="buttonGreen medium" OnClientClick="Button6()"
                                                                         runat="server" Text="Save" CausesValidation="true"  />
                                                                     <asp:LinkButton ID="LinkButton2" CssClass="secondary medium bottom buttonalignment"
                                                                         runat="server" OnClick="lnkApprovalAgencyAddNewCancel_Click">Cancel</asp:LinkButton></span>
