@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Password Recovery</title>
+    <title>Log In</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -83,43 +83,30 @@
             <div class="heading-name">California Massage Therapy Council</div>
         </div>
     </div>
-
     <div class="body body-s">
 
         <form action="" runat="server" class="sky-form">
             <header>Password Recovery</header>
 
-            <div id="pnlSuccess" style="display: none">
-                <fieldset>
-                    <section>
-                        <asp:Label ID="ltrSuccess" runat="server"></asp:Label>
-                    </section>
-                </fieldset>
-                <footer>
-                    <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
-                </footer>
-            </div>
+            <fieldset>
+                <section>
+                    <asp:Literal ID="ltrError" runat="server"></asp:Literal>
+                    <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
+                </section>
 
-            <div id="pnlForgotPassword">
-                <fieldset>
-                    <section>
-                        <asp:Literal ID="ltrError" runat="server"></asp:Literal>
-                        <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
-                    </section>
-
-                    <section>
-                        <label class="input">
-                            <input type="text" id="txtEmail" class="inputTextbox NewAppPersonalTxtbx" placeholder="User Name (Email)">
-                            <b class="tooltip tooltip-bottom-right">Please Enter E-mail</b>
-                        </label>
-                    </section>
-                </fieldset>
-                <footer>
+                <section>
+                    <label class="input">
+                        <input type="text" id="txtEmail" class="inputTextbox NewAppPersonalTxtbx" placeholder="User Name (Email)">
+                        <b class="tooltip tooltip-bottom-right">Please Enter E-mail</b>
+                    </label>
+                </section>
+            </fieldset>
+            <footer>
+                
                 <input id="btnSend" style="width: 100%" class="button" value="Submit" type="button" />
                 <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
+
             </footer>
-            </div>
-            
         </form>
 
     </div>
@@ -145,14 +132,15 @@
 
         if (error != '') {
             $('#error_validation').show();
-
+            $('#btnLogin').attr('type', 'button');
             $(document).scrollTop(0);
 
             $('#error_validation').html(error);
             return false;
         }
         else {
-            $('#error_validation').hide();            
+            $('#error_validation').hide();
+            $('#btnLogin').attr('type', 'submit');
             return true;
         }
     }
@@ -168,10 +156,8 @@
                 ShowLoader();
 
                 $.get('http://96.31.91.68/lappws/api/User/ForgetPassword?Email=' + $("#txtEmail").val(), function (data) {
-                    if (data.Status) {
-                        $('#pnlForgotPassword').hide();
-                        $('#pnlSuccess').show();
-                        $('#ltrSuccess').text(data.Message);
+                    if(data.Status){
+                        $('#error_validation').hide();
                     }
                     else {
                         $('#error_validation').show();
