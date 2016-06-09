@@ -15,6 +15,7 @@
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="../../App_Themes/Agency/js/jquery.mask.min.js" type="text/javascript"></script>
 
 
     <script src="../../Validation/TextboxFormating.js"></script>
