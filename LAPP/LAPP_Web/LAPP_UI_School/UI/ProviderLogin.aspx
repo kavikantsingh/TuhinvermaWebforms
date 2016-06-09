@@ -14,7 +14,7 @@
     <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
     <!--[if lt IE 9]>
 			<link rel="stylesheet" href="../../App_Themes/Login/css/sky-forms-ie8.css">
@@ -148,7 +148,7 @@
 </body>
 <script src="../../Validation/FormValidation.js" type="text/javascript"></script>
 <script src="../../App_Themes/Public/js/ebsoft-loader.js?" type="text/javascript"></script>
-<script>
+<%--<script>
 
     function checkfrm() {
         $('#error_validation').text('');
@@ -205,11 +205,11 @@
                             sessionStorage.Key = data.Key;
                             sessionStorage.IsPasswordTemporary = data.IsPasswordTemporary;
 
-                            if (data.IsPasswordTemporary) {                                
+                            if (data.IsPasswordTemporary) {
                                 window.location.replace("ResetPassword.aspx");
                             }
                             else {
-                                if (data.ApplicationStatus !== "Pending")
+                                if (data.ApplicationStatus === "Submitted")
                                     window.location.replace("SchoolDashboard.aspx");
                                 else
                                     window.location.replace("SchoolApplication.aspx");
@@ -234,5 +234,5 @@
         });
     });
 
-</script>
+</script>--%>
 </html>

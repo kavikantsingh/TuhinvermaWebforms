@@ -17,8 +17,8 @@ using Newtonsoft.Json;
 
 public partial class ucCertificationApplication : System.Web.UI.UserControl
 {
-    //String webAPIURL = "http://96.31.91.68/lappws/";
-    string webAPIURL = "http://192.168.0.100:5811/api/";
+    String webAPIURL = "http://96.31.91.68/lappws/api/";
+    //string webAPIURL = "http://192.168.0.100:5811/api/";
 
     #region Page Event Handler
     string UploadedImageUrl;
@@ -138,7 +138,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             else
             {
                 Session.RemoveAll();
-                Response.Redirect("Login.aspx");
+                Response.Redirect("ProviderLogin.aspx");
             }
 
 

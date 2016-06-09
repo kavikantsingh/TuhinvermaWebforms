@@ -30,7 +30,7 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         ProviderLoginRQ rQ = new ProviderLoginRQ() { Email = txtEmail.Text.Trim(), Password = txtPassword.Text.Trim() };
 
-        string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderLogin";
+        string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderLogin/key";
 
         Object obj;
         CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
@@ -39,31 +39,31 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         if (res.Status)
         {
-            //sIndividualLoginInfo sObjeIndividualLoginInfo = new sIndividualLoginInfo();
-            //sObjeIndividualLoginInfo.Password = "";
-            //sObjeIndividualLoginInfo.Applicant_Id = 1;
-            //sObjeIndividualLoginInfo.Last_Name = "School";
-            //sObjeIndividualLoginInfo.First_Name = "Public";
-            //sObjeIndividualLoginInfo.Application_Number = "";
-            //sObjeIndividualLoginInfo.User_Name = "School Pub";
-            //sObjeIndividualLoginInfo.Email = "schoolpubinst@inlumon.com";
-            //sObjeIndividualLoginInfo.Individual_ID = 1;
-            //Session["sObjSchoolLoginInfo"] = sObjeIndividualLoginInfo;
-            //Session["sUserLoginInfo"] = "SchoolContact";
-            //Session["sUserLoginEmail"] = "schoolpubinst@inlumon.com";
+            sIndividualLoginInfo objInfo = new sIndividualLoginInfo();
+            objInfo.Password = "";
+            objInfo.Applicant_Id = 1;
+            objInfo.Last_Name = "";
+            objInfo.First_Name = "";
+            objInfo.Application_Number = res.ApplicationId.ToString();
+            objInfo.User_Name = res.UserId.ToString();
+            objInfo.Email = txtEmail.Text.Trim();
+            objInfo.Individual_ID = res.IndividualId;
+            Session["sObjSchoolLoginInfo"] = objInfo;
+            Session["sUserLoginInfo"] = "SchoolContact";
+            Session["sUserLoginEmail"] = txtEmail.Text.Trim();
 
-            Session["ApplicationId"] = res.ApplicationId;
-            Session["ApplicationStatus"] = res.ApplicationStatus;
-            Session["IndividualId"] = res.IndividualId;
-            Session["IndividualNameId"] = res.IndividualNameId;
-            Session["ProviderId"] = res.ProviderId;
-            Session["UserId"] = res.UserId;
-            Session["Key"] = res.Key;
+            //Session["ApplicationId"] = res.ApplicationId;
+            //Session["ApplicationStatus"] = res.ApplicationStatus;
+            //Session["IndividualId"] = res.IndividualId;
+            //Session["IndividualNameId"] = res.IndividualNameId;
+            //Session["ProviderId"] = res.ProviderId;
+            //Session["UserId"] = res.UserId;
+            //Session["Key"] = res.Key;
 
             if (res.IsPasswordTemporary)
-                Response.Redirect("ResetPassword.aspx", false);
+                Response.Redirect("ResetPassword.aspx?isTemp=1", false);
 
-            if (res.ApplicationStatus != "Pending")
+            if (res.ApplicationStatus == "Submitted")
                 Response.Redirect("SchoolDashboard.aspx", false);
             else
                 Response.Redirect("SchoolApplication.aspx", false);

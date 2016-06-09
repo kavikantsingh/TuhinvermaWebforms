@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />    
+    <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/forms.css" rel="stylesheet" type="text/css" />
 
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -109,6 +109,7 @@
                 <fieldset>
 
                     <section>
+                        <asp:Literal ID="ltrError" Visible="false" Text="Please Create new password and login again." style="color: red;" runat="server" />
                         <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
                     </section>
 
@@ -188,12 +189,12 @@
 
         $(document).ready(function () {
 
-            if (sessionStorage.IsPasswordTemporary) {
-                setTimeout(function () {
-                    $('#error_validation').show();
-                    $('#error_validation').html("<span class='notok'></span> Please Create new password and login again.<br/>");
-                }, 50);
-            }
+            //if (sessionStorage.IsPasswordTemporary) {
+            //    setTimeout(function () {
+            //        $('#error_validation').show();
+            //        $('#error_validation').html("<span class='notok'></span> Please Create new password and login again.<br/>");
+            //    }, 50);
+            //}
 
             $("#btnReset").click(function (event) {
 
