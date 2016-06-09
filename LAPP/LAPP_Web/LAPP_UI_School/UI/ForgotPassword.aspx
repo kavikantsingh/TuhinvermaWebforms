@@ -11,6 +11,9 @@
     <link href="../../App_Themes/Login/css/style.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../../Validation/TextboxFormating.js"></script>
+
     <!--[if lt IE 9]>
 			<link rel="stylesheet" href="../../App_Themes/Login/css/sky-forms-ie8.css">
 		<![endif]-->
@@ -128,7 +131,7 @@
     function checkfrm() {
         $('#error_validation').text('');
         var error = '';
-        error += ValidateEmail('<span class="notok"></span> <%=ErrorMessage.EmailFormat%><br/>', '#txtEmail', $('#txtEmail').val());
+        error += ValidateEmail('<span class="notok"></span> <%=ErrorMessage.EmailFormat%><br/>', '<span class="notok"></span> <%=ErrorMessage.Email%><br/>', '#txtEmail', $('#txtEmail').val());
 
         if (error != '') {
             $('#error_validation').show();
