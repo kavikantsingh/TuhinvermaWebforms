@@ -79,7 +79,7 @@
     <div class="top-header">
         <div class="logo-heading">
             <div class="logo">
-                <a href="Login.aspx">
+                <a href="ProviderLogin.aspx">
                     <img src="../../App_Themes/Login/images/logo.png" /></a>
             </div>
             <div class="heading-name">California Massage Therapy Council</div>

@@ -60,10 +60,10 @@
                 <asp:LinkButton ID="lnkBacktoDashboard" runat="server" PostBackUrl="~/LAPP_UI_School/UI/Dashboard.aspx">&larr; Back to Dashboard</asp:LinkButton></span></h4>
         <p style="font-size: 15px;">
             Welcome <span class= "bold"> Mike Sullivan </span> | <span class= "bold"> A1 School </span> |<a href="ChangePassword.aspx?q=1">Change
-                Password</a> | <a href="Login.aspx">Sign Out</a>
+                Password</a> | <a href="ProviderLogin.aspx">Sign Out</a>
         </p>
         <p style="text-align: left;">
-            Not <b>Mike Sullivan?</b> <a href="Login.aspx">Click here to log out</a>
+            Not <b>Mike Sullivan?</b> <a href="ProviderLogin.aspx">Click here to log out</a>
         </p>
     </div>
     <div class="login-header">
