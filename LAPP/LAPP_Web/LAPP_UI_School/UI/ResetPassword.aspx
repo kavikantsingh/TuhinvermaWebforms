@@ -116,21 +116,21 @@
 
                     <section>
                         <label class="input">
-                            <input type="password" id="txtCurrentPassword" class="OnlyAlphabet" placeholder="Temporary/Current Password">
+                            <input type="password" id="txtCurrentPassword" placeholder="Temporary/Current Password">
                             <b class="tooltip  tooltip-bottom-right">Please Enter Temporary/Current Password</b>
                         </label>
                     </section>
 
                     <section>
                         <label class="input">
-                            <input type="password" id="txtNewPassword" class="OnlyAlphabet" placeholder="New Password">
+                            <input type="password" id="txtNewPassword" placeholder="New Password">
                             <b class="tooltip tooltip-bottom-right">Please Enter New Password</b>
                         </label>
                     </section>
 
                     <section>
                         <label class="input">
-                            <input type="password" id="txtConfirmPassword" class="OnlyAlphabet" placeholder="Confirm Password">
+                            <input type="password" id="txtConfirmPassword"  placeholder="Confirm Password">
                             <b class="tooltip tooltip-bottom-right">Please Enter Confirm Password</b>
                         </label>
                     </section>
