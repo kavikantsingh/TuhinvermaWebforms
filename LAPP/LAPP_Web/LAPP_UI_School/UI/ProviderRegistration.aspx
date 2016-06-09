@@ -16,6 +16,9 @@
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/style.css" rel="stylesheet" type="text/css" />
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
     <script src="../../Validation/TextboxFormating.js"></script>
 
     <!--[if lt IE 9]>
@@ -32,7 +35,6 @@
 			<script src="../../App_Themes/Login/js/sky-forms-ie8.js"></script>
 		<![endif]-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
     <!--[if lte IE 7]>  
       <div id="mask1" style="display:block">

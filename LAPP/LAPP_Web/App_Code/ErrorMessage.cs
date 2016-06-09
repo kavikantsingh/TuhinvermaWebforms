@@ -22,7 +22,7 @@ public class ErrorMessage
     public static string EmailFormat = "Please enter email in correct format (joe@email.com)";
     public static string WebsiteFormat = "Please enter website in correct format (www.websitename.com)";
     public static string DateFormat = "Please enter date in correct format (mm/dd/yyyy)";
-    public static string FutureDate = " future date can’t be accepted.";
+    public static string FutureDate = "Future dates are not accepted.";
 
     public static string SchoolName = "Please enter the school name.";
     public static string SchoolTelephone = "Please enter school telephone";

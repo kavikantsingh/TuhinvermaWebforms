@@ -12,6 +12,9 @@
     <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
     <script src="../../Validation/TextboxFormating.js"></script>
 
     <!--[if lt IE 9]>
@@ -28,7 +31,6 @@
 			<script src="../../App_Themes/Login/js/sky-forms-ie8.js"></script>
 		<![endif]-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
     <!--[if lte IE 7]>                    
       <div id="mask1" style="display:block">
@@ -105,7 +107,7 @@
                 </section>
             </fieldset>
             <footer>
-                
+
                 <input id="btnSend" style="width: 100%" class="button" value="Submit" type="button" />
                 <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
 
@@ -159,7 +161,7 @@
                 ShowLoader();
 
                 $.get('http://96.31.91.68/lappws/api/User/ForgetPassword?Email=' + $("#txtEmail").val(), function (data) {
-                    if(data.Status){
+                    if (data.Status) {
                         $('#error_validation').hide();
                     }
                     else {
