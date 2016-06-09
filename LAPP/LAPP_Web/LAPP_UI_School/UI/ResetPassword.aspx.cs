@@ -15,6 +15,16 @@ public partial class LAPP_UI_School_UI_ResetPassword : System.Web.UI.Page
             {
                 ltrError.Visible = true;
             }
+
+            if (Request.QueryString["key"] != null)
+            {
+                hdnKey.Value = Convert.ToString(Request.QueryString["key"]);
+            }
+            if (Request.QueryString["id"] != null)
+            {
+                hdnUserId.Value = Convert.ToString(Request.QueryString["id"]);
+            }
+
         }
     }
 }

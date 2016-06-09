@@ -110,6 +110,8 @@
 
                     <section>
                         <asp:Label ID="ltrError" Visible="false" Text="Please Create new password and login again." Style="color: red;" runat="server" />
+                        <asp:HiddenField ID="hdnKey" runat="server" />
+                        <asp:HiddenField ID="hdnUserId" runat="server" />                        
                         <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
                     </section>
 
@@ -205,10 +207,10 @@
                     ShowLoader();
 
                     $.ajax({
-                        url: "http://96.31.91.68/lappws/api/User/ChangePassword/" + sessionStorage.Key, //ToDo: Send Key to the API 
+                        url: "http://96.31.91.68/lappws/api/User/ChangePassword/" + $('#hdnKey').val(), //ToDo: Send Key to the API 
                         type: "POST",
                         data: JSON.stringify({
-                            UserId: sessionStorage.UserId,//This should return from the Registration Page. Needs discussion suppose a user registers i save the UserId but he close the browser and try to re login again then this UserId = 0
+                            UserId: $('#hdnUserId').val(),//This should return from the Registration Page. Needs discussion suppose a user registers i save the UserId but he close the browser and try to re login again then this UserId = 0
                             OldPassword: $("#txtCurrentPassword").val(),
                             NewPassword: $("#txtNewPassword").val(),
                             ConfirmPassword: $("#txtConfirmPassword").val()
@@ -222,7 +224,7 @@
                                 $('#pnlSuccess').show();
                                 $('#ltrSuccess').text('Password Reset has been successful. You need to login using your new password.');
 
-                                sessionStorage.IsPasswordTemporary = false;
+                                //sessionStorage.IsPasswordTemporary = false;
                             }
                             else {
                                 $('#error_validation').show();

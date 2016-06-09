@@ -55,7 +55,7 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
             Session["sUserLoginEmail"] = txtEmail.Text.Trim();      
 
             if (res.IsPasswordTemporary)
-                Response.Redirect("ResetPassword.aspx?isTemp=1", false);
+                Response.Redirect("ResetPassword.aspx?isTemp=1&key=" + res.Key + "&id=" + res.UserId, false);
 
             else if (res.ApplicationStatus == "Submitted")
                 Response.Redirect("SchoolDashboard.aspx", false);
