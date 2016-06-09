@@ -90,25 +90,38 @@
         <form action="" runat="server" class="sky-form">
             <header>Password Recovery</header>
 
-            <fieldset>
-                <section>
-                    <asp:Literal ID="ltrError" runat="server"></asp:Literal>
-                    <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
-                </section>
+            <div id="pnlSuccess" style="display: none">
+                <fieldset>
+                    <section>
+                        <asp:Label ID="ltrSuccess" runat="server"></asp:Label>
+                    </section>
+                </fieldset>
+                <footer>
+                    <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
+                </footer>
+            </div>
 
-                <section>
-                    <label class="input">
-                        <input type="text" id="txtEmail" class="inputTextbox NewAppPersonalTxtbx" placeholder="User Name (Email)">
-                        <b class="tooltip tooltip-bottom-right">Please Enter E-mail</b>
-                    </label>
-                </section>
-            </fieldset>
-            <footer>
+            <div id="upReset">
+                <fieldset>
+                    <section>
+                        <asp:Literal ID="ltrError" runat="server"></asp:Literal>
+                        <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
+                    </section>
 
-                <input id="btnSend" style="width: 100%" class="button" value="Submit" type="button" />
-                <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
+                    <section>
+                        <label class="input">
+                            <input type="text" id="txtEmail" class="inputTextbox NewAppPersonalTxtbx" placeholder="User Name (Email)">
+                            <b class="tooltip tooltip-bottom-right">Please Enter E-mail</b>
+                        </label>
+                    </section>
+                </fieldset>
+                <footer>
 
-            </footer>
+                    <input id="btnSend" style="width: 100%" class="button" value="Submit" type="button" />
+                    <a href="ProviderLogin.aspx" class="button button-login" style="width: 85%; text-align: center;">Log In</a>
+
+                </footer>
+            </div>
         </form>
 
     </div>
@@ -159,7 +172,9 @@
 
                 $.get('http://96.31.91.68/lappws/api/User/ForgetPassword?Email=' + $("#txtEmail").val(), function (data) {
                     if (data.Status) {
-                        $('#error_validation').hide();
+                        $('#upReset').hide();
+                        $('#pnlSuccess').show();
+                        $('#ltrSuccess').text('A temporary password has been sent to you on your email address. You need to login using your new password.');
                     }
                     else {
                         $('#error_validation').show();
