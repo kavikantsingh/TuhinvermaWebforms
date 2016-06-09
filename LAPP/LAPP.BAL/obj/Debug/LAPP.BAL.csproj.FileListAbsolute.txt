@@ -10,3 +10,15 @@ C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\bin\Debug\LAPP.ENTITY.pdb
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.csprojResolveAssemblyReference.cache
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.dll
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.pdb
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.BAL.dll
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.BAL.pdb
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.CORE.dll
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.DAL.dll
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.ENTITY.dll
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\MySql.Data.dll
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.CORE.pdb
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.DAL.pdb
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\bin\Debug\LAPP.ENTITY.pdb
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.csprojResolveAssemblyReference.cache
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.dll
+D:\LAPP\LAPP_CAMTC\LAPP\LAPP.BAL\obj\Debug\LAPP.BAL.pdb

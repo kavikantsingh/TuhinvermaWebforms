@@ -10,10 +10,16 @@ using System.IO;
 using LAPP.ENTITY;
 using System.Text.RegularExpressions;
 using LAPP.ENTITY.Enumerations;
+using System.Net;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 
 public partial class ucCertificationApplication : System.Web.UI.UserControl
 {
+    //String webAPIURL = "http://96.31.91.68/lappws/";
+    string webAPIURL = "http://192.168.0.100:5811/api/";
+
     #region Page Event Handler
     string UploadedImageUrl;
     protected void Page_Load(object sender, EventArgs e)
@@ -94,14 +100,25 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             BindGridAdminWrkExp3();
             BindGridAdminWrkExp4();
 
-            BindGridSatelliteLocation();
+            // BindGridSatelliteLocation();
             BindGridSchoolInfoPrevious();
 
             BindGridAdminInfo20();
             
             //BindGridPHRW1();
 
-            MakeActiveLi(liApplicatinInstructions);
+            //By prem Singh
+            BindGridPreviousSchools();
+
+            //Commented to make defualt navigation dynamic
+            // MakeActiveLi(liApplicatinInstructions);
+
+            //Make Check correct based on the active tab
+            CallMethodToCheckInitialTabActive();
+
+            //TODO: Make content accessible dynamically
+            txtFirstNameEdit.Text = "Application Name";
+
             if (rblQuestionEdit1.SelectedValue == "0") // || (rblQuestionEdit2.SelectedValue == "0"))
             {
                 btnApplicationStatus.Enabled = false;
@@ -1069,42 +1086,371 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         MakeActiveLi(liStaffInformation);
     }
 
+    //Added by Prem Singh
+ 
+
+    protected void btnAddPreviousSchool_Click(object sender, EventArgs e)
+    {
+        if (txtSclInfoPrevSclName.Text != "")
+        {
+            if (txtnamechange.Text != "")
+            {
+                int actionType = 0;
+                if (btnSclInfoAdd.Text == "Update")
+                    actionType = 1;
+                PreviousSchoolRQ rQ = new PreviousSchoolRQ()
+                {
+                    ApplicationId = UIHelper.GetApplicationId(),
+                    IndividualId = UIHelper.UserIDBySession(),
+                    ProviderName = txtSclInfoPrevSclName.Text,
+                    DateofNameChange = Convert.ToDateTime(txtnamechange.Text),
+                    ProviderNameStatusId = 1,
+                    ProviderNameTypeId = 1,
+                    ReferenceNumber = "",
+                    CreatedBy = UIHelper.UserIDBySession(),
+                    CreatedOn = DateTime.Now,
+                    ProviderNameGuid = "Guid",
+                    ActionType = actionType
+                };
+                string WebAPIUrl = webAPIURL + "Provider/AddPreviousSchoolInSchoolInformation";
+                Object obj;
+                CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
+                var res = (PreviousSchoolRS)obj;
+                if (res.Status)
+                {
+                    txtSclInfoPrevSclName.Text = "";
+                    txtnamechange.Text = "";
+
+                    //TODO: Reload Grid
+                    GVSclInfoPrevScl.DataSource = res.ListOfPreviousSchool;
+                    GVSclInfoPrevScl.DataBind();
+
+                }
+            }
+        }
+
+    }
+
+    public void CallMethodToCheckInitialTabActive()
+    {
+        ActiveMenuRQ rQ = new ActiveMenuRQ() { ProviderId = UIHelper.UserIDBySession(), ApplicationId = UIHelper.GetApplicationId(), ActiveTabToCheck = 1 };
+        string WebAPIUrl = webAPIURL + "Provider/CheckInitialTabActive";
+        Object obj;
+        CallWebAPI<ActiveMenuRS>(WebAPIUrl, rQ, out obj);
+        var res = (ActiveMenuRS)obj;
+        if (res.Status)
+        {
+            imgbtnInstruction.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+            rblQuestionEdit1.SelectedValue = "1";
+            DisplayPanel(pnlSection1);
+            MakeActiveLi(liMassageTherapistApplication);
+        }
+    }
+
+    public void CallWebAPI<T>(string ApiUrl, object input, out object outputObj)
+    {
+
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "POST";
+
+        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        {
+            string json = new JavaScriptSerializer().Serialize(input);
+
+            streamWriter.Write(json);
+            streamWriter.Flush();
+            streamWriter.Close();
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                outputObj = JsonConvert.DeserializeObject<T>(streamReader.ReadToEnd());
+            }
+        }
+
+    }
+
+    public void BindGridPreviousSchools()
+    {
+        ProviderInformationRQ rQ = new ProviderInformationRQ() { ApplicationId = UIHelper.GetApplicationId(), ProviderId = UIHelper.GetProviderId() };
+        string WebAPIUrl = webAPIURL + "Provider/GetAllSchoolInformationDetails";
+        Object obj;
+        CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
+        var res = (PreviousSchoolRS)obj;
+        if (res.Status)
+        {
+            //This is Previous School Grid 
+            GVSclInfoPrevScl.EditIndex = this.EditIndexInstQualSectionA1;
+            GVSclInfoPrevScl.DataSource = res.ListOfPreviousSchool;
+            GVSclInfoPrevScl.DataBind();
+
+            //This is Previous School Address Grid to be populated
+            gvSchoolInfoPrevious.EditIndex = this.EditIndexInstQualSectionA1;
+            gvSchoolInfoPrevious.DataSource = res.ListOfPreviousAddress;
+            gvSchoolInfoPrevious.DataBind();
+
+            //This is Satlite Address
+            gvSatelliteLocation.EditIndex = this.EditIndexInstQualSectionA1;
+            gvSatelliteLocation.DataSource = res.ListOfSatliteSchool;
+            gvSatelliteLocation.DataBind();
+
+            ProviderInformationRQ myResponse = new ProviderInformationRQ();
+
+            txtSchoolTel.Text = myResponse.SchoolTelephone;
+            CheckBox57.Checked = myResponse.IsSchoolTelephoneMobile;
+            txtschoolwebsite.Text = myResponse.SchoolWebsite;
+            txtSchoolStreet.Text = myResponse.SchoolAddressStreet1;
+            txtschool_Add.Text = myResponse.SchoolAddressStreet2;
+
+            txtCityResEdit.Text = myResponse.SchoolAddressCity;
+            ddlStateResEdit.SelectedValue = myResponse.SchoolAddressState;
+            txtZipResEdit.Text = myResponse.SchoolAddressZip;
+            //rQ.SchoolAddressIsVerifiedClicked = true;//TODO Need to check and update
+            //rQ.SchoolAddressIsNotVerifiedClicked = false;
+            txtMailingAdd.Text = myResponse.MailingAddressStreet1;
+            TextBox140.Text = myResponse.MailingAddressStreet2;
+            txtMailingCity.Text = myResponse.MailingAddressCity;
+            ddlMailingState.SelectedValue = myResponse.MailingAddressState;
+            txtMailngZip.Text = myResponse.MailingAddressZip;
+            // rQ.MailingAddressIsVerifiedClicked = true;//TODO Need to check and update
+            //rQ.MailingAddressIsNotVerifiedClicked = false;
+            txtDirFirstName.Text = myResponse.DirectorFirstName;
+            txtDirLastName.Text = myResponse.DirectorLastName;
+            txtDirectorEmail.Text = myResponse.DirectorAdministratorEmail;
+            txtSclInfoJobTitle.Text = myResponse.DirectorJobTitle;
+            txtSclInfoPriNumber.Text = myResponse.DirectorPrimaryNumber;
+            chkSclInfoPriNum.Checked = myResponse.DirectorPrimaryNumberIsMobile;
+            chktxtSclInfo.Checked = myResponse.DirectorSecondaryNumberIsMobile;
+            txtSclInfoSecNumber.Text = myResponse.DirectorSecondaryNumber;
+            TextBox64.Text = myResponse.ContactNameLastName;
+            txtApplicationEmail.Text = myResponse.ContactNameAdministratorEmail;
+            txtSchInfoSecJobtitle.Text = myResponse.ContactNameJobTitle;
+            txtApplicationNum.Text = myResponse.ContactNamePrimaryNumber;
+            CheckBox17.Checked = myResponse.ContactNamePrimaryNumberIsMobile;
+            TextBox143.Text = myResponse.ContactNameSecondaryNumber;
+            CheckBox18.Checked = myResponse.ContactNameSecondaryNumberIsMobile;
+        }
+
+    }
+
+    //Modified by Prem Singh
+
+    //protected void GVSclInfoPrevScl_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    //{
+    //    GVSclInfoPrevScl.EditIndex = -1;
+
+
+    //}
+    //protected void GVSclInfoPrevScl_RowEditing(object sender, GridViewEditEventArgs e)
+    //{
+
+    //    GVSclInfoPrevScl.EditIndex = e.NewEditIndex;
+
+    //}
+    //protected void GVSclInfoPrevScl_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    //{
+    //}
+
+    //protected void imgbtnOtherProgramNameEdit_Click(object sender, EventArgs e)
+    //{
+
+
+    //}
+
+    protected void GVSclInfoPrevScl_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        string strProviderNameId = null;
+        if (e.CommandName.ToLower() == "editprevschool")
+        {
+
+            strProviderNameId = Convert.ToString(e.CommandArgument);
+            //GVSclInfoPrevScl.Columns[0].Visible = true;
+            GridViewRow gvRow = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+            int rowIndex = gvRow.RowIndex;
+            //Determine the RowIndex of the Row whose Button was clicked.
+            // int rowIndex = Convert.ToInt32(e.CommandArgument);
+
+            //Reference the GridView Row.
+            GridViewRow row = GVSclInfoPrevScl.Rows[rowIndex];
+            string name = ((row.Cells[0].Controls[0] as DataBoundLiteralControl).Text).Trim(new Char[] { ' ', '\r', '\n' });
+            string nameChangeDate = ((row.Cells[1].Controls[0] as DataBoundLiteralControl).Text).Trim(new Char[] { ' ', '\r', '\n' });
+
+
+            txtSclInfoPrevSclName.Text = name/* 2 */;
+            txtnamechange.Text = nameChangeDate;
+            btnSclInfoAdd.Text = "Update";
+            //txtnamechange.Text = grid.SelectedRow.Cells[1].Text /* Ravi */;
+
+        }
+        else if (e.CommandName.ToLower() == "deleteprevschool")
+        {
+            strProviderNameId = Convert.ToString(e.CommandArgument);
+            PreviousSchoolRQ rQ = new PreviousSchoolRQ()
+            {
+                ProviderNameId = Convert.ToInt32(strProviderNameId), ApplicationId = UIHelper.GetApplicationId()
+            };
+            string WebAPIUrl = webAPIURL + "Provider/DeletePreviousSchoolInSchoolInformation";
+            Object obj;
+            CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
+            var res = (PreviousSchoolRS)obj;
+            if (res.Status)
+            {
+                txtSclInfoPrevSclName.Text = "";
+                txtnamechange.Text = "";
+
+                //TODO: Reload Grid
+                GVSclInfoPrevScl.DataSource = res.ListOfPreviousSchool;
+                GVSclInfoPrevScl.DataBind();
+
+            }
+        }
+    }
+
+
+
     protected void btnMassageTherapistApplication_Click(object sender, EventArgs e)
     {
-        //pnlChecklist.Visible = false;
-        //pnlPayment.Visible = false;
-        //pnlApplicatinInstructions.Visible = false;
-        //pnlSection1.Visible = true;
-        //pnlSection2.Visible = false;
-        //pnlSection3.Visible = false;
-        //pnlSection4.Visible = false;
-        //pnlSection5.Visible = false;
-        //pnlAdministrator_Work_Experience.Visible = false;
-        //pnlSection6.Visible = false;
-        //pnlSection7.Visible = false;
 
-        DisplayPanel(pnlSection1);
-        MakeActiveLi(liMassageTherapistApplication);
+        ProviderInstructionsRQ rQ = new ProviderInstructionsRQ() { ProviderId = UIHelper.UserIDBySession(), ApplicationId = UIHelper.GetApplicationId(), ContentItemLkId = 2, ContentItemLkCode = "Code", ReferenceNumber = "", InstructionsAcceptedBy = UIHelper.UserIDBySession(), InstructionsAcceptanceDate = DateTime.Now.Date, IsActive = true, IsDeleted = false, CreatedBy = UIHelper.UserIDBySession(), CreatedOn = DateTime.Now, ModifiedBy = 1, ModifiedOn = DateTime.Now, ProviderInstructionsGuid = "Guid" };
+        string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
+        Object obj;
+        CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
+        var res = (ProviderLoginRS)obj;
+        if (res.Status)
+        {
+            //TODO
+            //Make Tick mark appear for the instruction tab 
+            imgbtnInstruction.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+            DisplayPanel(pnlSection1);
+            MakeActiveLi(liMassageTherapistApplication);
+        }
+    }
+
+    protected void btnSchoolInfoPreviousAddNewSave_Click(object sender, EventArgs e)
+    {
+        if (txtPreviousAdd.Text != "")
+        {
+            if (txtPreviousCity.Text != "")
+            {
+                AddressRQ rQ = new AddressRQ() { AddressId = 0, Addressee = null, StreetLine1 = txtPreviousAdd.Text, AddressTypeId = "6", StreetLine2 = TextBox16.Text, City = txtPreviousCity.Text, StateCode = ddlPreviousAddState.SelectedValue, Zip = txtPreviousAddzip.Text, CountyId = null, IsActive = true, DateValidated = null, UseUserAddress = true, UseVerifiedAddress = false, IsDeleted = false, CreatedBy = UIHelper.UserIDBySession(), CreatedOn = DateTime.Now, AddressGuid = "", Authenticator = "", ProviderId = UIHelper.GetProviderId(), BeginDate = DateTime.Now, EndDate = DateTime.Now, IsMailingSameasPhysical = false, ProviderAddressGuid = "Guid", ProviderName = "Name", ProviderNameGuid = "Guid" };
+                string WebAPIUrl = webAPIURL + "Provider/SaveAddressRequestFromSchoolInformationTab";
+                Object obj;
+                CallWebAPI<AddressRS>(WebAPIUrl, rQ, out obj);
+                var res = (AddressRS)obj;
+                if (res.Status)
+                {
+                    //TODO: Reload Grid for Previous School Address
+                    gvSchoolInfoPrevious.DataSource = res.ListOfPreviousAddress;
+                    gvSchoolInfoPrevious.DataBind();
+
+
+                    txtPreviousAdd.Text = "";
+                    TextBox16.Text = "";
+                    txtPreviousAddzip.Text = "";
+                    txtPreviousAddzip.Text = "";
+                    txtDateOfAddChange.Text = "";
+                    ddlPreviousAddState.SelectedValue = "1";
+                }
+            }
+        }
+
+        divAddbtnSchoolInfoPrevious.Visible = true;
+        divAddSchoolInfoPrevious.Visible = false;
+    }
+
+    protected void btnSatelliteLocationAddNewSave_Click(object sender, EventArgs e)
+    {
+        if (txtSatelliteLoc.Text != "")
+        {
+            if (txtSatelliteCity.Text != "")
+            {
+                AddressRQ rQ = new AddressRQ() { AddressId = 0, StreetLine1 = txtSatelliteLoc.Text, StreetLine2 = TextBox144.Text, City = txtSatelliteCity.Text, StateCode = ddlSatelliteState.SelectedValue, Zip = txtSatelliteZip.Text, DateValidated = DateTime.Now, UseUserAddress = true, UseVerifiedAddress = false, CreatedBy = UIHelper.UserIDBySession(), CreatedOn = DateTime.Now, ProviderId = UIHelper.GetProviderId(), AddressTypeId = "4", IsMailingSameasPhysical = false };
+                string WebAPIUrl = webAPIURL + "Provider/SaveAddressRequestFromSchoolInformationTab";
+                Object obj;
+                CallWebAPI<AddressRS>(WebAPIUrl, rQ, out obj);
+                var res = (AddressRS)obj;
+                if (res.Status)
+                {
+                    txtSatelliteLoc.Text = "";
+                    TextBox144.Text = "";
+                    txtSatelliteCity.Text = "";
+                    txtSatelliteZip.Text = "";
+                    ddlSatelliteState.SelectedValue = "1";
+
+                    //TODO: Reload Grid for Satlite School Address
+                    gvSatelliteLocation.DataSource = res.ListOfPreviousAddress;
+                    gvSatelliteLocation.DataBind();
+                }
+            }
+        }
+
+        divAddbtnSatelliteLocation.Visible = true;
+        divAddSatelliteLocation.Visible = false;
     }
 
     protected void btnSection2_Click(object sender, EventArgs e)
     {
 
-        //pnlChecklist.Visible = false;
-        //pnlPayment.Visible = false;
-        //pnlApplicatinInstructions.Visible = false;
-        //pnlSection1.Visible = false;
-        //pnlSection2.Visible = true;
-        //pnlSection3.Visible = false;
-        //pnlSection4.Visible = false;
-        //pnlSection5.Visible = false;
-        //pnlAdministrator_Work_Experience.Visible = false;
-        //pnlSection6.Visible = false;
-        //pnlSection7.Visible = false;
+        ProviderInformationRQ rQ = new ProviderInformationRQ();
+        rQ.SchoolTelephone = txtSchoolTel.Text;
+        rQ.IsSchoolTelephoneMobile = CheckBox57.Checked;
+        rQ.SchoolWebsite = txtschoolwebsite.Text;
+        rQ.SchoolAddressStreet1 = txtSchoolStreet.Text;
+        rQ.SchoolAddressStreet2 = txtschool_Add.Text;
 
-        DisplayPanel(pnlSection2);
-        MakeActiveLi(liSection2);//
+        rQ.SchoolAddressCity = txtCityResEdit.Text;
+        rQ.SchoolAddressState = ddlStateResEdit.SelectedValue;
+        rQ.SchoolAddressZip = txtZipResEdit.Text;
+        rQ.SchoolAddressIsVerifiedClicked = true;//TODO Need to check and update
+        rQ.SchoolAddressIsNotVerifiedClicked = false;
+        rQ.MailingAddressStreet1 = txtMailingAdd.Text;
+        rQ.MailingAddressStreet2 = TextBox140.Text;
+        rQ.MailingAddressCity = txtMailingCity.Text;
+        rQ.MailingAddressState = ddlMailingState.SelectedValue;
+        rQ.MailingAddressZip = txtMailngZip.Text;
+        rQ.MailingAddressIsVerifiedClicked = true;//TODO Need to check and update
+        rQ.MailingAddressIsNotVerifiedClicked = false;
+        rQ.DirectorFirstName = txtDirFirstName.Text;
+        rQ.DirectorLastName = txtDirLastName.Text;
+        rQ.DirectorAdministratorEmail = txtDirectorEmail.Text;
+        rQ.DirectorJobTitle = txtSclInfoJobTitle.Text;
+        rQ.DirectorPrimaryNumber = txtSclInfoPriNumber.Text;
+        rQ.DirectorPrimaryNumberIsMobile = false; //TODO check if checked and update true or false -- chkSclInfoPriNum
+        rQ.DirectorSecondaryNumber = txtSclInfoSecNumber.Text;
+        rQ.DirectorSecondaryNumberIsMobile = false; //TODO check if checked and update true or false -- chktxtSclInfo
+
+        rQ.ContactNameFirstName = TextBox62.Text;
+        rQ.ContactNameLastName = TextBox64.Text;
+        rQ.ContactNameAdministratorEmail = txtApplicationEmail.Text;
+        rQ.ContactNameJobTitle = txtSchInfoSecJobtitle.Text;
+        rQ.ContactNamePrimaryNumber = txtApplicationNum.Text;
+        rQ.ContactNamePrimaryNumberIsMobile = false; //TODO check if checked and update true or false -- CheckBox17
+        rQ.ContactNameSecondaryNumber = TextBox143.Text;
+        rQ.ContactNameSecondaryNumberIsMobile = false; //TODO check if checked and update true or false -- CheckBox18
+        rQ.CreatedBy = UIHelper.UserIDBySession();
+        rQ.ProviderId = UIHelper.GetProviderId();
+        rQ.IndividualId = UIHelper.GetIndividualId();
+        rQ.ApplicationId = UIHelper.GetApplicationId();
+
+        string WebAPIUrl = webAPIURL + "Provider/SaveSchoolInformation";
+        Object obj;
+        CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
+        var res = (PreviousSchoolRS)obj;
+        if (res.Status)
+        {
+            txtSatelliteLoc.Text = "";
+            TextBox144.Text = "";
+            txtSatelliteCity.Text = "";
+            txtSatelliteZip.Text = "";
+            imgMassageTherapistApplication.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+            DisplayPanel(pnlSection2);
+            MakeActiveLi(liSection2);
+        }
     }
+
+
+
 
     protected void btnSection3_Click(object sender, EventArgs e)
     {
@@ -3666,7 +4012,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
                     lblSchoolCode.Text = "SCH001";
                     lblApprovalAgencyName.Text = "Agency 1";
-                    lblExpirationDate.Text = "02/04/2016";
+                    lblExpirationDate.Text = "01/04/2016";
                 }
                 else if (ROWLic == 1)
                 {
@@ -14847,11 +15193,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         this.EditIndexSchoolInfoPrevious = -1;
         BindGridSchoolInfoPrevious();
     }
-    protected void btnSchoolInfoPreviousAddNewSave_Click(object sender, EventArgs e)
-    {
-        divAddbtnSchoolInfoPrevious.Visible = true;
-        divAddSchoolInfoPrevious.Visible = false;
-    }
+
     protected void lnkSchoolInfoPreviousAddNewCancel_Click(object sender, EventArgs e)
     {
         divAddbtnSchoolInfoPrevious.Visible = true;
@@ -14861,72 +15203,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     public void BindGridSchoolInfoPrevious()
     {
 
-        ArrayList ArryListName = new ArrayList();
-        ArryListName.Add("CA");
-        ArryListName.Add("CA");
 
-
-
-        gvSchoolInfoPrevious.EditIndex = this.EditIndexSchoolInfoPrevious;
-        gvSchoolInfoPrevious.DataSource = ArryListName;
-        gvSchoolInfoPrevious.DataBind();
-
-        if (this.EditIndexSchoolInfoPrevious >= 0)
-        {
-            gvSchoolInfoPrevious.Rows[this.EditIndexSchoolInfoPrevious].CssClass = "RowInEditMode";
-            gvSchoolInfoPrevious.Rows[this.EditIndexSchoolInfoPrevious].Cells[0].Attributes.Add("colspan", "7");
-            gvSchoolInfoPrevious.Rows[this.EditIndexSchoolInfoPrevious].Cells[1].Visible = false;
-            gvSchoolInfoPrevious.Rows[this.EditIndexSchoolInfoPrevious].Cells[2].Visible = false;
-            gvSchoolInfoPrevious.Rows[this.EditIndexSchoolInfoPrevious].Cells[3].Visible = false;
-            gvSchoolInfoPrevious.Rows[this.EditIndexSchoolInfoPrevious].Cells[4].Visible = false;
-
-
-        }
     }
 
-
-    protected void gvSchoolInfoPrevious_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-
-            Label lblOwnerInfo = e.Row.FindControl("lblInfoPStreet") as Label;
-            Label lblownerInfLastName = e.Row.FindControl("lblInfoPcity") as Label;
-            Label lblownerInfFirstName = e.Row.FindControl("lblInfoPState") as Label;
-            Label lblownerPer = e.Row.FindControl("lblInfoPZip") as Label;
-            Label lblDateAddressChage = e.Row.FindControl("lblDateAddChage") as Label;
-            //Label lblownerInfoCity = e.Row.FindControl("lblownerInfoCity") as Label;
-            //Label lblownerInfState = e.Row.FindControl("lblownerInfState") as Label;
-
-            if (lblOwnerInfo != null && lblownerInfLastName != null && lblownerInfFirstName != null && lblownerPer != null && lblDateAddressChage != null)
-            {
-                if (ROWPrevAdd == 0)
-                {
-
-                    lblOwnerInfo.Text = "123 Test Street";
-                    lblownerInfLastName.Text = "Sacramento";
-                    lblownerInfFirstName.Text = "California";
-                    lblownerPer.Text = "94203";
-                    lblDateAddressChage.Text = "02/04/2016";
-                   // lblownerInfoCity.Text = "Sacramento";
-                    //lblownerInfState.Text = "California";
-                }
-                else if (ROWPrevAdd == 1)
-                {
-                    lblOwnerInfo.Text = "456 Test Street";
-                    lblownerInfLastName.Text = "Sacramento";
-                    lblownerInfFirstName.Text = "California";
-                    lblownerPer.Text = "94203";
-                    lblDateAddressChage.Text = "10/04/2016";
-                   // lblownerInfoCity.Text = "Sacramento";
-                   // lblownerInfState.Text = "California";
-                }
-            }
-
-            ROWPrevAdd++;
-
-        }
-    }
 
     protected void lnkSchoolInfoPreviousEdit_Click(object sender, EventArgs e)
     {
@@ -15017,11 +15296,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         BindGridSatelliteLocation();
     }
 
-    protected void btnSatelliteLocationAddNewSave_Click(object sender, EventArgs e)
-    {
-        divAddbtnSatelliteLocation.Visible = true;
-        divAddSatelliteLocation.Visible = false;
-    }
+
     protected void lnkSatelliteLocationAddNewCancel_Click(object sender, EventArgs e)
     {
         divAddbtnSatelliteLocation.Visible = true;
@@ -15031,27 +15306,27 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     public void BindGridSatelliteLocation()
     {
 
-        ArrayList ArryListName = new ArrayList();
-        ArryListName.Add("CA");
-        ArryListName.Add("CA");
+        //ArrayList ArryListName = new ArrayList();
+        //ArryListName.Add("CA");
+        //ArryListName.Add("CA");
 
 
 
-        gvSatelliteLocation.EditIndex = this.EditIndexSchoolInfoSatelliteLoc;
-        gvSatelliteLocation.DataSource = ArryListName;
-        gvSatelliteLocation.DataBind();
+        //gvSatelliteLocation.EditIndex = this.EditIndexSchoolInfoSatelliteLoc;
+        //gvSatelliteLocation.DataSource = ArryListName;
+        //gvSatelliteLocation.DataBind();
 
-        if (this.EditIndexSchoolInfoSatelliteLoc >= 0)
-        {
-            gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].CssClass = "RowInEditMode";
-            gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[0].Attributes.Add("colspan", "7");
-            gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[1].Visible = false;
-            gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[2].Visible = false;
-            gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[3].Visible = false;
-            gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[4].Visible = false;
+        //if (this.EditIndexSchoolInfoSatelliteLoc >= 0)
+        //{
+        //    gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].CssClass = "RowInEditMode";
+        //    gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[0].Attributes.Add("colspan", "7");
+        //    gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[1].Visible = false;
+        //    gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[2].Visible = false;
+        //    gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[3].Visible = false;
+        //    gvSatelliteLocation.Rows[this.EditIndexSchoolInfoSatelliteLoc].Cells[4].Visible = false;
 
 
-        }
+        //}
     }
 
 
@@ -16147,4 +16422,224 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         dvSignture.Visible = true;
     }
+}
+
+
+
+//Added by Prem Singh K F
+public class ProviderInstructionsRQ
+{
+    public int ProviderInstructionsId { get; set; }
+    public int ProviderId { get; set; }
+    public int ApplicationId { get; set; }
+    public int ContentItemLkId { get; set; }
+    public string ContentItemLkCode { get; set; }
+    public string ReferenceNumber { get; set; }
+    public int InstructionsAcceptedBy { get; set; }
+    public DateTime InstructionsAcceptanceDate { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderInstructionsGuid { get; set; }
+
+}
+
+public class ProviderLoginRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+}
+
+public class ActiveMenuRQ
+{
+    public int ProviderId { get; set; }
+    public int ApplicationId { get; set; }
+    public int ActiveTabToCheck { get; set; }
+}
+
+public class ActiveMenuRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+}
+
+public class PreviousSchoolRQ
+{
+    public int  ProviderNameId { get; set; }
+    public int ApplicationId { get; set; }
+    public int IndividualId { get; set; }
+    public string ProviderName { get; set; }
+    public DateTime DateofNameChange { get; set; }
+    public int ProviderNameStatusId { get; set; }
+    public int ProviderNameTypeId { get; set; }
+    public string ReferenceNumber { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderNameGuid { get; set; }
+    public int ActionType { get; set; }
+
+}
+
+public class PreviousSchoolRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<ProviderNames> ListOfPreviousSchool { get; set; }
+    public List<AddressRQ> ListOfPreviousAddress { get; set; }
+    public List<AddressRQ> ListOfSatliteSchool { get; set; }
+    public ProviderInformationRQ ProviderInformationDetails { get; set; }
+}
+
+public class AddressRQ
+{
+    public int AddressId { get; set; }
+    public string Addressee { get; set; }
+    public string StreetLine1 { get; set; }
+    public string StreetLine2 { get; set; }
+    public string City { get; set; }
+    public string StateCode { get; set; }
+    public string Zip { get; set; }
+    public int? CountyId { get; set; }
+    public int? CountryId { get; set; }
+    public bool IsActive { get; set; }
+    public DateTime? DateValidated { get; set; }
+    public bool UseUserAddress { get; set; }
+    public bool UseVerifiedAddress { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int ModifiedBy { get; set; }
+    public DateTime ModifiedOn { get; set; }
+    public string AddressGuid { get; set; }
+    public string Authenticator { get; set; }
+    public int ProviderId { get; set; }
+    public string AddressTypeId { get; set; }
+    public DateTime BeginDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public bool IsMailingSameasPhysical { get; set; }
+    public string ProviderAddressGuid { get; set; }
+    public string ProviderName { get; set; }
+    public string ProviderNameGuid { get; set; }
+
+}
+
+public class AddressRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<AddressRQ> ListOfPreviousAddress { get; set; }
+
+}
+
+public class ProviderInformationRQ : BaseEntity
+{
+    public string SchoolName { get; set; }
+    public string SchoolTelephone { get; set; }
+    public bool IsSchoolTelephoneMobile { get; set; }
+    public string SchoolWebsite { get; set; }
+
+
+    public string SchoolAddressStreet1 { get; set; }
+    public string SchoolAddressStreet2 { get; set; }
+    public string SchoolAddressCity { get; set; }
+    public string SchoolAddressState { get; set; }
+    public string SchoolAddressZip { get; set; }
+    public bool SchoolAddressIsVerifiedClicked { get; set; }
+    public bool SchoolAddressIsNotVerifiedClicked { get; set; }
+
+    public string MailingAddressStreet1 { get; set; }
+    public string MailingAddressStreet2 { get; set; }
+    public string MailingAddressCity { get; set; }
+    public string MailingAddressState { get; set; }
+    public string MailingAddressZip { get; set; }
+    public bool MailingAddressIsVerifiedClicked { get; set; }
+    public bool MailingAddressIsNotVerifiedClicked { get; set; }
+
+
+    public string DirectorFirstName { get; set; }
+    public string DirectorLastName { get; set; }
+    public string DirectorAdministratorEmail { get; set; }
+    public string DirectorJobTitle { get; set; }
+    public string DirectorPrimaryNumber { get; set; }
+    public bool DirectorPrimaryNumberIsMobile { get; set; }
+    public string DirectorSecondaryNumber { get; set; }
+    public bool DirectorSecondaryNumberIsMobile { get; set; }
+
+    public string ContactNameFirstName { get; set; }
+    public string ContactNameLastName { get; set; }
+    public string ContactNameAdministratorEmail { get; set; }
+    public string ContactNameJobTitle { get; set; }
+    public string ContactNamePrimaryNumber { get; set; }
+    public bool ContactNamePrimaryNumberIsMobile { get; set; }
+    public string ContactNameSecondaryNumber { get; set; }
+    public bool ContactNameSecondaryNumberIsMobile { get; set; }
+
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int ModifiedBy { get; set; }
+    public DateTime ModifiedOn { get; set; }
+
+    public string ContactInfo { get; set; }
+    public int ContactTypeId { get; set; }
+    public int ProviderId { get; set; }
+    public bool IsMobile { get; set; }
+    public bool IsPreferredContact { get; set; }
+
+
+    public int ApplicationId { get; set; }
+    public int AddressId { get; set; }
+    public DateTime DateValidated { get; set; }
+    public bool UseUserAddress { get; set; }
+    public bool UseVerifiedAddress { get; set; }
+    public string AddressTypeId { get; set; }
+    public bool IsMailingSameasPhysical { get; set; }
+
+    public int IndividualId { get; set; }
+
+
+}
+
+public class ProviderInformationRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+}
+
+
+public class ProviderNames
+{
+    public int ProviderNameId { get; set; }
+    public int ApplicationId { get; set; }
+    public int IndividualId { get; set; }
+    public string ProviderName { get; set; }
+    public DateTime DateofNameChange { get; set; }
+    public int ProviderNameStatusId { get; set; }
+    public int ProviderNameTypeId { get; set; }
+    public string ReferenceNumber { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderNameGuid { get; set; }
 }

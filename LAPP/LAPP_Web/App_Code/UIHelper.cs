@@ -162,6 +162,51 @@ public class UIHelper
 
     #region SessionHandler
 
+    public static Int32 GetApplicationId()
+    {
+        // String Username = string.Empty;
+        //SessionManager objSessionManager = new SessionManager();
+        //sUserLoginInfo sLoginInfo = objSessionManager.GetLoggedInUserInfo();
+        // if (sLoginInfo != null)
+        // {
+        return 24;
+        // }
+        // else
+        // {
+        //    return 0;
+        //}
+    }
+
+    public static Int32 GetIndividualId()
+    {
+        // String Username = string.Empty;
+        //SessionManager objSessionManager = new SessionManager();
+        //sUserLoginInfo sLoginInfo = objSessionManager.GetLoggedInUserInfo();
+        // if (sLoginInfo != null)
+        // {
+        return 1;
+        // }
+        // else
+        // {
+        //    return 0;
+        //}
+    }
+
+    public static Int32 GetProviderId()
+    {
+        // String Username = string.Empty;
+        //SessionManager objSessionManager = new SessionManager();
+        //sUserLoginInfo sLoginInfo = objSessionManager.GetLoggedInUserInfo();
+        // if (sLoginInfo != null)
+        // {
+        return 646;
+        // }
+        // else
+        // {
+        //    return 0;
+        //}
+    }
+
     public static Guid GetCurrentSessionID()
     {
         try
@@ -250,6 +295,7 @@ public class UIHelper
             return 0;
         }
     }
+
     public static void ProcessLogout()
     {
         LAPP_user_membershipBAL objUMemberShipBAL = new LAPP_user_membershipBAL();
