@@ -216,4 +216,24 @@ public class SessionManager
     }
 
 
+    public sSchoolLoginInfo GetLoggedInSchoolProviderInfo()
+    {
+        try
+        {
+            if (HttpContext.Current.Session["sObjSchoolLoginInfo"] != null)
+            {
+                sSchoolLoginInfo obj = (sSchoolLoginInfo)HttpContext.Current.Session["sObjSchoolLoginInfo"];
+                return obj;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }

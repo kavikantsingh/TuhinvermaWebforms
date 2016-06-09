@@ -288,6 +288,20 @@ namespace LAPP.ENTITY.Enumerations
         public int RoleId { get; set; }
     }
 
+    public class sSchoolLoginInfo
+    {
+        public string ApplicationStatus { get; set; }
+        public string Key { get; set; }
+
+        public int ApplicationId { get; set; }
+        public int IndividualId { get; set; }
+        public int IndividualNameId { get; set; }
+        public int ProviderId { get; set; }
+        public int UserId { get; set; }
+
+        public bool IsPasswordTemporary { get; set; }
+    }
+
     public class sIndividualLoginInfo
     {
         public int Applicant_Id { get; set; }

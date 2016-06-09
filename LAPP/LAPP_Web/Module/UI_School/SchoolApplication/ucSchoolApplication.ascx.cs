@@ -104,7 +104,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             BindGridSchoolInfoPrevious();
 
             BindGridAdminInfo20();
-            
+
             //BindGridPHRW1();
 
             //By prem Singh
@@ -142,7 +142,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
 
 
-            if(Request.QueryString.Count>0)
+            if (Request.QueryString.Count > 0)
             {
                 if (Request.QueryString["AOS"] != null)
                     chkAOSDisplayTab();
@@ -152,9 +152,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             //{
             //    chkAOSDisplayTab();
             //}
-            
-                
-            
+
+
+
 
         }
         //MessageBox.RunJsInUpdatePanel(this.Page, "InitiatePage();");
@@ -293,36 +293,36 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             showBtn = false;
             goto End;
         }
-        //if (AffQ8.Checked == false)
-        //{
-        //    showBtn = false;
-        //    goto End;
-        //}
-        //if (AffQ9.Checked == false)
-        //{
-        //    showBtn = false;
-        //    goto End;
-        //}
-        //if (AffQ10.Checked == false)
-        //{
-        //    showBtn = false;
-        //    goto End;
-        //}
-        //if (AffQ11.Checked == false)
-        //{
-        //    showBtn = false;
-        //    goto End;
-        //}
-        //if (AffQ12.Checked == false)
-        //{
-        //    showBtn = false;
-        //    goto End;
-        //}
-        //if (AffQ13.Checked == false)
-        //{
-        //    showBtn = false;
-        //    goto End;
-        //}
+    //if (AffQ8.Checked == false)
+    //{
+    //    showBtn = false;
+    //    goto End;
+    //}
+    //if (AffQ9.Checked == false)
+    //{
+    //    showBtn = false;
+    //    goto End;
+    //}
+    //if (AffQ10.Checked == false)
+    //{
+    //    showBtn = false;
+    //    goto End;
+    //}
+    //if (AffQ11.Checked == false)
+    //{
+    //    showBtn = false;
+    //    goto End;
+    //}
+    //if (AffQ12.Checked == false)
+    //{
+    //    showBtn = false;
+    //    goto End;
+    //}
+    //if (AffQ13.Checked == false)
+    //{
+    //    showBtn = false;
+    //    goto End;
+    //}
 
 
     End:
@@ -336,7 +336,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         rblQuestionEdit1.Enabled = true;
         Response.Write("<script>window.open('https://www.camtc.org/','_blank');</script>");
     }
- 
+
     protected void rblQuestionEdit1_OnSelectedIndexChanged(object sender, EventArgs e)
     {
         if (rblQuestionEdit1.SelectedValue == "0") //|| (rblQuestionEdit2.SelectedValue == "0"))
@@ -435,7 +435,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
     protected void btnSavePersonalInfo_Click(object sender, EventArgs e)
     {
-    #region comment
+        #region comment
         /*
         string strErr;
         strErr = "";
@@ -668,7 +668,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         }
         */
-    #endregion
+        #endregion
 
         //if ( strErr=="")
         btnSection2_Click(sender, e);
@@ -685,7 +685,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         string strErr;
         strErr = "";
 
-       
+
 
         //if (txtOwnInfoHomeAdd.Text == "")
         //{
@@ -951,7 +951,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
 
             strErr = "Add";
-            
+
 
 
         }
@@ -1066,7 +1066,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         MakeActiveLi(li_Administrator_Work_Experience);
 
     }
-    
+
     protected void btnChecklist_Click(object sender, EventArgs e)
     {
 
@@ -1087,7 +1087,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
     //Added by Prem Singh
- 
+
 
     protected void btnAddPreviousSchool_Click(object sender, EventArgs e)
     {
@@ -1288,7 +1288,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             strProviderNameId = Convert.ToString(e.CommandArgument);
             PreviousSchoolRQ rQ = new PreviousSchoolRQ()
             {
-                ProviderNameId = Convert.ToInt32(strProviderNameId), ApplicationId = UIHelper.GetApplicationId()
+                ProviderNameId = Convert.ToInt32(strProviderNameId),
+                ApplicationId = UIHelper.GetApplicationId()
             };
             string WebAPIUrl = webAPIURL + "Provider/DeletePreviousSchoolInSchoolInformation";
             Object obj;
@@ -1311,8 +1312,32 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void btnMassageTherapistApplication_Click(object sender, EventArgs e)
     {
+        ProviderInstructionsRQ rQ = new ProviderInstructionsRQ()
+        {
+            ProviderId = UIHelper.ProviderIdFromSession(),
+            ApplicationId = UIHelper.ApplicationIdFromSession(),
+            ContentItemLkId = 1,
+            
+            
+            #region NotRequiredFields
 
-        ProviderInstructionsRQ rQ = new ProviderInstructionsRQ() { ProviderId = UIHelper.UserIDBySession(), ApplicationId = UIHelper.GetApplicationId(), ContentItemLkId = 2, ContentItemLkCode = "Code", ReferenceNumber = "", InstructionsAcceptedBy = UIHelper.UserIDBySession(), InstructionsAcceptanceDate = DateTime.Now.Date, IsActive = true, IsDeleted = false, CreatedBy = UIHelper.UserIDBySession(), CreatedOn = DateTime.Now, ModifiedBy = 1, ModifiedOn = DateTime.Now, ProviderInstructionsGuid = "Guid" };
+            //ContentItemLkCode = "Code",
+            //ReferenceNumber = "",
+            //InstructionsAcceptanceDate = DateTime.Now.Date,
+            //IsActive = true,
+            //IsDeleted = false,
+            //CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+            //CreatedOn = DateTime.Now,
+            //ModifiedBy = 1,
+            //ModifiedOn = DateTime.Now,
+
+            #endregion
+
+            InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),            
+            ProviderInstructionsGuid =Guid.NewGuid().ToString(),
+            ProviderInstructionsId = 1
+        };
+
         string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
         Object obj;
         CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
@@ -1483,7 +1508,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //pnlSection6.Visible = false;
         //pnlSection7.Visible = false;
         string sessionValue = Session["sUserLoginInfo"].ToString();
-        
+
         if (sessionValue == "SchoolContact")
         {
             DisplayPanel(PnlTransChecklist);
@@ -1495,7 +1520,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             DisplayPanel(PnlBackChecklist);
             MakeActiveLi(li_Background_Checklist);//
         }
-        
+
     }
 
     protected void btnSection5_Click(object sender, EventArgs e)
@@ -1563,7 +1588,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         string sessionValue = Session["sUserLoginInfo"].ToString();
         string AOSValue = "";
-        if(Request.QueryString.Count > 0)
+        if (Request.QueryString.Count > 0)
             AOSValue = Request.QueryString["AOS"].ToString();
 
         if (sessionValue == "SchoolContact" && AOSValue == "")
@@ -1583,7 +1608,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             MakeActiveLi(li_Background_Checklist);
         }
 
-        
+
     }
 
     protected void btnCorrectiveAction_Click(object sender, EventArgs e)
@@ -1595,7 +1620,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         string sessionValue = Session["sUserLoginInfo"].ToString();
         string AOSValue = "";
-        if(Request.QueryString.Count > 0)
+        if (Request.QueryString.Count > 0)
             AOSValue = Request.QueryString["AOS"].ToString();
 
         if (Session["sUserLoginEmail"].ToString() == "schoolpubinst@inlumon.com")
@@ -1610,10 +1635,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             MakeActiveLi(li_Background_Checklist);
         }
 
-        
+
     }
 
-    
+
     protected void btnTransCheck_Click(object sender, EventArgs e)
     {
         DisplayPanel(PnlTransChecklist);
@@ -1656,8 +1681,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             DisplayPanel(pnlPayment);
             MakeActiveLi(liPayment);
         }
-        
-        
+
+
     }
 
     protected void btnInstQual_Click(object sender, EventArgs e)
@@ -1769,7 +1794,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         btnSection5_Click(sender, e);
     }
 
-   
+
 
     protected void InfoOK_Click(object sender, EventArgs e)
     {
@@ -1852,7 +1877,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnDeclartion.Focus();
             divOwnDeclartion.Visible = true;
         }
-        
+
     }
 
     protected void btnNextSection7_Click(object sender, EventArgs e)
@@ -1958,7 +1983,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //}
 
 
-        
+
     }
 
     protected void btnAdminWorkInfo_Click(object sender, EventArgs e)
@@ -2015,7 +2040,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //}
 
 
-        
+
     }
 
     protected void lbAdWorkExpCancel_Click(object sender, EventArgs e)
@@ -2035,7 +2060,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void btnsaveSclContct_Click(object sender, EventArgs e)
     {
-        
+
     }
 
     protected void btnNextTransChkList_Click(object sender, EventArgs e)
@@ -2079,7 +2104,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         strErrPay = "";
 
 
-       
+
 
         if (ddlPaymentMethod.SelectedValue == "-1")
         {
@@ -2097,11 +2122,11 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //{
         //    lblErrorPay.Text = strErrPay;
         //    dvErPay.Visible = true;
-            
+
         //}
-        
+
     }
-    
+
     #endregion
 
     public void ClearLiteral()
@@ -3911,7 +3936,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
 
-       
+
 
         if (txtappagenDocNAme.Text == "")
         {
@@ -3947,7 +3972,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //   dvErrApprovalAgency.Visible = true;
         //}
 
-        
+
     }
 
 
@@ -4107,7 +4132,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvEditErApprovalAgency.Visible = true;
         }
 
-        
+
     }
     protected void lnkApprovalAgencyCancelUpdate_Click(object sender, EventArgs e)
     {
@@ -4167,7 +4192,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 strErrMasProgName = strErrMasProgName + "<br />" + "Please enter Total Number of Program Hours.";
             }
         }
-       
+
 
         if (strErrMasProgName == "")
         {
@@ -4181,7 +4206,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvErrMasProgName.Visible = true;
         }
 
-        
+
     }
 
     protected void lnkMassageprogramAddNewCancel_Click(object sender, EventArgs e)
@@ -4363,7 +4388,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
 
-        
+
 
         if (CheckBoxList3.SelectedItem == null)
         {
@@ -4398,7 +4423,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
 
-       
+
 
 
 
@@ -4415,7 +4440,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvErrAddStaff.Visible = true;
         }
 
-        
+
     }
 
     protected void lnkBackgroundCheckAddNewCancel_Click(object sender, EventArgs e)
@@ -4684,7 +4709,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvErrAddRelSchools.Visible = true;
         }
 
-       
+
     }
     protected void lnkCancelRelatedSchool_Click(object sender, EventArgs e)
     {
@@ -4833,7 +4858,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvErrEditRelatedSchools.Visible = true;
         }
 
-       
+
     }
 
     protected void lnkRelatedSchoolCancelUpdate_Click(object sender, EventArgs e)
@@ -4865,7 +4890,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void ddlOwnAboutBusinessDoc_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+
     }
 
     #endregion
@@ -5236,7 +5261,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     lblGradDate.Text = "02/04/2016";
                     lblCity.Text = "EMERYVILLE";
                     lblState.Text = "California";
-                    
+
                 }
                 else if (ROWIQ1 == 1)
                 {
@@ -6557,7 +6582,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
 
-        
+
     }
     protected void lnkcollegeAtt1AddNewCancel_Click(object sender, EventArgs e)
     {
@@ -7596,7 +7621,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         if (strErrStaffInfoAdministratorInfo == "")
         {
-            
+
         }
         else
         {
@@ -8676,7 +8701,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnerAdminhist1.Visible = false;
         }
     }
-    
+
     #endregion
     #region HistoryQ2
     protected void rblOwnerAdminHistoryQ2_SelectedIndexChanged(object sender, EventArgs e)
@@ -8746,7 +8771,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     //    divgvhist5.Visible = true;
     //}
     #endregion
-    
+
 
     #endregion
 
@@ -9884,7 +9909,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnAdmIns1.Visible = false;
         }
     }
-    
+
     #endregion
     #region HistoryQ2
     protected void rblOwnAdmInsHistoryQ2_SelectedIndexChanged(object sender, EventArgs e)
@@ -9898,7 +9923,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnAdmIns2.Visible = false;
         }
     }
-    
+
     #endregion
     #region HistoryQ3
     protected void rblOwnAdmInsHistoryQ3_SelectedIndexChanged(object sender, EventArgs e)
@@ -9912,7 +9937,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnAdmIns3.Visible = false;
         }
     }
-   
+
     #endregion
     #region HistoryQ4
     protected void rblOwnAdmInsHistoryQ4_SelectedIndexChanged(object sender, EventArgs e)
@@ -9926,7 +9951,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnAdmIns4.Visible = false;
         }
     }
-    
+
     #endregion
     #region HistoryQ5
     protected void rblOwnAdmInsHistoryQ5_SelectedIndexChanged(object sender, EventArgs e)
@@ -9945,7 +9970,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     //    divgvhist5.Visible = true;
     //}
     #endregion
-    
+
 
     #endregion
 
@@ -11086,7 +11111,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnInst1.Visible = false;
         }
     }
-   
+
     #endregion
     #region HistoryQ2
     protected void rblOwnInstHistoryQ2_SelectedIndexChanged(object sender, EventArgs e)
@@ -11100,7 +11125,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnInst2.Visible = false;
         }
     }
-    
+
     #endregion
     #region HistoryQ3
     protected void rblOwnInstHistoryQ3_SelectedIndexChanged(object sender, EventArgs e)
@@ -11114,7 +11139,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnInst3.Visible = false;
         }
     }
-   
+
     #endregion
     #region HistoryQ4
     protected void rblOwnInstHistoryQ4_SelectedIndexChanged(object sender, EventArgs e)
@@ -11128,7 +11153,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnInst4.Visible = false;
         }
     }
-    
+
     #endregion
     #region HistoryQ5
     protected void rblOwnInstHistoryQ5_SelectedIndexChanged(object sender, EventArgs e)
@@ -11142,9 +11167,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             divOwnInst5.Visible = false;
         }
     }
-    
+
     #endregion
-    
+
 
     #endregion
 
@@ -12182,7 +12207,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
     int ROWSubLic = 0;
-    
+
     protected void gvADMININSubjectTaugh_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
@@ -13543,7 +13568,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     #region Staff Info Owner
 
 
-   
+
 
     #region HistoryQ1
     protected void rblOwnerDec1_SelectedIndexChanged(object sender, EventArgs e)
@@ -13633,14 +13658,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     #region HistoryQ6
     protected void rblOwnerDec6_SelectedIndexChanged(object sender, EventArgs e)
     {
-    //    if (rblOwnerDec6.SelectedItem.Text == "Yes")
-    //    {
-    //        divPStaffOwner6.Visible = true;
-    //    }
-    //    else
-    //    {
-    //        divPStaffOwner6.Visible = false;
-    //    }
+        //    if (rblOwnerDec6.SelectedItem.Text == "Yes")
+        //    {
+        //        divPStaffOwner6.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        divPStaffOwner6.Visible = false;
+        //    }
     }
     //protected void btnAddHist5_Click(object sender, EventArgs e)
     //{
@@ -13738,7 +13763,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
 
-       
+
     }
     protected void lnkAdminInfo1AddNewCancel_Click(object sender, EventArgs e)
     {
@@ -13869,7 +13894,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
-       
+
     }
 
     protected void lnkAdminInfo1CancelUpdate_Click(object sender, EventArgs e)
@@ -13902,7 +13927,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     #endregion
 
-     #region AdminInfo2
+    #region AdminInfo2
 
     public int EditIndexAdminInfo2
     {
@@ -13987,7 +14012,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
-        
+
     }
     protected void lnkAdminInfo2AddNewCancel_Click(object sender, EventArgs e)
     {
@@ -14130,7 +14155,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
-        
+
     }
 
     protected void lnkAdminInfo2CancelUpdate_Click(object sender, EventArgs e)
@@ -14355,8 +14380,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             strErrEdiPriMasSclAtte = "Please enter School Name.";
         }
 
-       
-        
+
+
 
         if (txtGradDateEdit1.Text == "")
         {
@@ -14384,7 +14409,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
-       
+
     }
 
     protected void lnkAdminWrkExp1CancelUpdate_Click(object sender, EventArgs e)
@@ -14485,7 +14510,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 strErrAddOtherSchlCWork = strErrAddOtherSchlCWork + "<br />" + "Please enter Date of Employment.";
             }
         }
-           
+
 
         if (strErrAddOtherSchlCWork == "")
         {
@@ -14499,7 +14524,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvErrAddOtherSchlCWork.Visible = true;
         }
 
-        
+
     }
     protected void lnkAdminWrkExp2AddNewCancel_Click(object sender, EventArgs e)
     {
@@ -14629,7 +14654,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
 
-        
+
     }
 
     protected void lnkAdminWrkExp2CancelUpdate_Click(object sender, EventArgs e)
@@ -14750,7 +14775,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
 
-        
+
     }
     protected void lnkAdminWrkExp3AddNewCancel_Click(object sender, EventArgs e)
     {
@@ -14879,7 +14904,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
 
-        
+
     }
 
     protected void lnkAdminWrkExp3CancelUpdate_Click(object sender, EventArgs e)
@@ -14996,7 +15021,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
-        
+
     }
     protected void lnkAdminWrkExp4AddNewCancel_Click(object sender, EventArgs e)
     {
@@ -15111,7 +15136,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 strErrAWEEditPriMsgSclAtten = strErrAWEEditPriMsgSclAtten + "<br />" + "Please enter Date of Employment.";
             }
         }
-            
+
 
         if (strErrAWEEditPriMsgSclAtten == "")
         {
@@ -15126,7 +15151,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
 
-        
+
     }
 
     protected void lnkAdminWrkExp4CancelUpdate_Click(object sender, EventArgs e)
@@ -15352,7 +15377,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     lblownerInfFirstName.Text = "California";
                     lblownerPer.Text = "94203";
                     //lblownerInfoCity.Text = "Sacramento";
-                   // lblownerInfState.Text = "California";
+                    // lblownerInfState.Text = "California";
                 }
                 else if (ROWLocAddress == 1)
                 {
@@ -15360,7 +15385,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     lblownerInfLastName.Text = "Sacramento";
                     lblownerInfFirstName.Text = "California";
                     lblownerPer.Text = "94203";
-                   // lblownerInfoCity.Text = "Sacramento";
+                    // lblownerInfoCity.Text = "Sacramento";
                     //lblownerInfState.Text = "California";
                 }
             }
@@ -15545,7 +15570,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
             txtCourseTitleL2Edit.Text = "Title 1";
             txtCourseHoursL2Edit.Text = "20";
-            
+
         }
 
         catch (Exception ex)
@@ -15727,7 +15752,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
     }
 
-    
+
     #endregion
 
     #endregion
@@ -15772,14 +15797,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             btnStaffInformation_Click(sender, e);
             upStaffInfo_Admin.Visible = true;
         }
-            
 
-        else if  (sessionValue == "SchoolAdminInst")
+
+        else if (sessionValue == "SchoolAdminInst")
         {
             btnStaffInformation_Click(sender, e);
             upStaffInfo_AdministratorInstructor.Visible = true;
         }
-           
+
 
         else if (sessionValue == "SchoolInst")
         {
@@ -15787,7 +15812,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             upStaffInfo_Instructor.Visible = true;
 
         }
-            
+
 
         else if (sessionValue == "SchoolOwner")
         {
@@ -15814,7 +15839,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             upStaffInfo_OwnerInstructor.Visible = true;
         }
 
-        
+
 
     }
 
@@ -15879,10 +15904,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             li_School_Faculty_List.Visible = true;
 
         }
-        
+
         else if (sessionValue == "SchoolContact")
         {
-            
+
             liApplicatinInstructions.Visible = true;
             liMassageTherapistApplication.Visible = true;
             liSection2.Visible = true;
@@ -15894,7 +15919,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             li_Program_Hour_Requirement_Worksheet.Visible = true;
             liPayment.Visible = false;
             liCorrectiveAction.Visible = true;
-            
+
             btnsubappforContct.Visible = false;
 
             if (Session["sUserLoginEmail"].ToString() == "schoolpubinst@inlumon.com")
@@ -15902,7 +15927,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 liSchoolContactStaff.Visible = false;
                 lischoolpubinstStaff.Visible = true;
             }
-                
+
 
         }
 
@@ -15923,7 +15948,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             liStaffInformation.Visible = true;
 
             liCorrectiveAction.Visible = true;
-            
+
             btnstaffpay_visible.Visible = false;
             btnPayNow.Visible = false;
             //btnPaySubmitApplication.Visible = false;
@@ -15985,7 +16010,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             li_Program_Hour_Requirement_Worksheet.Visible = true;
             liPayment.Visible = false;
             liStaffInformation.Visible = true;
-            btnstaffpay_visible.Visible= false;
+            btnstaffpay_visible.Visible = false;
             btnPayNow.Visible = false;
             //btnPaySubmitApplication.Visible = false;
             btnNextBackList.Visible = true;
@@ -15993,7 +16018,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
         else if (sessionValue == "SchoolAdmin")
-        { 
+        {
             liStaffInformation.Visible = true;
             btnNextBackList.Visible = true;
             btnsaveSclContct.Visible = false;
@@ -16007,16 +16032,16 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
 
         else if (sessionValue == "SchoolAdminInst")
-        { 
+        {
             liStaffInformation.Visible = true;
             btnNextBackList.Visible = true;
             btnsaveSclContct.Visible = false;
         }
 
-        
 
 
-        
+
+
         //Session.Remove("sUserLoginInfo");
     }
 
@@ -16144,7 +16169,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
-#region AOS - Additional Online Services Links
+    #region AOS - Additional Online Services Links
 
     public void chkAOSDisplayTab()
     {
@@ -16152,173 +16177,173 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         object sender = new object();
         EventArgs e = new EventArgs();
 
-        if (sessionValue !="")
-        { 
-        liApplicatinInstructions.Visible = false;
-        liMassageTherapistApplication.Visible = false;
-        liSection2.Visible = false;
-        liSection3.Visible = false;
-        li_Background_Checklist.Visible = false;
-        li_Transcript_Checklist.Visible = false;
-        li_Enrollment_Agreement_Checklist.Visible = false;
-        li_Course_Catalog_Checklist.Visible = false;
-        li_Program_Hour_Requirement_Worksheet.Visible = false;
-        liPayment.Visible = false;
-        liStaffInformation.Visible = false;
-        liSection5.Visible = false;
-        liSection4.Visible = false;
-        liSection7.Visible = false;
-        li_Administrator_Work_Experience.Visible = false;
-        li_Administrator_Declaration.Visible = false;
-        li_Instructor_Qualifications.Visible = false;
-        li_Instructor_Declaration.Visible = false;
-        liSection6.Visible = false;
-        li_School_Faculty_List.Visible = false;
-        li_School_ReApproval.Visible = false;
-        li_Student_Eligibility_List.Visible = false;
-        liSchoolContactStaff.Visible = false;
-
-        lischoolpubinstStaff.Visible = false;
-
-        liCorrectiveAction.Visible = false;
-
-        divTopNote.Visible = true;
-
-        if (sessionValue == "MS")
+        if (sessionValue != "")
         {
-            li_Background_Checklist.Visible = true;
-            btnBackCheck_Click(sender, e);
-        }
+            liApplicatinInstructions.Visible = false;
+            liMassageTherapistApplication.Visible = false;
+            liSection2.Visible = false;
+            liSection3.Visible = false;
+            li_Background_Checklist.Visible = false;
+            li_Transcript_Checklist.Visible = false;
+            li_Enrollment_Agreement_Checklist.Visible = false;
+            li_Course_Catalog_Checklist.Visible = false;
+            li_Program_Hour_Requirement_Worksheet.Visible = false;
+            liPayment.Visible = false;
+            liStaffInformation.Visible = false;
+            liSection5.Visible = false;
+            liSection4.Visible = false;
+            liSection7.Visible = false;
+            li_Administrator_Work_Experience.Visible = false;
+            li_Administrator_Declaration.Visible = false;
+            li_Instructor_Qualifications.Visible = false;
+            li_Instructor_Declaration.Visible = false;
+            liSection6.Visible = false;
+            li_School_Faculty_List.Visible = false;
+            li_School_ReApproval.Visible = false;
+            li_Student_Eligibility_List.Visible = false;
+            liSchoolContactStaff.Visible = false;
 
-        else if (sessionValue == "MNA")
-        {
+            lischoolpubinstStaff.Visible = false;
 
-            liMassageTherapistApplication.Visible = true;
-            btnMassageTherapistApplication_Click(sender, e);
-        }
+            liCorrectiveAction.Visible = false;
 
-        else if (sessionValue == "MAP")
-        {
+            divTopNote.Visible = true;
 
-            liSection2.Visible = true;
-            btnSection2_Click(sender, e);
-        }
-
-        else if (sessionValue == "MGNM")
-        {
-
-            liSection3.Visible = true;
-            btnSection3_Click(sender, e);
-        }
-
-
-
-        else if (sessionValue == "MCC")
-        {
-            li_Course_Catalog_Checklist.Visible = true;
-            btnCourCataCheck_Click(sender, e);
-        }
-
-        else if (sessionValue == "MPH")
-        {
-            li_Program_Hour_Requirement_Worksheet.Visible = true;
-            btnProgHourReqWork_Click(sender, e);
-        }
-
-        else if (sessionValue == "MT")
-        {
-            li_Transcript_Checklist.Visible = true;
-            btnTransCheck_Click(sender, e);
-        }
-
-        else if (sessionValue == "MEA")
-        {
-            li_Enrollment_Agreement_Checklist.Visible = true;
-            btnEnrollAgreeCheck_Click(sender, e);
-        }
-
-        else if (sessionValue == "SRA")
-        {
-            li_School_ReApproval.Visible = true;
-            btnSchoolReApp_Click(sender, e);
-        }
-
-        else if (sessionValue == "SGEL")
-        {
-            divTopNote.Visible = false;
-            li_Student_Eligibility_List.Visible = true;
-            btnStudentElgList_Click(sender, e);
-        }
-
-        else if (sessionValue == "PID")
-        {
-            liStaffInformation.Visible = true;
-
-            string sUserLoginInfo = Session["sUserLoginInfo"].ToString();
-            
-            upStaffInfo_Default.Visible = false;
-            upStaffInfo_Admin.Visible = false;
-            upStaffInfo_AdministratorInstructor.Visible = false;
-            upStaffInfo_Instructor.Visible = false;
-            upStaffInfo_Owner.Visible = false;
-            upStaffInfo_OwnerAdministrator.Visible = false;
-            upStaffInfo_OwnerAdminInstructor.Visible = false;
-            upStaffInfo_OwnerInstructor.Visible = false;
-
-            if (sUserLoginInfo == "SchoolAdmin")
+            if (sessionValue == "MS")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_Admin.Visible = true;
+                li_Background_Checklist.Visible = true;
+                btnBackCheck_Click(sender, e);
+            }
+
+            else if (sessionValue == "MNA")
+            {
+
+                liMassageTherapistApplication.Visible = true;
+                btnMassageTherapistApplication_Click(sender, e);
+            }
+
+            else if (sessionValue == "MAP")
+            {
+
+                liSection2.Visible = true;
+                btnSection2_Click(sender, e);
+            }
+
+            else if (sessionValue == "MGNM")
+            {
+
+                liSection3.Visible = true;
+                btnSection3_Click(sender, e);
             }
 
 
-            else if (sUserLoginInfo == "SchoolAdminInst")
+
+            else if (sessionValue == "MCC")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_AdministratorInstructor.Visible = true;
+                li_Course_Catalog_Checklist.Visible = true;
+                btnCourCataCheck_Click(sender, e);
             }
 
-
-            else if (sUserLoginInfo == "SchoolInst")
+            else if (sessionValue == "MPH")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_Instructor.Visible = true;
-
+                li_Program_Hour_Requirement_Worksheet.Visible = true;
+                btnProgHourReqWork_Click(sender, e);
             }
 
-
-            else if (sUserLoginInfo == "SchoolOwner")
+            else if (sessionValue == "MT")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_Owner.Visible = true;
+                li_Transcript_Checklist.Visible = true;
+                btnTransCheck_Click(sender, e);
             }
 
-
-            else if (sUserLoginInfo == "SchoolOwnerAdmin")
+            else if (sessionValue == "MEA")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_OwnerAdministrator.Visible = true;
+                li_Enrollment_Agreement_Checklist.Visible = true;
+                btnEnrollAgreeCheck_Click(sender, e);
             }
 
-            else if (sUserLoginInfo == "SchoolOwnAdminInst")
+            else if (sessionValue == "SRA")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_OwnerAdminInstructor.Visible = true;
+                li_School_ReApproval.Visible = true;
+                btnSchoolReApp_Click(sender, e);
             }
 
-            else if (sUserLoginInfo == "SchoolOwnInst")
+            else if (sessionValue == "SGEL")
             {
-                btnStaffInformation_Click(sender, e);
-                upStaffInfo_OwnerInstructor.Visible = true;
+                divTopNote.Visible = false;
+                li_Student_Eligibility_List.Visible = true;
+                btnStudentElgList_Click(sender, e);
             }
-                       
+
+            else if (sessionValue == "PID")
+            {
+                liStaffInformation.Visible = true;
+
+                string sUserLoginInfo = Session["sUserLoginInfo"].ToString();
+
+                upStaffInfo_Default.Visible = false;
+                upStaffInfo_Admin.Visible = false;
+                upStaffInfo_AdministratorInstructor.Visible = false;
+                upStaffInfo_Instructor.Visible = false;
+                upStaffInfo_Owner.Visible = false;
+                upStaffInfo_OwnerAdministrator.Visible = false;
+                upStaffInfo_OwnerAdminInstructor.Visible = false;
+                upStaffInfo_OwnerInstructor.Visible = false;
+
+                if (sUserLoginInfo == "SchoolAdmin")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_Admin.Visible = true;
+                }
+
+
+                else if (sUserLoginInfo == "SchoolAdminInst")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_AdministratorInstructor.Visible = true;
+                }
+
+
+                else if (sUserLoginInfo == "SchoolInst")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_Instructor.Visible = true;
+
+                }
+
+
+                else if (sUserLoginInfo == "SchoolOwner")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_Owner.Visible = true;
+                }
+
+
+                else if (sUserLoginInfo == "SchoolOwnerAdmin")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_OwnerAdministrator.Visible = true;
+                }
+
+                else if (sUserLoginInfo == "SchoolOwnAdminInst")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_OwnerAdminInstructor.Visible = true;
+                }
+
+                else if (sUserLoginInfo == "SchoolOwnInst")
+                {
+                    btnStaffInformation_Click(sender, e);
+                    upStaffInfo_OwnerInstructor.Visible = true;
+                }
+
+            }
         }
+
+
     }
 
-        
-}
-
-#endregion
+    #endregion
 
 
 
@@ -16328,10 +16353,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         if (payment_stafftab.Visible == true)
             payment_stafftab.Visible = false;
-            
+
         else
             payment_stafftab.Visible = true;
-        
+
     }
 
 
@@ -16339,14 +16364,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     protected void btnschoolpubinstAddNew_Click(object sender, EventArgs e)
     {
         divAddbtnschoolpubinst.Visible = false;
-        divAddschoolpubinst.Visible = true;  
+        divAddschoolpubinst.Visible = true;
 
     }
 
     protected void btnsclpubinstAddNewSave_Click(object sender, EventArgs e)
     {
         divAddbtnschoolpubinst.Visible = true;
-        divAddschoolpubinst.Visible = false;  
+        divAddschoolpubinst.Visible = false;
     }
 
     protected void lnksclpubinstAddNewCancel_Click(object sender, EventArgs e)
@@ -16396,7 +16421,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
         catch { }
-        
+
     }
 
     protected void txtAddProgrameHours_TextChanged(object sender, EventArgs e)
@@ -16416,7 +16441,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
         catch { }
-        
+
     }
     protected void btnSigntureAdd_Click(object sender, EventArgs e)
     {
@@ -16472,7 +16497,7 @@ public class ActiveMenuRS
 
 public class PreviousSchoolRQ
 {
-    public int  ProviderNameId { get; set; }
+    public int ProviderNameId { get; set; }
     public int ApplicationId { get; set; }
     public int IndividualId { get; set; }
     public string ProviderName { get; set; }

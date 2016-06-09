@@ -553,10 +553,6 @@ public class UIHelper
     }
 
 
-
-
-
-
     public static bool IsTest
     {
         get
@@ -564,6 +560,90 @@ public class UIHelper
             return true;
         }
     }
+
+
+
+
+
+    // --- Created By Ankit --- //
+    public static Int32 ProviderIdFromSession()
+    {
+        String Username = string.Empty;
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+        {
+            return sInfo.ProviderId;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static Int32 ApplicationIdFromSession()
+    {
+        String Username = string.Empty;
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+        {
+            return sInfo.ApplicationId;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static Int32 GetProviderUserIdFromSession()
+    {
+        String Username = string.Empty;
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+        {
+            return sInfo.UserId;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public static string GetProviderKeyFromSession()
+    {
+        String Username = string.Empty;
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+        {
+            return sInfo.Key;
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    //public static string GetInstructionIdFromSession()
+    //{
+    //    String Username = string.Empty;
+    //    SessionManager objS = new SessionManager();
+    //    sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+    //    if (sInfo != null)
+    //    {
+    //        return sInfo.Key;
+    //    }
+    //    else
+    //    {
+    //        return "";
+    //    }
+    //}
+
+    // --- Created By Ankit --- //
+
+
 }
 
 public class GenericToDataTable
@@ -623,19 +703,19 @@ public class GenericToDataTable
 public class Encryption64
 {
     static private byte[] key = {
-		
-	};
-    static private byte[] IV = {
-		0x12,
-		0x34,
-		0x56,
-		0x78,
-		0x90,
-		0xab,
-		0xcd,
-		0xef
 
-	};
+    };
+    static private byte[] IV = {
+        0x12,
+        0x34,
+        0x56,
+        0x78,
+        0x90,
+        0xab,
+        0xcd,
+        0xef
+
+    };
     public static string DecryptString(string stringToDecrypt, string sEncryptionKey)
     {
         byte[] inputByteArray = new byte[stringToDecrypt.Length + 1];
@@ -678,8 +758,7 @@ public class Encryption64
         {
             return e.Message;
         }
-    }
-
+    }    
 
 }
 

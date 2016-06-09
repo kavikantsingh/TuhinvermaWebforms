@@ -109,7 +109,7 @@
                 <fieldset>
 
                     <section>
-                        <asp:Literal ID="ltrError" Visible="false" Text="Please Create new password and login again." style="color: red;" runat="server" />
+                        <asp:Label ID="ltrError" Visible="false" Text="Please Create new password and login again." Style="color: red;" runat="server" />
                         <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
                     </section>
 

@@ -18,8 +18,8 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         ltrError.Text = "";
         string validateMsg = "";
-        validateMsg += ValidationHelper.IsValidEmail(txtEmail.Text, "<li>Please enter valid Username (Email).</li>");
-        validateMsg += ValidationHelper.IsRequired(txtPassword.Text, "<li>Please enter Password.</li>", true);
+        validateMsg += ValidationHelper.IsValidEmail(txtEmail.Text, "<li>" + ErrorMessage.EmailFormat + "</li>");
+        validateMsg += ValidationHelper.IsRequired(txtPassword.Text, "<li>" + ErrorMessage.Password + "</li>", true);
 
         if (!string.IsNullOrEmpty(validateMsg))
         {
@@ -39,31 +39,25 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         if (res.Status)
         {
-            sIndividualLoginInfo objInfo = new sIndividualLoginInfo();
-            objInfo.Password = "";
-            objInfo.Applicant_Id = 1;
-            objInfo.Last_Name = "";
-            objInfo.First_Name = "";
-            objInfo.Application_Number = res.ApplicationId.ToString();
-            objInfo.User_Name = res.UserId.ToString();
-            objInfo.Email = txtEmail.Text.Trim();
-            objInfo.Individual_ID = res.IndividualId;
-            Session["sObjSchoolLoginInfo"] = objInfo;
-            Session["sUserLoginInfo"] = "SchoolContact";
-            Session["sUserLoginEmail"] = txtEmail.Text.Trim();
+            sSchoolLoginInfo sInfo = new sSchoolLoginInfo();
 
-            //Session["ApplicationId"] = res.ApplicationId;
-            //Session["ApplicationStatus"] = res.ApplicationStatus;
-            //Session["IndividualId"] = res.IndividualId;
-            //Session["IndividualNameId"] = res.IndividualNameId;
-            //Session["ProviderId"] = res.ProviderId;
-            //Session["UserId"] = res.UserId;
-            //Session["Key"] = res.Key;
+            sInfo.ApplicationStatus = res.ApplicationStatus;
+            sInfo.Key = res.Key;
+            sInfo.ApplicationId = res.ApplicationId;
+            sInfo.IndividualId = res.IndividualId;
+            sInfo.IndividualNameId = res.IndividualNameId;
+            sInfo.ProviderId = res.ProviderId;
+            sInfo.UserId = res.UserId;
+            sInfo.IsPasswordTemporary = res.IsPasswordTemporary;
+            
+            Session["sObjSchoolLoginInfo"] = sInfo;
+            Session["sUserLoginInfo"] = "SchoolContact";
+            Session["sUserLoginEmail"] = txtEmail.Text.Trim();      
 
             if (res.IsPasswordTemporary)
                 Response.Redirect("ResetPassword.aspx?isTemp=1", false);
 
-            if (res.ApplicationStatus == "Submitted")
+            else if (res.ApplicationStatus == "Submitted")
                 Response.Redirect("SchoolDashboard.aspx", false);
             else
                 Response.Redirect("SchoolApplication.aspx", false);

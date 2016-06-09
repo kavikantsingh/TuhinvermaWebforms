@@ -96,7 +96,7 @@
             <fieldset>
                 <section>
 
-                    <asp:Literal ID="ltrError" runat="server" />
+                    <asp:Label Style="color: red" ID="ltrError" runat="server" />
                     <div id="error_validation" class="address-box posFixed" style="display: none; color: red;"></div>
 
                 </section>
