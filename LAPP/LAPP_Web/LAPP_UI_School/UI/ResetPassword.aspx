@@ -7,19 +7,14 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />
-    <script src="../../App_Themes/Login/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-    <link href="../../App_Themes/Login/css/BeatPicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../App_Themes/Login/css/font-awesome.css" rel="stylesheet" type="text/css" />    
     <link href="../../App_Themes/Login/css/forms.css" rel="stylesheet" type="text/css" />
 
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/style.css" rel="stylesheet" type="text/css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="../../App_Themes/Agency/js/jquery.mask.min.js" type="text/javascript"></script>
 
-
-    <script type="text/javascript" src="../../Validation/TextboxFormating.js"></script>
 
     <!--[if lt IE 9]>
 			<link rel="stylesheet" href="../../App_Themes/Login/css/sky-forms-ie8.css">
