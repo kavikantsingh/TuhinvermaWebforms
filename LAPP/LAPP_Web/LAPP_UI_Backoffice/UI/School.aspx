@@ -278,6 +278,108 @@ h2 a, .demo {position:relative; height:1%}
             $('#error_validation').html(error);
         }
     </script>
+     <%--- School Eligibility validation***--%>
+    <script>
+        function btnApprovalAgencyAddNewSave() {
+            $('#error_validation').text('');
+            var error = '';
+            var ddlAddApprovalAgency = ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlAddApprovalAgency%><br/>', '#<%= ddlAddApprovalAgency.ClientID %>', $('#<%=ddlAddApprovalAgency.ClientID %>').val());
+            var txtappagenDocNAme = ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.txtappagenDocNAme%><br/>', '#<%= txtappagenDocNAme.ClientID %>', $('#<%=txtappagenDocNAme.ClientID %>').val());
+            var txtAddExpirationDate = CheckDateFormat('<span class="notok"></span> <%=ErrorMessage.DateFormat%><br/>', '#<%= txtAddExpirationDate.ClientID %>', $('#<%= txtAddExpirationDate.ClientID %>').val());
+            var ddlAppAgencSup = ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlAppAgencSup%><br/>', '#<%= ddlAppAgencSup.ClientID %>', $('#<%=ddlAppAgencSup.ClientID %>').val());
+            error = ddlAddApprovalAgency + txtAddExpirationDate + txtappagenDocNAme + ddlAppAgencSup;
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnApprovalAgencyAddNewSave').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnApprovalAgencyAddNewSave').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
+        function btnMassageprogramAddNewSave() {
+            $('#error_validation').text('');
+            var error = '';
+            var txtAddmessageProgName = ValidateTextbox('<span class="notok"></span>  <%=ErrorMessage.txtAddmessageProgName%><br/>', '#<%= txtAddMassageProgName.ClientID %>', $('#<%=txtAddMassageProgName.ClientID %>').val());
+            var txtAddProgrameHours = ValidateTextbox('<span class="notok"></span>  <%=ErrorMessage.txtAddProgrameHours%><br/>', '#<%= txtAddProgrameHours.ClientID %>', $('#<%=txtAddProgrameHours.ClientID %>').val());
+            error = txtAddmessageProgName + txtAddProgrameHours;
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnMassageprogramAddNewSave').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnMassageprogramAddNewSave').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+    </script>
+    <%--- School Eligibility validation***--%>
+    <script>
+        function btnSaveAboutBusinessDoc() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.TextBox141%><br/>', '#<%= txtDocNameAboutBusinessDoc.ClientID %>', $('#<%=txtDocNameAboutBusinessDoc.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlOwnAboutBusinessDoc%><br/> ', '#<%=ddlOwnAboutBusinessDoc.ClientID%>', $('#<%=ddlOwnAboutBusinessDoc.ClientID %>').val());
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnSaveAboutBusinessDoc').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnSaveAboutBusinessDoc').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
+        function btnSaveAboutOwnership() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.TextBox141%><br/>', '#<%= txtDocNameAboutOwnership.ClientID %>', $('#<%=txtDocNameAboutOwnership.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlOwnAboutBusinessDoc%><br/> ', '#<%=ddlOwnAboutOwnership.ClientID%>', $('#<%=ddlOwnAboutOwnership.ClientID %>').val());
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnSaveAboutOwnership').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnSaveAboutOwnership').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+    </script>
     <!--<![endif]-->
     <link href="../../App_Themes/Theme1/css/Individual.css?" rel="stylesheet" type="text/css" />
     <style>
@@ -3796,7 +3898,7 @@ bottom buttonalignment"
                                                             </table>
                                                             <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                                 <span class="fltrt">
-                                                                    <asp:Button ID="btnApprovalAgencyAddNewSave" CssClass="buttonGreen medium"
+                                                                    <asp:Button ID="btnApprovalAgencyAddNewSave" CssClass="buttonGreen medium" OnClientClick="btnApprovalAgencyAddNewSave()"
                                                                         runat="server" Text="Save" CausesValidation="true" OnClick="btnApprovalAgencyAddNewSave_Click" />
                                                                     <asp:LinkButton ID="lnkApprovalAgencyAddNewCancel" CssClass="secondary medium bottom buttonalignment"
                                                                         runat="server" OnClick="lnkApprovalAgencyAddNewCancel_Click">Cancel</asp:LinkButton></span>
@@ -4055,7 +4157,7 @@ bottom buttonalignment"
                                                             </table>
                                                             <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                                 <span class="fltrt">
-                                                                    <asp:Button ID="btnMassageprogramAddNewSave" CssClass="buttonGreen medium"
+                                                                    <asp:Button ID="btnMassageprogramAddNewSave" CssClass="buttonGreen medium" OnClientClick="btnMassageprogramAddNewSave()"
                                                                         runat="server" Text="Save" CausesValidation="true" OnClick="btnMassageprogramAddNewSave_Click" />
                                                                     <asp:LinkButton ID="lnkMassageprogramAddNewCancel" CssClass="secondary medium bottom buttonalignment"
                                                                         runat="server" OnClick="lnkMassageprogramAddNewCancel_Click">Cancel</asp:LinkButton></span>
@@ -4395,7 +4497,7 @@ include continuing education classes or other programs. Put “0” if the progr
 
                                                                             <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                                                 <span class="fltrt">
-                                                                                    <asp:Button ID="btnSaveAboutBusinessDoc" CssClass="buttonGreen medium"
+                                                                                    <asp:Button ID="btnSaveAboutBusinessDoc" CssClass="buttonGreen medium" OnClientClick="btnSaveAboutBusinessDoc()"
                                                                                         runat="server" Text="Save" CausesValidation="true" />
                                                                                     <asp:LinkButton ID="lblCancelAboutBusinessDoc" CssClass="secondary medium bottom buttonalignment"
                                                                                         runat="server">Cancel</asp:LinkButton></span>
@@ -4452,7 +4554,7 @@ include continuing education classes or other programs. Put “0” if the progr
 
                                                                             <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                                                 <span class="fltrt">
-                                                                                    <asp:Button ID="btnSaveAboutOwnership" CssClass="buttonGreen medium"
+                                                                                    <asp:Button ID="btnSaveAboutOwnership" CssClass="buttonGreen medium" OnClientClick="btnSaveAboutOwnership()"
                                                                                         runat="server" Text="Save" CausesValidation="true" />
                                                                                     <asp:LinkButton ID="lblCancelAboutOwnership" CssClass="secondary medium bottom buttonalignment"
                                                                                         runat="server">Cancel</asp:LinkButton></span>

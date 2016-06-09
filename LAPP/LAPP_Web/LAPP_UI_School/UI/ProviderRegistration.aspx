@@ -16,6 +16,8 @@
     <link href="../../App_Themes/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Login/css/style.css" rel="stylesheet" type="text/css" />
 
+    <script src="../../Validation/TextboxFormating.js"></script>
+
     <!--[if lt IE 9]>
 			<link rel="stylesheet" href="../../App_Themes/Login/css/sky-forms-ie8.css">
 		<![endif]-->
@@ -151,7 +153,7 @@
 
                     <section>
                         <label class="input">
-                            <input type="text" id="txtSchoolName" class="OnlyAlphabet" placeholder="School Name">
+                            <input type="text" id="txtSchoolName" placeholder="School Name">
                             <b class="tooltip tooltip-bottom-right">Please Enter School Name</b>
                         </label>
                     </section>
@@ -188,15 +190,14 @@
             var error = '';
             error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.FirstName%><br/>', '#txtFirstName', $('#txtFirstName').val());
             error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.LastName%><br/>', '#txtLastName', $('#txtLastName').val());
-            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.DateofBirth%><br/>', '#txtDOB', $('#txtDOB').val());
-            error += ValidateEmail('<span class="notok"></span> <%=ErrorMessage.EmailFormat%><br/>', '#txtEmail', $('#txtEmail').val());
+            error += ValidateDate('<span class="notok"></span> <%=ErrorMessage.FutureDate%><br/>', '<span class="notok"></span> <%=ErrorMessage.DateFormat%><br/>', '<span class="notok"></span> <%=ErrorMessage.DateofBirth%><br/>', '#txtDOB', $('#txtDOB').val());
+            error += ValidateEmail('<span class="notok"></span> <%=ErrorMessage.EmailFormat%><br/>', '<span class="notok"></span> <%=ErrorMessage.Email%><br/>', '#txtEmail', $('#txtEmail').val());
             error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.SchoolName%><br/>', '#txtSchoolName', $('#txtSchoolName').val());
 
             if (error != '') {
                 $('#error_validation').show();
                 $('#btnRegister').attr('type', 'button');
                 $(document).scrollTop(0);
-
                 $('#error_validation').html(error);
                 return false;
             }
