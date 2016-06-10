@@ -114,5 +114,6 @@ public class ErrorMessage
     public static string SiteVisitDate="Please enter site visit date.";
     public static string TypeofSiteVisit="Please select type of site visit.";
     public static string SiteInspector = "Please select site inspector.";
+    public static string Comment = "Please enter comment.";
 
 }

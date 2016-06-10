@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucNotes.ascx.cs" Inherits="NVBMT_WebProject.Modules.IndiVidual.ucNotes" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>--%>
 <style>
     .notesrepeater {
         text-align: justify;
@@ -43,6 +43,10 @@
         min-height: 20px;
     }
 </style>
+    
+<div>
+    <div id="error_validation_Notes" class="address-box posFixed" style=" display:none; color:red; margin-top: 0px; border-radius: 5px;"></div>
+</div>
 <div class="clear textBoxAlign" style="padding-bottom: 40px;">
     <div class="brdr radius">
         <div class="blockheader" style="margin-top: 0px;">
@@ -64,12 +68,12 @@
                         <td colspan="3" style="width: 131px;">
                             <asp:TextBox CssClass="" autocomplete="off" ID="txtNewNote" Style="width: 545px; height: 30px;"
                                 TextMode="MultiLine" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="revNewNote" ValidationGroup="VGNote" ControlToValidate="txtNewNote"
+                            <%--<asp:RequiredFieldValidator ID="revNewNote" ValidationGroup="VGNote" ControlToValidate="txtNewNote"
                                 Text="*" ForeColor="Red" Display="None" SetFocusOnError="True" runat="server"
                                 ErrorMessage="Please enter new note."></asp:RequiredFieldValidator>
                             <asp:ValidatorCalloutExtender ID="vceLastName" runat="server" TargetControlID="revNewNote"
                                 PopupPosition="BottomLeft" HighlightCssClass="error">
-                            </asp:ValidatorCalloutExtender>
+                            </asp:ValidatorCalloutExtender>--%>
                         </td>
                     </tr>
                     <tr>
@@ -177,7 +181,7 @@
     </div>
     <div class="toolBar" style="padding: 4px;">
         <span class="fltrt">
-            <asp:Button ID="btnSavePersonal" ValidationGroup="VGNote" CausesValidation="true"
+            <asp:Button ID="btnSavePersonal" ValidationGroup="VGNote" CausesValidation="true" OnClientClick="btnSavePersonal()"
                 CssClass="buttonGreen medium" runat="server" Text="Save" OnClick="btnSavePersonal_Click" />
             <asp:LinkButton CssClass="secondary medium bottom" ID="lnkCancelPersonal" runat="server"
                 OnClick="lnkCancelPersonal_Click">Cancel</asp:LinkButton>

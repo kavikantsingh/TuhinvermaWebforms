@@ -139,6 +139,11 @@ h2 a, .demo {position:relative; height:1%}
 </script>
 <![endif]-->
     <!--[if !lt IE 6]><!-->
+    <style>
+        .error{
+            background: #ffebeb !important;
+        }
+    </style>
     <script type="text/javascript">
         function UpdatePanel_Function_Individual() {
 
@@ -412,7 +417,214 @@ h2 a, .demo {position:relative; height:1%}
             }
             $('#error_validation').html(error);
         }
+        function btnSaveAboutFacility() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.TextBox141%><br/>', '#<%= txtDocNameAboutFacility.ClientID %>', $('#<%=txtDocNameAboutFacility.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlOwnAboutBusinessDoc%><br/> ', '#<%=ddlOwnAboutFacility.ClientID%>', $('#<%=ddlOwnAboutFacility.ClientID %>').val());
 
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnSaveAboutFacility').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnSaveAboutFacility').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
+        function btnSaveAboutAdvertising() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.TextBox141%><br/>', '#<%= txtDocNameAboutAdvertising.ClientID %>', $('#<%=txtDocNameAboutAdvertising.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlOwnAboutBusinessDoc%><br/> ', '#<%=ddlOwnAboutAdvertising.ClientID%>', $('#<%=ddlOwnAboutAdvertising.ClientID %>').val());
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnSaveAboutAdvertising').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnSaveAboutAdvertising').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+    </script>
+    <%---Staff ---%>
+    <script>
+        function btnBackgroundCheckAddNewSave() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.LastName%><br/>', '#<%= txtBackCheckLastName.ClientID %>', $('#<%= txtBackCheckLastName.ClientID %>').val());
+            error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.FirstName%><br/>', '#<%= txtBackCheckFirstName.ClientID %>', $('#<%=txtBackCheckFirstName.ClientID %>').val());
+            error += ValidateEmail('<span class="notok"></span> <%=ErrorMessage.EmailFormat%> <br/>', '<span class="notok"></span> <%=ErrorMessage.Email%><br/>', '#<%= txtaddstaffEmail.ClientID %>', $('#<%=txtaddstaffEmail.ClientID %>').val());
+            error += ValidateCheckboxList('<span class="notok"></span> <%=ErrorMessage.CheckBoxList3%><br/>', '<%= CheckBoxList3.ClientID %>', $('#<%=CheckBoxList3.ClientID %>').val());
+            error += ValidateRadioList('<span class="notok"></span> <%=ErrorMessage.rblBackgroundChekReq%><br/>', '<%= rblBackgroundChekReq.ClientID %>', $('#<%=rblBackgroundChekReq.ClientID %>').val());
+            var RDO = document.getElementById('<%= rblBackgroundChekReq.ClientID %>');
+            var radio = RDO.getElementsByTagName("input");
+            var RDO2 = document.getElementById('<%= RadioButtonList2.ClientID %>');
+            var radio2 = RDO2.getElementsByTagName("input");
+            //RadioButtonList2
+            if (radio[1].checked) {
+                radio2[0].checked = true;
+                if ($('#<%= txtchkCAMTC.ClientID %>').val() == '') {
+                    error += ValidateTextbox('<span class="notok"></span> <%=ErrorMessage.NoRegion%><br/>', '#<%= txtchkCAMTC.ClientID %>', $('#<%=txtchkCAMTC.ClientID %>').val());
+                }
+            }
+            else {
+                $('#<%= txtchkCAMTC.ClientID %>').removeClass("error");
+                radio2[0].checked = false;
+            }
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnBackgroundCheckAddNewSave').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnBackgroundCheckAddNewSave').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+        function btnsaveSclContct() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.TextBox141%><br/>', '#<%= txtDocNameAboutStaff.ClientID %>', $('#<%=txtDocNameAboutStaff.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlOwnAboutBusinessDoc%><br/> ', '#<%=ddlOwnAboutStaff.ClientID%>', $('#<%=ddlOwnAboutStaff.ClientID %>').val());
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnsaveSclContct').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnsaveSclContct').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+    </script>
+    <%---Curriculumn ---%>
+    <script>
+    function btnSaveAboutCurriculum() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.TextBox141%><br/>', '#<%= txtDocNameAboutCurriculum.ClientID %>', $('#<%=txtDocNameAboutCurriculum.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class="notok"></span> <%=ErrorMessage.ddlOwnAboutBusinessDoc%><br/> ', '#<%=ddlOwnAboutCurriculum.ClientID%>', $('#<%=ddlOwnAboutCurriculum.ClientID %>').val());
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnSaveAboutCurriculum').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnSaveAboutCurriculum').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+        function btnNextProHo() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.txtAddProgrameHours%><br/>', '#<%= txtcarculam.ClientID %>', $('#<%=txtcarculam.ClientID %>').val());            
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_btnNextProHo').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_btnNextProHo').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
+    </script>
+    <%---Complaine ---%>
+    <script>
+        function btnSaveAboutBusinessDoc() {
+            $('#error_validation').text('');
+            var error = '';
+            error += CheckDate('<span class="notok"></span><%=ErrorMessage.FutureDate%><br/>', '<span class="notok"></span><%=ErrorMessage.DateFormat%><br/>', '#ContentPlaceHolder1_ucESDSclInfoComplaint2_txtnameDate', $('#ContentPlaceHolder1_ucESDSclInfoComplaint2_txtnameDate').val());
+            error += CheckDateFormat('<span class="notok"></span><%=ErrorMessage.DateFormat%><br/>', '#ContentPlaceHolder1_ucESDSclInfoComplaint2_txtResolutionDate', $('#ContentPlaceHolder1_ucESDSclInfoComplaint2_txtResolutionDate').val());
+
+        if (error != '') {
+            $('#error_validation').show();
+            $('#ContentPlaceHolder1_ucESDSclInfoComplaint2_btnSaveAboutBusinessDoc').attr('type', 'button');
+        var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+        if (pnl == '') {
+            $(document).scrollTop(657);
+        }
+        else {
+            $(document).scrollTop(465);
+        }
+    }
+    else {
+        $('#error_validation').hide();
+        $('#ContentPlaceHolder1_ucESDSclInfoComplaint2_btnSaveAboutBusinessDoc').attr('type', 'submit');
+    }
+    $('#error_validation').html(error);
+}
+</script>
+    <%---Notes ---%>
+    <script>
+        function btnSavePersonal() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.Comment%><br/>', '#ContentPlaceHolder1_ucNotes1_txtNewNote', $('#ContentPlaceHolder1_ucNotes1_txtNewNote').val());
+            error += ValidateTextbox('<span class="notok"></span><%=ErrorMessage.Comment%><br/>', '#ContentPlaceHolder1_ucNotes2_txtNewNote', $('#ContentPlaceHolder1_ucNotes2_txtNewNote').val());
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_ucNotes1_btnSavePersonal').attr('type', 'button');
+                $('#ContentPlaceHolder1_ucNotes2_btnSavePersonal').attr('type', 'button');
+                
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_ucNotes1_btnSavePersonal').attr('type', 'submit');
+                $('#ContentPlaceHolder1_ucNotes2_btnSavePersonal').attr('type', 'button');
+            }
+            $('#error_validation').html(error);
+        }
     </script>
     <!--<![endif]-->
     <link href="../../App_Themes/Theme1/css/Individual.css?" rel="stylesheet" type="text/css" />
@@ -942,7 +1154,7 @@ table { border-collapse: collapse; border-spacing: 0px;}
                                                                 <asp:HyperLink ID="hlPrintPocketCard" runat="server" Text="Print Pocket Card" CssClass="buttonGreen small"
                                                                     NavigateUrl="~/UI/DownloadPocketCard.aspx?MemberId=" Target="_blank"></asp:HyperLink>
                                                                 <br />
-                                                                <asp:Button ID="btnEmailPocketCard" Width="120px" runat="server" Text="Email Pocket Card"
+                                                                <asp:Button ID="btnEmailPocketCard" Width="120px" runat="server" Text="Email Pocket Card" placeholder="joe@email.com"
                                                                     CssClass="buttonGreen small" />
                                                             </ContentTemplate>
                                                         </asp:UpdatePanel>
@@ -1208,7 +1420,7 @@ table { border-collapse: collapse; border-spacing: 0px;}
                                                                     <div class="clear">
                                                                         &nbsp;
                                                                     </div>
-                                                                    <asp:Button ID="Button3" Width="125px" runat="server" Text="Email Pocket Card"
+                                                                    <asp:Button ID="Button3" Width="125px" runat="server" Text="Email Pocket Card" placeholder="joe@email.com"
                                                                         CssClass="buttonGreen small" Style="display: none;" />
                                                                 </ContentTemplate>
                                                             </asp:UpdatePanel>
@@ -1490,7 +1702,7 @@ capitalize-text NewAppPersonalTxtbx"
                                                                             </label>
                                                                         </td>
                                                                         <td style="width: 180px;">
-                                                                            <asp:TextBox ID="txtSchoolTel" runat="server" Style="width: 170px;" CssClass="phone_us"
+                                                                            <asp:TextBox ID="txtSchoolTel" runat="server" Style="width: 170px;" CssClass="phone_us" placeholder="(xxx) xxx-xxxx"
                                                                                 autocomplete="off"
                                                                                 MaxLength="14"></asp:TextBox>
                                                                         </td>
@@ -1508,7 +1720,7 @@ capitalize-text NewAppPersonalTxtbx"
                                                                             <asp:TextBox ID="txtschoolwebsite" runat="server" CssClass="inputTextbox 
 
 NewAppPersonalTxtbx"
-                                                                                autocomplete="off"
+                                                                                autocomplete="off" placeholder="www.websitename.com"
                                                                                 MaxLength="150"></asp:TextBox>
                                                                         </td>
                                                                     </tr>
@@ -2779,7 +2991,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </label>
                                                                 </td>
                                                                 <td style="width: 150px;">
-                                                                    <asp:TextBox ID="txtDirectorEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"
+                                                                    <asp:TextBox ID="txtDirectorEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"
                                                                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                                                                 </td>
                                                             </tr>
@@ -2803,7 +3015,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                 </label>
                                                             </td>
                                                             <td style="width: 151px;">
-                                                                <asp:TextBox ID="txtDirectorTel" runat="server" CssClass="phone_us" autocomplete="off"
+                                                                <asp:TextBox ID="txtDirectorTel" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx"
                                                                     Width="170px" MaxLength="14"></asp:TextBox>
 
                                                             </td>
@@ -2817,7 +3029,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </label>
                                                                 </td>
                                                                 <td style="width: 151px;">
-                                                                    <asp:TextBox ID="TextBox142" runat="server" CssClass="phone_us" autocomplete="off"
+                                                                    <asp:TextBox ID="TextBox142" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx"
                                                                         Width="170px" MaxLength="14"></asp:TextBox>
 
                                                                 </td>
@@ -2855,7 +3067,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </label>
                                                                 </td>
                                                                 <td style="width: 150px;">
-                                                                    <asp:TextBox ID="txtApplicationEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"
+                                                                    <asp:TextBox ID="txtApplicationEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"
                                                                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                                                                 </td>
                                                             </tr>
@@ -2879,7 +3091,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                 </label>
                                                             </td>
                                                             <td style="width: 151px;">
-                                                                <asp:TextBox ID="txtApplicationNum" runat="server" CssClass="phone_us" autocomplete="off"
+                                                                <asp:TextBox ID="txtApplicationNum" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx"
                                                                     Width="170px" MaxLength="14"></asp:TextBox>
 
                                                             </td>
@@ -2893,7 +3105,7 @@ XXXXX-XXXX or XXXXX"></asp:TextBox>
                                                                     </label>
                                                                 </td>
                                                                 <td style="width: 151px;">
-                                                                    <asp:TextBox ID="TextBox143" runat="server" CssClass="phone_us" autocomplete="off"
+                                                                    <asp:TextBox ID="TextBox143" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx"
                                                                         Width="170px" MaxLength="14"></asp:TextBox>
 
                                                                 </td>
@@ -3617,7 +3829,7 @@ bottom buttonalignment"
                                                                                                 </label>
                                                                                             </td>   
                                                                                             <td>
-                                                                                                <asp:TextBox ID="TextBox15" runat="server"></asp:TextBox>
+                                                                                                <asp:TextBox ID="TextBox15" CssClass="inputTextbox calender" runat="server" placeholder="MM/DD/YYYY"></asp:TextBox>
                                                                                             </td>
         <td></td>
         <td></td>
@@ -4004,7 +4216,7 @@ bottom buttonalignment"
                                                                                                     </label>
                                                                                                 </td>
                                                                                                 <td>
-                                                                                                    <asp:TextBox ID="txtExpirationDateEdit" runat="server" CssClass="inputTextbox calender"></asp:TextBox>
+                                                                                                    <asp:TextBox ID="txtExpirationDateEdit" runat="server" CssClass="inputTextbox calender" placeholder="MM/DD/YYYY"></asp:TextBox>
                                                                                                 </td>
 
                                                                                             </tr>
@@ -4792,7 +5004,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                 </label>
                                                                                                             </td>
                                                                                                             <td>
-                                                                                                                <asp:TextBox ID="TextBox10" runat="server" Width="135px" CssClass="inputTextbox NewAppPersonalTxtbx phone_us"></asp:TextBox>
+                                                                                                                <asp:TextBox ID="TextBox10" placeholder="(xxx) xxx-xxxx" runat="server" Width="135px" CssClass="inputTextbox NewAppPersonalTxtbx phone_us"></asp:TextBox>
                                                                                                                 <asp:CheckBox ID="CheckBox58" runat="server" Style="margin-left: 5px;" Text="Mobile" />
                                                                                                             </td>
                                                                                                             <td class="txtalgnrgt" style="width: 143px;">
@@ -4801,7 +5013,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                 </label>
                                                                                                             </td>
                                                                                                             <td>
-                                                                                                                <asp:TextBox ID="TextBox11" runat="server" Style="width: 168px !important;" CssClass="inputTextbox NewAppPersonalTxtbx"></asp:TextBox>
+                                                                                                                <asp:TextBox ID="TextBox11" runat="server" Style="width: 168px !important;" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="www.websitename.com"></asp:TextBox>
                                                                                                             </td>
                                                                                                         </tr>
                                                                                                         <tr>
@@ -4811,7 +5023,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                 </label>
                                                                                                             </td>
                                                                                                             <td>
-                                                                                                                <asp:TextBox ID="TextBox12" Style="width: 88% !important;" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"></asp:TextBox>
+                                                                                                                <asp:TextBox ID="TextBox12" Style="width: 88% !important;" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"></asp:TextBox>
                                                                                                             </td>
                                                                                                             <td class="txtalgnrgt"></td>
                                                                                                             <td>
@@ -4892,7 +5104,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                                             </label>
                                                                                                                                         </td>
                                                                                                                                         <td>
-                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessContactEdit" Style="width: 146px !important;" runat="server"
+                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessContactEdit" Style="width: 146px !important;" runat="server" placeholder="(xxx) xxx-xxxx"
                                                                                                                                                 CssClass="inputTextbox phone_us"></asp:TextBox>
                                                                                                                                         </td>
                                                                                                                                     </tr>
@@ -5025,7 +5237,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                                             </label>
                                                                                                                                         </td>
                                                                                                                                         <td>
-                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessPhoneEdit" runat="server" CssClass="inputTextbox workinfo NewAppPersonalTxtbx phone_us"></asp:TextBox>
+                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessPhoneEdit" runat="server" CssClass="inputTextbox workinfo NewAppPersonalTxtbx phone_us" placeholder="(xxx) xxx-xxxx"></asp:TextBox>
                                                                                                                                         </td>
                                                                                                                                         <td class="txtalgnrgt" style="width: 178px;">
                                                                                                                                             <label class="input-label">
@@ -5033,7 +5245,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                                             </label>
                                                                                                                                         </td>
                                                                                                                                         <td>
-                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessWebsiteEdit" runat="server" CssClass="inputTextbox workinfo NewAppPersonalTxtbx"></asp:TextBox>
+                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessWebsiteEdit" runat="server" CssClass="inputTextbox workinfo NewAppPersonalTxtbx" placeholder="www.websitename.com"></asp:TextBox>
                                                                                                                                         </td>
                                                                                                                                     </tr>
                                                                                                                                     <tr>
@@ -5043,7 +5255,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                                                             </label>
                                                                                                                                         </td>
                                                                                                                                         <td>
-                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessEmailEdit" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"></asp:TextBox>
+                                                                                                                                            <asp:TextBox ID="txtRelatedSchoolBusinessEmailEdit" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"></asp:TextBox>
                                                                                                                                         </td>
 
                                                                                                                                     </tr>
@@ -5933,7 +6145,7 @@ Worksheet
                                                                             </label>
                                                                         </td>
                                                                         <td>
-                                                                            <asp:TextBox ID="TextBox274" runat="server" Width="170px" CssClass="phone_us"
+                                                                            <asp:TextBox ID="TextBox274" runat="server" Width="170px" CssClass="phone_us" placeholder="(xxx) xxx-xxxx"
                                                                                 MaxLength="14" title="Only Numbers are allowed."></asp:TextBox>
                                                                         </td>
                                                                         <td class="txtalgnrgt">
@@ -5942,7 +6154,7 @@ Worksheet
                                                                             </label>
                                                                         </td>
                                                                         <td colspan="3">
-                                                                            <asp:TextBox ID="TextBox275" style="width: 170px !important;" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"
+                                                                            <asp:TextBox ID="TextBox275" style="width: 170px !important;" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"
                                                                                 MaxLength="150" title="Only Email formate are allowed."></asp:TextBox>
                                                                         </td>
                                                                     </tr>
@@ -7050,7 +7262,7 @@ application, disciplinary action, revocation of your approval, or additional pro
                                                                 </label>
                                                             </td>
                                                             <td>
-                                                                <asp:TextBox ID="TextBox39" runat="server" Width="168px" CssClass="phone_us"
+                                                                <asp:TextBox ID="TextBox39" runat="server" Width="168px" CssClass="phone_us" placeholder="(xxx) xxx-xxxx"
                                                                     MaxLength="14"></asp:TextBox>
                                                             </td>
                                                             <td class="txtalgnrgt">
@@ -7059,7 +7271,7 @@ application, disciplinary action, revocation of your approval, or additional pro
                                                                 </label>
                                                             </td>
                                                             <td colspan="3">
-                                                                <asp:TextBox ID="TextBox40" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"
+                                                                <asp:TextBox ID="TextBox40" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"
                                                                     MaxLength="150" title="Only A-Z characters are allowed."></asp:TextBox>
                                                             </td>
                                                         </tr>
@@ -11080,7 +11292,7 @@ request. (Note: we will not sell or release personal information for marketing p
                                                                     </label>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="TextBox259" Width="170px" runat="server" CssClass="phone_us"
+                                                                    <asp:TextBox ID="TextBox259" Width="170px" runat="server" CssClass="phone_us" placeholder="(xxx) xxx-xxxx"
                                                                         MaxLength="14" title="Only Numbers are allowed."></asp:TextBox>
                                                                 </td>
                                                                 <td class="txtalgnrgt">
@@ -11089,7 +11301,7 @@ request. (Note: we will not sell or release personal information for marketing p
                                                                     </label>
                                                                 </td>
                                                                 <td colspan="3">
-                                                                    <asp:TextBox ID="TextBox260" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx"
+                                                                    <asp:TextBox ID="TextBox260" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com"
                                                                         MaxLength="150" title="Only A-Z characters are allowed."></asp:TextBox>
                                                                 </td>
                                                             </tr>
@@ -14625,7 +14837,7 @@ request. (Note: we will not sell or release personal information for marketing p
                                                                     </label>
                                                                 </td>
                                                                 <td>
-                                                                    <asp:TextBox ID="txtaddstaffEmail" runat="server" CssClass="inputTextbox" MaxLength="15"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtaddstaffEmail" runat="server" CssClass="inputTextbox" MaxLength="15" placeholder="joe@email.com"></asp:TextBox>
                                                                 </td>
                                                             </tr>
                                                             <tr>
