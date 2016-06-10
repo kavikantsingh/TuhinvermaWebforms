@@ -23,6 +23,8 @@ public class ErrorMessage
     public static string WebsiteFormat = "Please enter website in correct format (www.websitename.com)";
     public static string DateFormat = "Please enter date in correct format (mm/dd/yyyy)";
     public static string FutureDate = "Future dates are not accepted.";
+    public static string PhoneFormat = "Please enter phone in correct format. ((xxx) xxx-xxxx)";
+    public static string ZipCodeFormat = "Please enter zip code in correct format. (xxxxx-xxxx or xxxxx)";
 
     public static string SchoolName = "Please enter the school name.";
     public static string SchoolTelephone = "Please enter school telephone";
@@ -105,7 +107,7 @@ public class ErrorMessage
     public static string CAMTCID = "Please enter CAMTC ID. ";
 
     public static string Password = "Please enter password.";
-    public static string CurrentPassword = "Please enter current password.";
+    public static string CurrentPassword = "Please enter temporary/current password.";
     public static string NewPassword = "Please enter new password.";
     public static string ConfirmPassword = "Please enter confirm password.";
     

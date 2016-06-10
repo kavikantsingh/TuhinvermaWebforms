@@ -330,7 +330,7 @@ h2 a, .demo {position:relative; height:1%}
             $('#error_validation').html(error);
         }
     </script>
-    <%--- School Eligibility validation***--%>
+    <%--- About validation***--%>
     <script>
         function btnSaveAboutBusinessDoc() {
             $('#error_validation').text('');
@@ -379,6 +379,40 @@ h2 a, .demo {position:relative; height:1%}
             }
             $('#error_validation').html(error);
         }
+        function btnSaveRelatedSchool() {
+            $('#error_validation').text('');
+            var error = '';
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolName%><br/>', '#<%=  TextBox2.ClientID %>', $('#<%=  TextBox2.ClientID %>').val());
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.FirstName%><br/>', '#<%=  TextBox65.ClientID %>', $('#<%=  TextBox65.ClientID %>').val());
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.LastName%><br/>', '#<%=  TextBox66.ClientID %>', $('#<%=  TextBox66.ClientID %>').val());
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolAddress%><br/>', '#<%=  TextBox6.ClientID %>', $('#<%=  TextBox6.ClientID %>').val());
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolCity%><br/>', '#<%=  TextBox8.ClientID %>', $('#<%=  TextBox8.ClientID %>').val());
+            error += ValidateDropdown('-1', '<span class=notok></span> <%=ErrorMessage.SchoolState%><br/>', '#<%=  DropDownList1.ClientID %>', $('#<%=  DropDownList1.ClientID %>').val());
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolZip%><br/>', '#<%=  TextBox9.ClientID %>', $('#<%=  TextBox9.ClientID %>').val());
+            error += ValidateTextbox('<span class=notok></span> <%=ErrorMessage.SchoolTelephone%><br/>', '#<%=  TextBox10.ClientID %>', $('#<%=  TextBox10.ClientID %>').val());
+            error += CheckWebsite('<span class=notok></span> <%=ErrorMessage.WebsiteFormat%><br/>', '#<%=  TextBox11.ClientID %>', $('#<%=  TextBox11.ClientID %>').val());
+            error += ValidateEmail('<span class=notok></span> <%=ErrorMessage.EmailFormat%><br/>', '<span class=notok></span> <%=ErrorMessage.Email%><br/>', '#<%=  TextBox12.ClientID %>', $('#<%=  TextBox12.ClientID %>').val());
+
+            if (error != '') {
+                $('#error_validation').show();
+                $('#ContentPlaceHolder1_Button20').attr('type', 'button');
+                $('#ContentPlaceHolder1_btnSaveRelatedSchool').attr('type', 'button');
+                var pnl = $('#<%=pnlIndividuaDetail.ClientID%>').val();
+                if (pnl == '') {
+                    $(document).scrollTop(657);
+                }
+                else {
+                    $(document).scrollTop(465);
+                }
+            }
+            else {
+                $('#error_validation').hide();
+                $('#ContentPlaceHolder1_Button20').attr('type', 'submit');
+                $('#ContentPlaceHolder1_btnSaveRelatedSchool').attr('type', 'submit');
+            }
+            $('#error_validation').html(error);
+        }
+
     </script>
     <!--<![endif]-->
     <link href="../../App_Themes/Theme1/css/Individual.css?" rel="stylesheet" type="text/css" />
@@ -4783,7 +4817,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                                             <td>
                                                                                                                 <div id="div26" runat="server" style="width: 100%; float: right;">
                                                                                                                     <span class="fltrt">
-                                                                                                                        <asp:Button ID="Button20" CssClass="btn-success btn-xs" runat="server"
+                                                                                                                        <asp:Button ID="Button20" CssClass="btn-success btn-xs" runat="server" OnClientClick="btnSaveRelatedSchool()"
                                                                                                                             OnClick="btnVerifyPreviousAddress_Click" Text="Verify Address" />
                                                                                                                     </span>
                                                                                                                 </div>
@@ -4796,7 +4830,7 @@ include continuing education classes or other programs. Put “0” if the progr
                                                                                         </table>
                                                                                         <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                                                                                             <span class="fltrt">
-                                                                                                <asp:Button ID="btnSaveRelatedSchool" CssClass="buttonGreen medium" runat="server" Text="Save"
+                                                                                                <asp:Button ID="btnSaveRelatedSchool" CssClass="buttonGreen medium" runat="server" Text="Save" OnClientClick="btnSaveRelatedSchool()"
                                                                                                     CausesValidation="true" OnClick="btnSaveRelatedSchool_Click" />
                                                                                                 <asp:LinkButton ID="lnkCancelRelatedSchool" CssClass="secondary medium bottom buttonalignment"
                                                                                                     runat="server" OnClick="lnkCancelRelatedSchool_Click">Cancel</asp:LinkButton></span>
