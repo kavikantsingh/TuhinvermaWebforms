@@ -3418,3 +3418,8 @@ pre,code,.wp-caption,.tabs_container .panes,ul.mini_tabs li,.accordion,.table_st
 	-moz-border-radius: 1px;
 	border-radius: 1px;
 }
+
+
+/*new css*/
+.listbox_auto{overflow: auto;height: 150px;}
+.dvdecorate{margin: 3px auto;width: 98%;}
