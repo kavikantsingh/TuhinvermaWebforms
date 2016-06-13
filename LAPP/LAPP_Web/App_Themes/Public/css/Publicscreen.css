@@ -1580,7 +1580,7 @@ ul.mini_tabs li a.current {
 	overflow: hidden;
 }
 .left_sidebar #sidebar_content.lessgap {
-	padding-top:22px;
+	padding-top:0px;
 }
 .left_sidebar #sidebar_bottom {
 	clear:both;

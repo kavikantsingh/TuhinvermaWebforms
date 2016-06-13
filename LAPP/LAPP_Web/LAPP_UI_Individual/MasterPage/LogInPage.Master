@@ -334,9 +334,11 @@
         </div>
         <div class="clearboth">
         </div>
-        <div class="mainpage relative-box peel-shadows">
+      <%-- for shadow in buttom of the base apply this classes <div class="mainpage relative-box peel-shadows">--%>
+        <div class="mainpage relative-box">
             <div class="dynamic-panels ui-sortable">
-                <div class="dashboard-panel clearfix">
+               <%-- for border in panel add this class in bottom div, class="dashboard-panel"--%>
+                <div class="clearfix">
                     <div class="get-started-content pdng5">
                         <div style="position: relative; min-height: 500px; height: 100%">
                             <%--<div class="loader2" style="display: none">
