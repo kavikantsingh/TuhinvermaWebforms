@@ -3425,3 +3425,5 @@ pre,code,.wp-caption,.tabs_container .panes,ul.mini_tabs li,.accordion,.table_st
 .dvdecorate{margin: 3px auto;width: 98%;}
 .table_design{background-color: rgb(250, 250, 250);border: 1px solid rgb(246, 246, 246);color: rgb(51, 51, 51);margin-bottom: 10px;width: 95%;border-collapse: collapse;margin-left: 20px;}
 .marignfix{margin-left:0px !important;}
+.lipadding li p{padding-left: 1.2em; text-indent: -1.2em;}
+.padding-left-doucment{margin-top: 10px; margin-bottom: 10px; float: left; width: 100%; padding-left: 22px;}
