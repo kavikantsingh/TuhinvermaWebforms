@@ -1,0 +1,60 @@
+@media screen and (Orientation: landscape) {
+    /* body{
+        font-family: 'Segoe UI Light', 'Segoe UI';
+    } */
+    body{
+        font-family: 'Segoe UI',Tahoma,Helvetica,Sans-Serif;
+            font-family: "Helvetica Neue","HelveticaNeue",Arial,Helvetica,sans-serif;
+            
+        }
+    .top{
+        margin-top:20px;
+    }
+    .topr{
+        margin-top:10px;
+    }
+    .gridPanelMinHeight{
+        min-height: 10%;
+    }
+    .panel-heading .accordion-toggle div:after {
+           /* symbol for "opening" panels */
+        font-family: 'Glyphicons Halflings';
+        content: "\e260";
+        float: right;
+        color: #000000;
+        overflow: no-display;
+    }
+    
+    .panel-heading .accordion-toggle.collapsed div:after {
+        /* symbol for "collapsed" panels */
+        content: "\e259";
+    }
+    
+    a.accordion-toggle {
+        text-decoration: none;
+    }
+
+    .table td.fit, 
+    .table th.fit {
+        white-space: nowrap;
+        max-width: 100%;
+        table-layout: fixed;
+        overflow: hidden;
+    }
+    input, .dropdown, .panel {
+         -webkit-border-radius: 0 !important;
+         -moz-border-radius: 0 !important;
+              border-radius: 0 !important;
+    }
+    .messageContainer{
+        padding-top: 0.5%;
+        margin-left: -1.5%;
+    }
+    .error { color: red; }
+    .table-nonfluid {
+        float:left;
+        width: auto;
+    } .a{
+       overflow-x: scroll;
+    }
+}

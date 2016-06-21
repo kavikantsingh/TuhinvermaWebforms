@@ -1,0 +1,419 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="css/bootstrap.min.css" rel="stylesheet"
+    type="text/css">
+<link href="css/bootstrap-treeview.css" rel="stylesheet"
+    type="text/css">
+<link href="css/sqlbuilder.css" rel="stylesheet"
+    type="text/css">
+<link href="css/Publicskin.css" rel="stylesheet" type="text/css">
+<!-- <link href="css/style.css" rel="stylesheet" type="text/css"> -->
+<link href="css/SearchPanel.css" rel="stylesheet" type="text/css">
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-treeview.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/Connection.js"></script>
+<script src="js/jquery.table2excel.js"></script>
+<script src="js/jquery.tabletoCSV.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        //  $('ul.nav > li').click(function(e) {
+        //     e.preventDefault();
+        //     $('ul.nav > li').removeClass('active');
+        //     $(this).addClass('active');
+        // });
+    });
+</script>
+<title>Adhoc query tool</title>
+</head>
+<body>
+    <div class="">
+        <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="myDefaultNavbar1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="dbconn.html" id="dbConnection">Connect</a></li>
+                        <li class="active"><a href="adhoc.html">Query<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Execute</a></li>
+                        <li><a href="#">View</a></li>
+                        <li><a href="#">Refresh</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                            data-toggle="dropdown" role="button" aria-expanded="false">Export
+                                Data <span class="caret"></span>
+                        </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Excel</a></li>
+                                <li><a href="#">CSV</a></li>
+                            </ul></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        </nav>
+        <div class="Row">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-2">
+                    <div id="dbTree"></div>
+                </div>
+                <div class="col-md-10">
+                    <div class="row col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-title  panelfont">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                        href="#panelquerybuilder">
+                                        <div id="">
+                                            <span>Query Builder</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="panelquerybuilder" class="panel-collapse collapse-in">
+                                <div class="panel-body">
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3">
+                                            <h4>Tables List</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="a">
+                                            <table class="table table-bordered table-hover table-nonfluid" style="margin-right:1%;">
+                                                <thead class="thead-inverse">
+                                                    <tr>
+                                                        <th>Individual</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Individual_Id</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> First_Name</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Middle_Name</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Last_Name</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Date_of_Birth</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Gender</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Height</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Weight</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Ethnicity</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Birth_City</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Birth_State</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Birth_Country</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered table-hover table-nonfluid" style="margin-right:1%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>License</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Individual_Id</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> License_Number</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            Original_Issue_Date</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> License_Status</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            License_Effective_Date</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            License_Expiration_Date</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered table-hover table-nonfluid" style="margin-right:1%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Address</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Individual_Id</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Address_Type</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            Address_Street_Line_1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Address_Street_Line_2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            Address_City</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            Address_State</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            Address_Zip</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox"> Address_Country</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox">
+                                                            Address_Status</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-4">
+                                            <h4>
+                                                Relationships <span class="glyphicon glyphicon-plus"></span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3">
+                                            <select class="form-control input-sm dropdown"
+                                                id="ddlseltable" name="ddlseltable">
+                                                <option lang="en">Select Table</option>
+                                                <option lang="en">Individual</option>
+                                                <option lang="en">License</option>
+                                                <option lang="en">Address</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control input-sm dropdown"
+                                                id="ddlseltable" name="ddlseltable">
+                                                <option lang="en">Select Column</option>
+                                                <option lang="en">Individual_Id</option>
+                                                <option lang="en">First_Name</option>
+                                                <option lang="en">Middle_Name</option>
+                                                <option lang="en">Last_Name</option>
+                                                <option lang="en">Date_of_Birth</option>
+                                                <option lang="en">Gender</option>
+                                                <option lang="en">Height</option>
+                                                <option lang="en">Weight</option>
+                                                <option lang="en">Ethnicity</option>
+                                                <option lang="en">Birth_City</option>
+                                                <option lang="en">Birth_State</option>
+                                                <option lang="en">Birth_Country</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="Alias" lang="en" id="txtalias" name="txtalias">
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-4">
+                                            <h4>
+                                                Criteria <span class="glyphicon glyphicon-plus"></span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-3">
+                                            <select class="form-control input-sm dropdown"
+                                                id="ddlseltable" name="ddlseltable">
+                                                <option lang="en">Select Table</option>
+                                                <option lang="en">Individual</option>
+                                                <option lang="en">License</option>
+                                                <option lang="en">Address</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <select class="form-control input-sm dropdown"
+                                                id="ddlseltable" name="ddlseltable">
+                                                <option lang="en">Select Column</option>
+                                                <option lang="en">Individual_Id</option>
+                                                <option lang="en">First_Name</option>
+                                                <option lang="en">Middle_Name</option>
+                                                <option lang="en">Last_Name</option>
+                                                <option lang="en">Date_of_Birth</option>
+                                                <option lang="en">Gender</option>
+                                                <option lang="en">Height</option>
+                                                <option lang="en">Weight</option>
+                                                <option lang="en">Ethnicity</option>
+                                                <option lang="en">Birth_City</option>
+                                                <option lang="en">Birth_State</option>
+                                                <option lang="en">Birth_Country</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="Expression" lang="en" id="txtexpression"
+                                                name="txtexpression">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="Sort Type" lang="en" id="txtsorttype"
+                                                name="txtsorttype">
+                                        </div>
+                                        <div class="col-sm-3 topr">
+                                            <select class="form-control input-sm" id="ddlseltable"
+                                                name="ddlseltable">
+                                                <option lang="en">Aggregate</option>
+                                                <option lang="en">MIN</option>
+                                                <option lang="en">MAX</option>
+                                                <option lang="en">SUM</option>
+                                                <option lang="en">COUNT(*)</option>
+                                                <option lang="en">COUNT()</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 topr">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="Grouping" lang="en" id="txtgrouping"
+                                                name="txtgrouping">
+                                        </div>
+                                        <div class="col-sm-3 topr">
+                                            <input type="text" class="form-control input-sm"
+                                                placeholder="Criteria" lang="en" id="txtcriteria"
+                                                name="txtcriteria topr">
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-4 top">
+                                        <div class="col-sm-3">
+                                            <button type="button" class="btn btn-success" id="btnExecute">Execute</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="panel panel-primary top gridPanelMinHeight">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse"
+                                        href="#panelviewdata">
+                                        <div id="">
+                                            View Data <span class="glyphicon glyphicon-refresh"></span>
+                                            <span class="col-md-offset-10">
+                                                <img src="img/excel.png" id="excelExport" data-export="export" style="width:2%;">
+                                                <img src="img/doc_csv.png" id="csvExport" data-export="export" style="width:2%;">
+                                            </span>
+                                        </div>
+
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="panelviewdata" class="panel-collapse collapse-in">
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-hover table-condensed table-striped table-bordered no-margin" id="gridTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Individual_Id</th>
+                                                <th>First_Name</th>
+                                                <th>Last_Name</th>
+                                                <th>License_Number</th>
+                                                <th>Original_Issue_Date</th>
+                                                <th>License_Status</th>
+                                                <th>License_Effective_Date</th>
+                                                <th>License_Expiration_Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="myTable">
+                                            <tr>
+                                                <td>110</td>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>A-1230</td>
+                                                <td>06/05/1998</td>
+                                                <td>Active</td>
+                                                <td>07/01/2015</td>
+                                                <td>06/30/2016</td>
+                                            </tr>
+                                            <tr>
+                                                <td>201</td>
+                                                <td>Jane</td>
+                                                <td>Smith</td>
+                                                <td>A-1260</td>
+                                                <td>7/7/2001</td>
+                                                <td>Active</td>
+                                                <td>7/1/2015</td>
+                                                <td>6/30/2016</td>
+                                            </tr>
+                                            <tr>
+                                                <td>210</td>
+                                                <td>Derek</td>
+                                                <td>Pringle</td>
+                                                <td>S-1004</td>
+                                                <td>8/28/2005</td>
+                                                <td>Active</td>
+                                                <td>8/1/2015</td>
+                                                <td>7/31/2016</td>
+                                            </tr>
+                                            <tr>
+                                                <td>215</td>
+                                                <td>Graham</td>
+                                                <td>Gooch</td>
+                                                <td>T-0750</td>
+                                                <td>4/20/2006</td>
+                                                <td>Active</td>
+                                                <td>5/1/2015</td>
+                                                <td>4/30/2016</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <ul class="pagination pagination-lg pager" id="myPager"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xs-12"></div>
+            </div>
+        </div>
+        </footer>
+    </div>
+</body>
+</html>

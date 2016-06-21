@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>QueryBuilder</title>
+
+   <!-- Bootstrap -->
+   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+   <link href="css/bootstrap-treeview.css" rel="stylesheet" type="text/css">
+   <link href="css/sqlbuilder.css" rel="stylesheet" type="text/css">
+   <script src="js/jquery-2.1.4.min.js"></script> 
+   <script src="js/bootstrap.min.js"></script> 
+   <script src="js/bootstrap-treeview.js"></script>
+   <script src="js/jquery.validate.min.js"></script>
+   <script src="js/qbuild.js"></script>
+   <script src="js/Connection.js"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+      <nav class="navbar navbar-default">
+         <div class="container"> 
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header"> 
+
+               <!-- Collect the nav links, forms, and other content for toggling -->
+               <div class="collapse navbar-collapse" id="myDefaultNavbar1">
+                  <ul class="nav navbar-nav">
+                     <li class="active"><a href="#">Connect<span class="sr-only">(current)</span></a></li>
+                     <li><a href="adhoc.html">Query</a></li>
+                     <li><a href="#">Execute</a></li>
+                     <li><a href="#">View</a></li>
+                     <li><a href="#">Refresh</a></li>
+                     <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Export Data <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                           <li><a href="#">Excel</a></li>
+                           <li><a href="#">CSV</a></li>
+                       </ul>
+                   </li>
+               </ul>
+            </div>
+            <!-- /.navbar-collapse --> 
+        </div>
+        <!-- /.container-fluid --> 
+    </div>
+    </nav>
+    <div class="row col-md-12 col-xs-12">
+        <form id="connForm" name="connForm"  method="POST" data-fv-framework="bootstrap" data-fv-icon-valid="glyphicon glyphicon-ok" data-fv-icon-invalid="glyphicon glyphicon-remove" data-fv-icon-validating="glyphicon glyphicon-refresh">
+
+            <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">Select Database: </label>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <select name="ddlDatabase"
+                        class="form-control input-sm dropdown" id="ddlDatabase">
+                        <option selected value="SQLServer">SQL Server</option>
+                        <option value="MySQL">MySQL</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-xs-10 messageContainer" id="errorDiv"></div>
+            </div>  
+
+             <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">Database Location: </label>
+                </div>
+                <div class="col-md-4 col-xs-8">
+                    <input type="text" class="form-control input-sm" id="databaseLocation" 
+                        name="databaseLocation" placeholder="Set Database Location"/>
+                </div>
+            </div>  
+
+            <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">HOST IP/URL: </label>
+                </div>
+                <div class="col-md-4 col-xs-8">
+                    <input type="text" class="form-control input-sm" id="urlOrHostIp" 
+                        name="urlOrHostIp" placeholder="HOST IP/URL"/>
+                 </div>
+                 <div class="col-md-3 col-xs-10 messageContainer" id="errorDiv"></div>
+            </div>  
+
+             <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">Database Name: </label>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <input type="text" class="form-control input-sm" id="databaseName" 
+                        name="databaseName" placeholder="Database Name"/>
+                </div>
+                 <div class="col-md-3 col-xs-10 messageContainer" id="errorDiv"></div>
+            </div>  
+
+             <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">Instance Name: </label>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <input type="text" class="form-control input-sm" id="instanceName" 
+                        name="instanceName" placeholder="Instance Name"/>
+                </div>
+            </div>  
+
+             <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">User Name: </label>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <input type="text" class="form-control input-sm" id="userName" 
+                        name="userName" placeholder="User Name"/>
+                </div>
+                 <div class="col-md-3 col-xs-10 messageContainer" id="errorDiv"></div>
+            </div>  
+
+             <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">Password: </label>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <input type="password" class="form-control input-sm" id="password" 
+                        name="password" placeholder="Password"/>
+                </div>
+                 <div class="col-md-3 col-xs-10 messageContainer" id="errorDiv"></div>
+            </div>  
+
+             <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right" style="margin-top:1%">Port: </label>
+                </div>
+                <div class="col-md-1 col-xs-6">
+                    <input type="text" class="form-control input-sm" id="port" 
+                        name="port" placeholder="Port"/>
+                </div>
+                 <div class="col-md-3 col-xs-10 messageContainer" id="errorDiv"></div>
+            </div>  
+
+            <div class="row form-group">
+                <div class="col-md-4 col-xs-4">
+                    <label class="pull-right">Enable SSL: </label>
+                </div>
+                <div class="col-md-2 col-xs-2">
+                    <input type="checkbox" id="chkSSL" name="chkSSL">
+                </div>
+            </div>  
+            <div class="col-md-offset-4 col-xs-offset-4">
+                <input type="submit" class="btn btn-success btn-md submit" id="btnSaveConn" name="btnSaveConn" value="Save Connection">
+            </div>         
+        </form>
+        <div class="modal fade" id="connModal" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 0 none;">
+                        <h4 class="modal-title">Connection data validate successful</h4>
+                    </div>
+                    <div class="modal-body">
+                    Connection successful
+                    </div>
+                    <div class="modal-footer" style="border-top: 0 none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center">
+       <div class="container">
+          <div class="row">
+             <div class="col-md-12 col-xs-12"> </div>
+         </div>
+     </div>
+    </footer>
+</div>
+</body>
+</html>
