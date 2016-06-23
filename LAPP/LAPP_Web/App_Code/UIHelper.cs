@@ -568,35 +568,55 @@ public class UIHelper
     // --- Created By Ankit --- //
     public static Int32 ProviderIdFromSession()
     {
-        String Username = string.Empty;
         SessionManager objS = new SessionManager();
         sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
         if (sInfo != null)
-        {
             return sInfo.ProviderId;
-        }
         else
-        {
             return 0;
-        }
     }
 
     public static Int32 ApplicationIdFromSession()
     {
-        String Username = string.Empty;
         SessionManager objS = new SessionManager();
         sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
         if (sInfo != null)
-        {
             return sInfo.ApplicationId;
-        }
         else
-        {
             return 0;
-        }
     }
 
     public static Int32 GetProviderUserIdFromSession()
+    {
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+            return sInfo.UserId;
+        else
+            return 0;
+    }
+
+    public static string GetProviderKeyFromSession()
+    {
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+            return sInfo.Key;
+        else
+            return "";
+    }
+
+    public static int IndividualIdFromSession()
+    {
+        SessionManager objS = new SessionManager();
+        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
+        if (sInfo != null)
+            return sInfo.IndividualId;
+        else
+            return 0;
+    }
+
+    public static int UserIdFromSession()
     {
         String Username = string.Empty;
         SessionManager objS = new SessionManager();
@@ -611,35 +631,17 @@ public class UIHelper
         }
     }
 
-    public static string GetProviderKeyFromSession()
-    {
-        String Username = string.Empty;
-        SessionManager objS = new SessionManager();
-        sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
-        if (sInfo != null)
-        {
-            return sInfo.Key;
-        }
-        else
-        {
-            return "";
-        }
-    }
+    // ------ BackOffice Session ----- //
 
-    //public static string GetInstructionIdFromSession()
-    //{
-    //    String Username = string.Empty;
-    //    SessionManager objS = new SessionManager();
-    //    sSchoolLoginInfo sInfo = objS.GetLoggedInSchoolProviderInfo();
-    //    if (sInfo != null)
-    //    {
-    //        return sInfo.Key;
-    //    }
-    //    else
-    //    {
-    //        return "";
-    //    }
-    //}
+    public static string GetBackOfficeKeyFromSession()
+    {
+        SessionManager objS = new SessionManager();
+        BackOfficeLoginRS sInfo = objS.GetLoggedInBackOfficeInfo();
+        if (sInfo != null)
+            return sInfo.Key;
+        else
+            return "";
+    }
 
     // --- Created By Ankit --- //
 

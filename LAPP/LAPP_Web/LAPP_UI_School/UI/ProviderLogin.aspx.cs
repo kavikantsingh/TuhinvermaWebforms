@@ -33,7 +33,7 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
         string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderLogin/key";
 
         Object obj;
-        CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
+        WebApiUtility.CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj, "POST");
 
         var res = (ProviderLoginRS)obj;
 
@@ -43,16 +43,16 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
             sInfo.ApplicationStatus = res.ApplicationStatus;
             sInfo.Key = res.Key;
-            sInfo.ApplicationId = res.ApplicationId;
-            sInfo.IndividualId = res.IndividualId;
-            sInfo.IndividualNameId = res.IndividualNameId;
-            sInfo.ProviderId = res.ProviderId;
-            sInfo.UserId = res.UserId;
+            sInfo.ApplicationId = Convert.ToInt32(res.ApplicationId);
+            sInfo.IndividualId = Convert.ToInt32(res.IndividualId);
+            sInfo.IndividualNameId = Convert.ToInt32(res.IndividualNameId);
+            sInfo.ProviderId = Convert.ToInt32(res.ProviderId);
+            sInfo.UserId = Convert.ToInt32(res.UserId);
             sInfo.IsPasswordTemporary = res.IsPasswordTemporary;
-            
+
             Session["sObjSchoolLoginInfo"] = sInfo;
             Session["sUserLoginInfo"] = "SchoolContact";
-            Session["sUserLoginEmail"] = txtEmail.Text.Trim();      
+            Session["sUserLoginEmail"] = txtEmail.Text.Trim();
 
             if (res.IsPasswordTemporary)
                 Response.Redirect("ResetPassword.aspx?isTemp=1&key=" + res.Key + "&id=" + res.UserId, false);
@@ -66,56 +66,6 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
         else
             ltrError.Text = MessageBox.BuildValidationMessage("Invalid username or password.", 2);
 
-    }
-
-    public void CallWebAPI<T>(string ApiUrl, object input, out object outputObj)
-    {
-
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "POST";
-
-        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-        {
-            string json = new JavaScriptSerializer().Serialize(input);
-
-            streamWriter.Write(json);
-            streamWriter.Flush();
-            streamWriter.Close();
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                outputObj = JsonConvert.DeserializeObject<T>(streamReader.ReadToEnd());
-            }
-        }
-
-    }
-
-    public class ProviderLoginRQ
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
-
-    public class ProviderLoginRS
-    {
-        public int UserId { get; set; }
-        public int ProviderId { get; set; }
-        public int ApplicationId { get; set; }
-        public int IndividualId { get; set; }
-        public int IndividualNameId { get; set; }
-
-        public string Message { get; set; }
-
-        public string ApplicationStatus { get; set; }
-        public string ResponseReason { get; set; }
-        public string StatusCode { get; set; }
-
-        public string Key { get; set; }
-
-        public bool Status { get; set; }
-        public bool IsPasswordTemporary { get; set; }
     }
 
 }
