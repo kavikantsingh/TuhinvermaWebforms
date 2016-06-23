@@ -16434,8 +16434,16 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     int ROWPHRW1 = 0;
     protected void gvCourseL2_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        Label lblCourseTitle = e.Row.FindControl("lblCourseTitle") as Label;
+        Label lblCourseHours = e.Row.FindControl("lblCourseHours") as Label;
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
+            var res = gvCourseL2_Bind(this.EditIndexAdminInfo20);
+            if(res!=null && lblCourseTitle!=null && lblCourseHours!=null)
+            { 
+                lblCourseTitle.Text = res.ProvReqCourseTitle[e.Row.RowIndex].CourseTitleName;
+                lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
+            }
 
             Label lblSchoolName = e.Row.FindControl("lblSchoolName") as Label;
             Label lblCity = e.Row.FindControl("lblCity") as Label;
@@ -16470,9 +16478,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     int ROWAI20 = 0;
     protected void gvProgHrWrkSheet_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-
             Label lblProgHrWrkSheetCourse = e.Row.FindControl("lblProgHrWrkSheetCourse") as Label;
             Label lblProgHrWrkSheetCourseHr = e.Row.FindControl("lblProgHrWrkSheetCourseHr") as Label;
 
@@ -16521,7 +16529,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         try
         {
-            string WebAPIUrl = "http://localhost:1530/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key";
+            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key";
 
             Object obj;
             CallWebAPI_GET_ProvReqCourseOfStudyGetAll<LAPP.ENTITY.ProvReqCourseOfStudyRS>(WebAPIUrl, out obj);
@@ -16566,7 +16574,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
             this.EditIndexAdminInfo20 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
             BindGridAdminInfo20();
-            BindGridPHRW1();
+            BindGridPHRW1();//
+            gvCourseL2_Bind(EditIndexAdminInfo20);
             FillControlAdminInfo20(gvProgHrWrkSheet, this.EditIndexAdminInfo20);
         }
     }
@@ -16578,13 +16587,13 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         int ProviderId = UIHelper.GetProviderId();
         try
         {
-            string WebAPIUrl = "http://localhost:1530/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=nancy&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
+            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=nancy&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
 
             Object obj;
             CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<LAPP.ENTITY.ProvReqCourseTitleRS>(WebAPIUrl, out obj);
 
 
-            var res = (LAPP.ENTITY.ProvReqCourseTitleRS)obj;
+            var res = (LAPP.ENTITY.ProvReqCourseTitleRS)obj;//This would return 'N' rows based on courseofStudyId and ProviderId from provreqcoursetitle table in database
             if (res.Status)
             {
                 return res;
@@ -16671,13 +16680,13 @@ public class ProviderInstructionsRQ
 
 }
 
-public class ProviderLoginRS
-{
-    public string Message { get; set; }
-    public Boolean Status { get; set; }
-    public Int32 StatusCode { get; set; }
-    public string ResponseReason { get; set; }
-}
+//public class ProviderLoginRS
+//{
+//    public string Message { get; set; }
+//    public Boolean Status { get; set; }
+//    public Int32 StatusCode { get; set; }
+//    public string ResponseReason { get; set; }
+//}
 
 public class ActiveMenuRQ
 {
