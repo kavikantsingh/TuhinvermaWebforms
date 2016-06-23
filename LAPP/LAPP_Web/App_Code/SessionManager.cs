@@ -236,4 +236,24 @@ public class SessionManager
         }
     }
 
+    public BackOfficeLoginRS GetLoggedInBackOfficeInfo()
+    {
+        try
+        {
+            if (HttpContext.Current.Session["sObjUserInfo"] != null)
+            {
+                BackOfficeLoginRS obj = (BackOfficeLoginRS)HttpContext.Current.Session["sObjUserInfo"];
+                return obj;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }

@@ -24,6 +24,7 @@
             </h3>
             <div class="clearb">
             </div>
+
             <div id="dashboard-panels">
                 <div class="relative-box ">
                     <div class="dynamic-panels ui-sortable" style="">
@@ -37,43 +38,45 @@
                                 <fieldset class="PermitSearch" style="position: relative">
                                     <div class="clearb">
                                     </div>
-                                    <table class="SearchTable" align="center">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <select style="width: 200px" id="ddlPage">
-                                                        <option value="">-- Select Page -- </option>
-                                                    </select>
-                                                </td>
-                                                <td style="width: 20px;">&nbsp;</td>
-                                                <td>
-                                                    <select style="width: 200px" id="ddlSubPage">
-                                                        <option value="">-- Select Page Tab/Sub Page -- </option>
-                                                    </select>
-                                                </td>
-                                                <td style="width: 20px;">&nbsp;</td>
-                                                <td>
-                                                    <select style="width: 200px" id="ddlPageSection">
-                                                        <option value="">-- Select Page/Tab Section Name -- </option>
-                                                    </select>
-                                                </td>
-                                                <td style="width: 20px;">&nbsp;</td>
-                                                <td>
-                                                    <select style="width: 200px" id="ddlContentType">
-                                                        <option value="">-- Select Content Type -- </option>
-                                                    </select>
-                                                </td>
-                                                <td style="width: 20px;">&nbsp;</td>
-                                                <td>
-                                                    <span class="fltrt">
-                                                        <input id="btnSearch" class="buttonGreen small" value="Search" type="button" />
-                                                        &nbsp;
+
+                                    <asp:UpdatePanel ID="upDropdown" UpdateMode="Conditional" runat="server">
+                                        <ContentTemplate>
+                                            <table class="SearchTable" align="center">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:DropDownList ID="ddlPage" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPage_Change">
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td style="width: 20px;">&nbsp;</td>
+                                                        <td>
+                                                            <asp:DropDownList ID="ddlPageModuleTabsSubModule" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPageModuleTabsSubModule_Change">
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td style="width: 20px;">&nbsp;</td>
+                                                        <td>
+                                                            <asp:DropDownList ID="ddlPageTabSection" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlPageTabSection_Change">
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td style="width: 20px;">&nbsp;</td>
+                                                        <td>
+                                                            <asp:DropDownList ID="ddlContentType" runat="server">
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                        <td style="width: 20px;">&nbsp;</td>
+                                                        <td>
+                                                            <span class="fltrt">
+                                                                <input id="btnSearch" class="buttonGreen small" value="Search" type="button" />
+                                                                &nbsp;
                                                         <input id="btnCancel" class="secondary small" value="Cancel" type="button" />
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+
                                     <div class="clearb">
                                     </div>
                                 </fieldset>
@@ -97,331 +100,335 @@
 
                                     <%--GridView here--%>
 
-                                    <table id="example" class="display" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Page</th>
-                                                <th>Tab/SubPage</th>
-                                                <th>Section</th>
-                                                <th>Content Type</th>
-                                                <th>Content Item#</th>
-                                                <th>Content Desc</th>
-                                                <th>Effective Date</th>
-                                                <th>End Desc</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a class="editRecord" href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Page Name 1</td>
-                                                <td>Sub Page 1</td>
-                                                <td>Section 1</td>
-                                                <td>Content Type 1</td>
-                                                <td>Content Item#</td>
-                                                <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
-                                                <td>06/09/2016</td>
-                                                <td>06/09/2017</td>
-                                                <td><a href="#">Edit</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                                        <ContentTemplate>
+                                            <table id="example" class="display" cellspacing="0" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Page</th>
+                                                        <th>Tab/SubPage</th>
+                                                        <th>Section</th>
+                                                        <th>Content Type</th>
+                                                        <th>Content Item#</th>
+                                                        <th>Content Desc</th>
+                                                        <th>Effective Date</th>
+                                                        <th>End Desc</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a class="editRecord" href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Page Name 1</td>
+                                                        <td>Sub Page 1</td>
+                                                        <td>Section 1</td>
+                                                        <td>Content Type 1</td>
+                                                        <td>Content Item#</td>
+                                                        <td>Content Desc : Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem </td>
+                                                        <td>06/09/2016</td>
+                                                        <td>06/09/2017</td>
+                                                        <td><a href="#">Edit</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
 
                                     <%--GridView here--%>
                                 </div>
@@ -444,6 +451,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 
@@ -457,8 +466,6 @@
 
                 $("#Datatable").hide();
                 $("#EditContent").show();
-
-                //Show Edit page : Take ID as parameter and Call WebAPI to populate the data into the textfield and show.
 
             });
 

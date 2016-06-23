@@ -311,7 +311,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body class="home blog">
-    <form id="form1" runat="server">
+    <form method="post" enctype="multipart/form-data" id="form1" runat="server">
         <asp:ScriptManager ID="srm" ScriptMode="Release" runat="server" AsyncPostBackTimeout="36000">
             <Scripts>
             </Scripts>
