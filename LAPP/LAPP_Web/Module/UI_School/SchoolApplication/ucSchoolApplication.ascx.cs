@@ -15488,52 +15488,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         this.EditIndexPHRW1 = -1;
         BindGridPHRW1();
     }
-    protected void btnCourseReqAddNewSave_Click(object sender, EventArgs e)
-    {
-        divAddbtnCourseReq.Visible = true;
-        divAddCourseReq.Visible = false;
-    }
+    
     protected void lnkCourseReqAddNewCancel_Click(object sender, EventArgs e)
     {
         divAddbtnCourseReq.Visible = true;
         divAddCourseReq.Visible = false;
     }
 
-    int ROWPHRW1 = 0;
-    protected void gvCourseL2_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-
-            Label lblSchoolName = e.Row.FindControl("lblSchoolName") as Label;
-            Label lblCity = e.Row.FindControl("lblCity") as Label;
-            Label lblState = e.Row.FindControl("lblState") as Label;
-            Label lblGradDate = e.Row.FindControl("lblGradDate") as Label;
-
-            if (lblSchoolName != null && lblCity != null && lblState != null && lblGradDate != null)
-            {
-                if (ROWPHRW1 == 0)
-                {
-
-                    lblSchoolName.Text = "Addl. School 1";
-                    lblGradDate.Text = "02/04/2014";
-                    lblCity.Text = "EMERYVILLE";
-                    lblState.Text = "California";
-
-                }
-                else if (ROWPHRW1 == 1)
-                {
-                    lblSchoolName.Text = "Addl. School 12";
-                    lblGradDate.Text = "02/08/2016";
-                    lblCity.Text = "City3";
-                    lblState.Text = "California";
-                }
-            }
-
-            ROWPHRW1++;
-
-        }
-    }
+    
 
     public void BindGridPHRW1()
     {
@@ -15635,45 +15597,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             ViewState["EditIndexAdminInfo20"] = value;
         }
     }
-
-
-    int ROWAI20 = 0;
-    protected void gvProgHrWrkSheet_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-
-            Label lblProgHrWrkSheetCourse = e.Row.FindControl("lblProgHrWrkSheetCourse") as Label;
-            Label lblProgHrWrkSheetCourseHr = e.Row.FindControl("lblProgHrWrkSheetCourseHr") as Label;
-
-            if (lblProgHrWrkSheetCourse != null && lblProgHrWrkSheetCourseHr != null)
-            {
-                if (ROWAI20 == 0)
-                {
-                    lblProgHrWrkSheetCourse.Text = "Anatomy & Physiology";
-                    lblProgHrWrkSheetCourseHr.Text = "64";
-                }
-                else if (ROWAI20 == 1)
-                {
-                    lblProgHrWrkSheetCourse.Text = "Contraindications";
-                    lblProgHrWrkSheetCourseHr.Text = "13";
-                }
-                else if (ROWAI20 == 2)
-                {
-                    lblProgHrWrkSheetCourse.Text = "Health & Hygiene";
-                    lblProgHrWrkSheetCourseHr.Text = "5";
-                }
-                else if (ROWAI20 == 3)
-                {
-                    lblProgHrWrkSheetCourse.Text = "Business & Ethics";
-                    lblProgHrWrkSheetCourseHr.Text = "18";
-                }
-            }
-
-            ROWAI20++;
-
-        }
-    }
+    
 
     public void BindGridAdminInfo20()
     {
@@ -15736,21 +15660,6 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     //    this.EditIndexAdminInfo20 = -1;
     //    BindGridAdminInfo20();
     //}
-
-    protected void lnkCoursesRequirementsOpen_Click(object sender, EventArgs e)
-    {
-        this.EditIndexAdminInfo20 = -1;
-
-        LinkButton imgbtnRelatedSchoolEdit = (LinkButton)sender;
-        if (imgbtnRelatedSchoolEdit != null)
-        {
-            int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
-            this.EditIndexAdminInfo20 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
-            BindGridAdminInfo20();
-            BindGridPHRW1();
-            FillControlAdminInfo20(gvProgHrWrkSheet, this.EditIndexAdminInfo20);
-        }
-    }
 
 
     #endregion
@@ -16404,25 +16313,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             trOwnInstctStff.Visible = false;
         }
     }
-    protected void txtcarculam_TextChanged(object sender, EventArgs e)
-    {
-        string value = txtcarculam.Text;
-
-        try
-        {
-            if (Convert.ToInt32(value) > 75)
-            {
-                trClinicHour.Visible = true;
-
-            }
-            else
-            {
-                trClinicHour.Visible = false;
-            }
-        }
-        catch { }
-
-    }
+    
 
     protected void txtAddProgrameHours_TextChanged(object sender, EventArgs e)
     {
@@ -16446,6 +16337,314 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     protected void btnSigntureAdd_Click(object sender, EventArgs e)
     {
         dvSignture.Visible = true;
+    }
+
+
+    //--basu--//
+    protected void CallWebAPI_GET_ProvReqCourseOfStudyGetAll<T>(string ApiUrl, out object outputObj)
+    {
+
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "GET";
+
+        //using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        //{
+        //    string json = new JavaScriptSerializer().Serialize(input);
+
+        //    streamWriter.Write(json);
+        //    streamWriter.Flush();
+        //    streamWriter.Close();
+
+        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+        {
+            outputObj = JsonConvert.DeserializeObject<LAPP.ENTITY.ProvReqCourseOfStudyRS>(streamReader.ReadToEnd());
+        }
+        //}
+    }
+
+    protected void CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<T>(string ApiUrl, out object outputObj)
+    {
+
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "GET";
+
+        //using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        //{
+        //    string json = new JavaScriptSerializer().Serialize(input);
+
+        //    streamWriter.Write(json);
+        //    streamWriter.Flush();
+        //    streamWriter.Close();
+
+        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+        {
+            outputObj = JsonConvert.DeserializeObject<LAPP.ENTITY.ProvReqCourseTitleRS>(streamReader.ReadToEnd());
+        }
+        //}
+    }
+
+    protected void CallWebAPI_POST_ProvReqCourseTitle<T>(string ApiUrl, object input, out object outputObj)
+    {
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "POST";
+
+        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        {
+            string json = new JavaScriptSerializer().Serialize(input);
+
+            streamWriter.Write(json);
+            streamWriter.Flush();
+            streamWriter.Close();
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                outputObj = JsonConvert.DeserializeObject<LAPP.ENTITY.ProvReqCourseTitleRS>(streamReader.ReadToEnd());
+            }
+        }
+    }
+
+    protected void CallWebApi_POST_ProvClinicHours<T>(string ApiUrl, object input, out object outputObj)
+    {
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "POST";
+
+        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        {
+            string json = new JavaScriptSerializer().Serialize(input);
+
+            streamWriter.Write(json);
+            streamWriter.Flush();
+            streamWriter.Close();
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                outputObj = JsonConvert.DeserializeObject<LAPP.ENTITY.ProvClinicHoursRS>(streamReader.ReadToEnd());
+            }
+        }
+    }
+
+    int ROWPHRW1 = 0;
+    protected void gvCourseL2_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+
+            Label lblSchoolName = e.Row.FindControl("lblSchoolName") as Label;
+            Label lblCity = e.Row.FindControl("lblCity") as Label;
+            Label lblState = e.Row.FindControl("lblState") as Label;
+            Label lblGradDate = e.Row.FindControl("lblGradDate") as Label;
+
+            if (lblSchoolName != null && lblCity != null && lblState != null && lblGradDate != null)
+            {
+                if (ROWPHRW1 == 0)
+                {
+
+                    lblSchoolName.Text = "Addl. School 1";
+                    lblGradDate.Text = "02/04/2014";
+                    lblCity.Text = "EMERYVILLE";
+                    lblState.Text = "California";
+
+                }
+                else if (ROWPHRW1 == 1)
+                {
+                    lblSchoolName.Text = "Addl. School 12";
+                    lblGradDate.Text = "02/08/2016";
+                    lblCity.Text = "City3";
+                    lblState.Text = "California";
+                }
+            }
+
+            ROWPHRW1++;
+
+        }
+    }
+
+    int ROWAI20 = 0;
+    protected void gvProgHrWrkSheet_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+
+            Label lblProgHrWrkSheetCourse = e.Row.FindControl("lblProgHrWrkSheetCourse") as Label;
+            Label lblProgHrWrkSheetCourseHr = e.Row.FindControl("lblProgHrWrkSheetCourseHr") as Label;
+
+            if (lblProgHrWrkSheetCourse != null && lblProgHrWrkSheetCourseHr != null)
+            {
+                if (ROWAI20 == 0)
+                {
+                    lblProgHrWrkSheetCourse.Text = "Anatomy & Physiology";
+                    lblProgHrWrkSheetCourseHr.Text = "64";
+                }
+                else if (ROWAI20 == 1)
+                {
+                    lblProgHrWrkSheetCourse.Text = "Contraindications";
+                    lblProgHrWrkSheetCourseHr.Text = "13";
+                }
+                else if (ROWAI20 == 2)
+                {
+                    lblProgHrWrkSheetCourse.Text = "Health & Hygiene";
+                    lblProgHrWrkSheetCourseHr.Text = "5";
+                }
+                else if (ROWAI20 == 3)
+                {
+                    lblProgHrWrkSheetCourse.Text = "Business & Ethics";
+                    lblProgHrWrkSheetCourseHr.Text = "18";
+                }
+            }
+
+            ROWAI20++;
+
+        }
+    }
+    
+    protected void gvProgHrWrkSheet_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        //if(e.CommandName== "lnkCourses")
+        //{
+        //    //Get rowindex
+        //    int rowindex = Convert.ToInt32(e.CommandArgument);
+        //    //GridViewRow gvr = gvProgHrWrkSheet.Rows[rowindex];
+        //    Session["gvProgHrWrkSheet_RowIndex"] = rowindex;
+        //    gvCourseL2.Visible = true;
+        //}
+    }
+
+    public ProvReqCourseOfStudyRS gvProgHrWrkSheet_Bind()
+    {
+        try
+        {
+            string WebAPIUrl = "http://localhost:1530/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key";
+
+            Object obj;
+            CallWebAPI_GET_ProvReqCourseOfStudyGetAll<LAPP.ENTITY.ProvReqCourseOfStudyRS>(WebAPIUrl, out obj);
+
+            var res = (LAPP.ENTITY.ProvReqCourseOfStudyRS)obj;
+            if (res.Status)
+            {
+                return res;
+                //int objInternalCount= res.ProvReqCourseOfStudy.Count();
+                //    gvProgHrWrkSheet.DataSource = res.ProvReqCourseOfStudy;
+                //    gvProgHrWrkSheet.DataBind();
+                //    System.Data.DataTable dt = new System.Data.DataTable();
+                //System.Data.DataColumn dc1 = new System.Data.DataColumn("RequiredCourseofStudy");
+                //System.Data.DataColumn dc2 = new System.Data.DataColumn("MinimumRequiredCourseHours");
+                //dt.Columns.Add(dc1);
+                //dt.Columns.Add(dc2);
+                //for (int i=0;i< objInternalCount;i++)
+                //{
+                //    LAPP.CORE.ProvReqCourseOfStudy objProv = res.ProvReqCourseOfStudy[i];
+                //    System.Data.DataRow dr = dt.NewRow();
+                //    dr[0] = objProv.ReqCourseofStudyName;
+                //    dr[1] = objProv.MinimumReqCourseHours;
+                //    dt.Rows.Add(dr);
+                //}
+                //    gvProgHrWrkSheet.DataSource= dt;
+                //    gvProgHrWrkSheet.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+        }
+        return null;
+    }
+
+    protected void lnkCoursesRequirementsOpen_Click(object sender, EventArgs e)
+    {
+        this.EditIndexAdminInfo20 = -1;
+
+        LinkButton imgbtnRelatedSchoolEdit = (LinkButton)sender;
+        if (imgbtnRelatedSchoolEdit != null)
+        {
+            int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
+            this.EditIndexAdminInfo20 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+            BindGridAdminInfo20();
+            BindGridPHRW1();
+            FillControlAdminInfo20(gvProgHrWrkSheet, this.EditIndexAdminInfo20);
+        }
+    }
+
+    public ProvReqCourseTitleRS gvCourseL2_Bind(int courseofstudyId)
+    {
+        string Key = UIHelper.GetKey();//"nancy";
+        int CourseOfStudyId = courseofstudyId + 1;
+        int ProviderId = UIHelper.GetProviderId();
+        try
+        {
+            string WebAPIUrl = "http://localhost:1530/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=nancy&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
+
+            Object obj;
+            CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<LAPP.ENTITY.ProvReqCourseTitleRS>(WebAPIUrl, out obj);
+
+
+            var res = (LAPP.ENTITY.ProvReqCourseTitleRS)obj;
+            if (res.Status)
+            {
+                return res;
+                //List<ProvReqCourseTitle> list = res.ProvReqCourseTitle;
+                //gvCourseL2.DataSource = list;
+                //gvCourseL2.DataBind();
+                ////int objInternalCount = res.ProvReqCourseTitle.Count(); 
+                //System.Data.DataTable dt = new System.Data.DataTable();
+                //System.Data.DataColumn dc1 = new System.Data.DataColumn("CourseTitleName");
+                //System.Data.DataColumn dc2 = new System.Data.DataColumn("CourseHours");
+                //dt.Columns.Add(dc1);
+                //dt.Columns.Add(dc2);
+                //for (int i = 0; i < objInternalCount; i++)
+                //{
+                //    LAPP.CORE.ProvReqCourseTitle objProv = res.ProvReqCourseTitle[i];
+                //    System.Data.DataRow dr = dt.NewRow();
+                //    dr[0] = objProv.CourseTitleName;
+                //    dr[1] = objProv.CourseHours;
+                //    dt.Rows.Add(dr);
+                //}
+                //gvCourseL2.DataSource = dt;
+                //gvProgHrWrkSheet.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return null;
+    }
+
+    protected void btnCourseReqAddNewSave_Click(object sender, EventArgs e)
+    {
+        divAddbtnCourseReq.Visible = true;
+        divAddCourseReq.Visible = false;
+    }
+
+    protected void txtcarculam_TextChanged(object sender, EventArgs e)
+    {
+        string value = txtcarculam.Text;
+
+        try
+        {
+            if (Convert.ToInt32(value) > 75)
+            {
+                trClinicHour.Visible = true;
+
+            }
+            else
+            {
+                trClinicHour.Visible = false;
+            }
+        }
+        catch { }
+
+    }
+
+    protected void btnSaveAboutCurriculum_Click(object sender, EventArgs e)
+    {
+
     }
 }
 
