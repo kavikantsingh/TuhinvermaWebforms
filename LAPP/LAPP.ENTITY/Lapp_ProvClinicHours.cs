@@ -23,11 +23,12 @@ namespace LAPP.ENTITY
 
     public class ProvClinicHoursRS
     {
-        public List<Lapp_ProvClinicHours> ProvClinicHours { get; set; }
+        public Lapp_ProvClinicHours ProvClinicHours { get; set; }
         public string Message { get; set; }
         public bool Status { get; set; }
         public string StatusCode { get; set; }
         public string ResponseReason { get; set; }
     }
 }
+
 

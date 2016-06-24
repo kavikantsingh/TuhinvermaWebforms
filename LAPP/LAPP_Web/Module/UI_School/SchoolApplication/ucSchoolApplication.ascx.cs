@@ -148,6 +148,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
             //BindGridPHRW1();
 
+            //--Basu Sharma--//
+            txtcarculum_Bind();
+            //--Basu Sharma--//
+
             //By prem Singh
             BindGridPreviousSchools();
 
@@ -16381,6 +16385,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
 
+
+    #region Basu_Curriculum
     //--basu--//
     protected void CallWebAPI_GET_ProvReqCourseOfStudyGetAll<T>(string ApiUrl, out object outputObj)
     {
@@ -16472,18 +16478,36 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
     }
 
+    protected void CallWebApi_GET_ProvClinicHours<T>(string ApiUrl, out object outputObj)
+    {
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "GET";
+
+        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+        {
+            outputObj = JsonConvert.DeserializeObject<LAPP.ENTITY.ProvClinicHoursRS>(streamReader.ReadToEnd());
+        }
+
+    }
+
     int ROWPHRW1 = 0;
+
     protected void gvCourseL2_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         Label lblCourseTitle = e.Row.FindControl("lblCourseTitle") as Label;
         Label lblCourseHours = e.Row.FindControl("lblCourseHours") as Label;
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            var res = gvCourseL2_Bind(this.EditIndexAdminInfo20);
+            var res = (ProvReqCourseTitleRS)Session["ProvReqCourseTitleRS"];//gvCourseL2_Bind(this.EditIndexAdminInfo20);
             if (res != null && lblCourseTitle != null && lblCourseHours != null)
             {
+                //for(int i=0; i< res.ProvReqCourseTitle.Count;i++)
+                //{
                 lblCourseTitle.Text = res.ProvReqCourseTitle[e.Row.RowIndex].CourseTitleName;
                 lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
+                //}
             }
 
             Label lblSchoolName = e.Row.FindControl("lblSchoolName") as Label;
@@ -16514,6 +16538,60 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             ROWPHRW1++;
 
         }
+    }
+
+    public ProvReqCourseTitleRS gvCourseL2_Bind(int courseofstudyId)
+    {
+
+        string Key = UIHelper.GetProviderKeyFromSession();
+        int CourseOfStudyId = courseofstudyId + 1;
+        int ProviderId = UIHelper.GetProviderId();
+        try
+        {
+            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=" + Key + "&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
+
+            Object obj; //http:"//localhost:1530/lappws/
+            CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<LAPP.ENTITY.ProvReqCourseTitleRS>(WebAPIUrl, out obj);
+
+
+            var res = (LAPP.ENTITY.ProvReqCourseTitleRS)obj;//This would return 'N' rows based on courseofStudyId and ProviderId from provreqcoursetitle table in database
+            if (res.Status)
+            {
+                Session["ProvReqCourseTitleRS"] = res;
+                gvCourseL2.DataSource = res.ProvReqCourseTitle;
+                gvCourseL2.DataBind();
+                Session["ProvReqCourseTitleRS"] = null;
+                //return res;
+                //List<ProvReqCourseTitle> list = res.ProvReqCourseTitle;
+                //gvCourseL2.DataSource = list;
+                //gvCourseL2.DataBind();
+                //int objInternalCount = res.ProvReqCourseTitle.Count();
+                //System.Data.DataTable dt = new System.Data.DataTable();
+                //System.Data.DataColumn dc1 = new System.Data.DataColumn("CourseTitleName");
+                //System.Data.DataColumn dc2 = new System.Data.DataColumn("CourseHours");
+                //dt.Columns.Add(dc1);
+                //dt.Columns.Add(dc2);
+                //for (int i = 0; i < objInternalCount; i++)
+                //{
+                //    LAPP.ENTITY.Lapp_ProvReqCourseTitle objProv = res.ProvReqCourseTitle[i];
+                //    System.Data.DataRow dr = dt.NewRow();
+                //    dr[0] = objProv.CourseTitleName;
+                //    dr[1] = objProv.CourseHours;
+                //    dt.Rows.Add(dr);
+                //}
+                //gvCourseL2.DataSource = dt;
+                //gvProgHrWrkSheet.DataBind();
+            }
+            else
+            {
+                Session["ProvReqCourseTitleRS"] = null;
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+        return null;
     }
 
     int ROWAI20 = 0;
@@ -16568,9 +16646,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     public ProvReqCourseOfStudyRS gvProgHrWrkSheet_Bind()
     {
+        string Key = UIHelper.GetProviderKeyFromSession();
         try
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key";
+            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key=" + Key;
 
             Object obj;
             CallWebAPI_GET_ProvReqCourseOfStudyGetAll<LAPP.ENTITY.ProvReqCourseOfStudyRS>(WebAPIUrl, out obj);
@@ -16621,55 +16700,50 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
     }
 
-    public ProvReqCourseTitleRS gvCourseL2_Bind(int courseofstudyId)
+    protected void btnCourseReqAddNewSave_Click(object sender, EventArgs e)
     {
-        string Key = UIHelper.GetKey();//"nancy";
-        int CourseOfStudyId = courseofstudyId + 1;
-        int ProviderId = UIHelper.GetProviderId();
+        divAddbtnCourseReq.Visible = true;
+        divAddCourseReq.Visible = false;
         try
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=nancy&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
 
-            Object obj;
-            CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<LAPP.ENTITY.ProvReqCourseTitleRS>(WebAPIUrl, out obj);
-
-
-            var res = (LAPP.ENTITY.ProvReqCourseTitleRS)obj;//This would return 'N' rows based on courseofStudyId and ProviderId from provreqcoursetitle table in database
-            if (res.Status)
+            string CourseTitle = TextBox63.Text.Trim();
+            int NoOfHours = Convert.ToInt32(TextBox1450.Text.Trim());
+            if (CourseTitle != null && NoOfHours > 0)
             {
-                return res;
-                //List<ProvReqCourseTitle> list = res.ProvReqCourseTitle;
-                //gvCourseL2.DataSource = list;
-                //gvCourseL2.DataBind();
-                ////int objInternalCount = res.ProvReqCourseTitle.Count(); 
-                //System.Data.DataTable dt = new System.Data.DataTable();
-                //System.Data.DataColumn dc1 = new System.Data.DataColumn("CourseTitleName");
-                //System.Data.DataColumn dc2 = new System.Data.DataColumn("CourseHours");
-                //dt.Columns.Add(dc1);
-                //dt.Columns.Add(dc2);
-                //for (int i = 0; i < objInternalCount; i++)
-                //{
-                //    LAPP.CORE.ProvReqCourseTitle objProv = res.ProvReqCourseTitle[i];
-                //    System.Data.DataRow dr = dt.NewRow();
-                //    dr[0] = objProv.CourseTitleName;
-                //    dr[1] = objProv.CourseHours;
-                //    dt.Rows.Add(dr);
-                //}
-                //gvCourseL2.DataSource = dt;
-                //gvProgHrWrkSheet.DataBind();
+                Lapp_ProvReqCourseTitle rQ = new Lapp_ProvReqCourseTitle()
+                {
+                    ProvReqCourseTitleId = 0,
+                    ProvReqCourseofStudyId = this.EditIndexAdminInfo20 + 1,
+                    ProviderId = UIHelper.GetProviderId(),
+                    CourseTitleName = CourseTitle,
+                    CourseHours = NoOfHours,
+                    ApplicationId = UIHelper.GetApplicationId(),
+                    ReferenceNumber = "",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedBy = UIHelper.GetProviderId(),
+                    CreatedOn = DateTime.Now,
+                    ModifiedBy = 0,
+                    ModifiedOn = DateTime.Now,
+                    ProviderOtherProgramGuid = ""
+                };
+
+                object obj;
+                string Key = UIHelper.GetProviderKeyFromSession();
+                string WebApiUrl = "http://96.31.91.68/lappws/api/providercurriculum/ProvReqCourseTitle/Key=" + Key; //http:"//96.31.91.68/;
+                CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+                gvCourseL2_Bind(EditIndexAdminInfo20);
+                var res = (ProvReqCourseTitleRS)obj;
+                if (res.Status)
+                {
+                }
             }
         }
         catch (Exception ex)
         {
 
         }
-        return null;
-    }
-
-    protected void btnCourseReqAddNewSave_Click(object sender, EventArgs e)
-    {
-        divAddbtnCourseReq.Visible = true;
-        divAddCourseReq.Visible = false;
     }
 
     protected void txtcarculam_TextChanged(object sender, EventArgs e)
@@ -16681,21 +16755,80 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             if (Convert.ToInt32(value) > 75)
             {
                 trClinicHour.Visible = true;
-
             }
             else
             {
                 trClinicHour.Visible = false;
+                //inserting or updating//
+                string clinicHours = txtcarculam.Text.Trim();
+                if (clinicHours != null && clinicHours != "")
+                {
+                    Lapp_ProvClinicHours rQ = new Lapp_ProvClinicHours()
+                    {
+                        ProvClinicHoursId = 0,
+                        ProviderId = UIHelper.GetProviderId(),
+                        ApplicationId = UIHelper.GetApplicationId(),
+                        ClinicHours = Convert.ToInt32(clinicHours),
+                        ReferenceNumber = "",
+                        IsActive = true,
+                        IsDeleted = false,
+                        CreatedBy = UIHelper.GetProviderId(),
+                        CreatedOn = DateTime.Now,
+                        ModifiedBy = 0,
+                        ModifiedOn = DateTime.Now,
+                        ProvClinicHoursGuid = Guid.NewGuid().ToString()
+                    };
+
+                    object obj;
+                    string Key = UIHelper.GetProviderKeyFromSession();
+                    string WebApiUrl = "http://96.31.91.68/lappws/api/providercurriculum/ProvClinicHours/Key=" + Key; //http:"//96.31.91.68/;
+                    CallWebApi_POST_ProvClinicHours<ProvClinicHoursRS>(WebApiUrl, rQ, out obj);
+
+                    var res = (ProvClinicHoursRS)obj;
+                    if (res.Status)
+                    {
+                        //do what ever you want!
+                    }
+                }
             }
         }
         catch { }
 
     }
 
+    protected void txtcarculum_Bind()
+    {
+        string Key = UIHelper.GetProviderKeyFromSession();
+        int ProviderId = UIHelper.GetProviderId();
+        try
+        {
+            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvClinicHoursGetByProviderId/?Key=" + Key + "&ProviderId=" + ProviderId;//http:"//96.31.91.68/lappws/
+
+            Object obj;
+            CallWebApi_GET_ProvClinicHours<LAPP.ENTITY.ProvClinicHoursRS>(WebAPIUrl, out obj);
+
+            var res = (LAPP.ENTITY.ProvClinicHoursRS)obj;
+            if (res.Status)
+            {
+                txtcarculam.Text = res.ProvClinicHours.ClinicHours.ToString();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
     protected void btnSaveAboutCurriculum_Click(object sender, EventArgs e)
     {
 
     }
+
+    //--basu--//
+    #endregion Basu_Curriculum
+
+
+
 }
 
 
