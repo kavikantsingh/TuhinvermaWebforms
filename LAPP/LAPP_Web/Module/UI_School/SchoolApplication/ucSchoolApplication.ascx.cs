@@ -24,6 +24,47 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     string UploadedImageUrl;
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        #region Initialize-DocUpload-UserControl-Ankit
+
+        #region Transcript
+
+        fuTranscript1.docId = "4";
+        fuTranscript1.docCode = "D1004";
+        fuTranscript1.isSimple = true;
+
+        fuTranscript2.docId = "4";
+        fuTranscript2.docCode = "D1004";
+        fuTranscript2.isSimple = true;
+
+        fuTranscript3.docId = "4";
+        fuTranscript3.docCode = "D1004";        
+        fuTranscript3.isSimple = true;
+
+        fuTranscript4.docId = "4";
+        fuTranscript4.docCode = "D1004";
+        fuTranscript4.isSimple = true;
+
+        fuTranscript5.docId = "4";
+        fuTranscript5.docCode = "D1004";
+        fuTranscript5.isSimple = true;
+
+        fuTranscript6.docId = "4";
+        fuTranscript6.docCode = "D1004";
+        fuTranscript6.isSimple = true;
+
+        #endregion
+
+        #region CorrectiveAction
+        fuCorrectiveAction1.docId = "4";
+        fuCorrectiveAction1.docCode = "D1004";
+        fuCorrectiveAction1.isSimple = true;
+        #endregion
+
+        #endregion
+
+        #region PreviousCode
+
         fillInDates();
         divEMail.Visible = false;
         ltrErrorMessageNewApp.Text = "";
@@ -153,11 +194,11 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             //    chkAOSDisplayTab();
             //}
 
-
-
-
         }
         //MessageBox.RunJsInUpdatePanel(this.Page, "InitiatePage();");
+
+        #endregion
+
     }
 
     private void fillInDates()
@@ -1317,8 +1358,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             ProviderId = UIHelper.ProviderIdFromSession(),
             ApplicationId = UIHelper.ApplicationIdFromSession(),
             ContentItemLkId = 1,
-            
-            
+
+
             #region NotRequiredFields
 
             //ContentItemLkCode = "Code",
@@ -1333,8 +1374,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
             #endregion
 
-            InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),            
-            ProviderInstructionsGuid =Guid.NewGuid().ToString(),
+            InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
+            ProviderInstructionsGuid = Guid.NewGuid().ToString(),
             ProviderInstructionsId = 1
         };
 
@@ -15488,14 +15529,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         this.EditIndexPHRW1 = -1;
         BindGridPHRW1();
     }
-    
+
     protected void lnkCourseReqAddNewCancel_Click(object sender, EventArgs e)
     {
         divAddbtnCourseReq.Visible = true;
         divAddCourseReq.Visible = false;
     }
 
-    
+
 
     public void BindGridPHRW1()
     {
@@ -15597,7 +15638,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             ViewState["EditIndexAdminInfo20"] = value;
         }
     }
-    
+
 
     public void BindGridAdminInfo20()
     {
@@ -16313,7 +16354,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             trOwnInstctStff.Visible = false;
         }
     }
-    
+
 
     protected void txtAddProgrameHours_TextChanged(object sender, EventArgs e)
     {
@@ -16439,8 +16480,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             var res = gvCourseL2_Bind(this.EditIndexAdminInfo20);
-            if(res!=null && lblCourseTitle!=null && lblCourseHours!=null)
-            { 
+            if (res != null && lblCourseTitle != null && lblCourseHours != null)
+            {
                 lblCourseTitle.Text = res.ProvReqCourseTitle[e.Row.RowIndex].CourseTitleName;
                 lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
             }
@@ -16512,7 +16553,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         }
     }
-    
+
     protected void gvProgHrWrkSheet_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         //if(e.CommandName== "lnkCourses")

@@ -21,24 +21,69 @@ public partial class ucCertificationApplication_Ankit : System.Web.UI.UserContro
     //string webAPIURL = "http://192.168.0.100:5811/api/";
 
     #region Page Event Handler
+
     string UploadedImageUrl;
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        docUpload.docId = "1";
-        docUpload.docCode = "D1001";
-        docUpload.docType = "";
+        #region Initialize-DocUpload-UserControl-Ankit
 
+        #region AboutTheSchool
+        docUpload.docId = "1";
+        docUpload.docCode = "D1001";        
+        docUpload.isSimple = false;
 
         UcFLProofOfOwnership.docId = "3";
-        UcFLProofOfOwnership.docCode = "D1003";
-        UcFLProofOfOwnership.docType = "";
-
+        UcFLProofOfOwnership.docCode = "D1003";        
+        UcFLProofOfOwnership.isSimple = false;
 
         UcProofOfBusinessOperation.docId = "4";
-        UcProofOfBusinessOperation.docCode = "D1004";
-        UcProofOfBusinessOperation.docType = "";
+        UcProofOfBusinessOperation.docCode = "D1004";        
+        UcProofOfBusinessOperation.isSimple = false;
+        #endregion
 
+        #region Transcript
+
+        fuTranscript1.docId = "5";
+        fuTranscript1.docCode = "D1005";
+        fuTranscript1.isSimple = true;
+
+        fuTranscript2.docId = "6";
+        fuTranscript2.docCode = "D1006";
+        fuTranscript2.isSimple = true;
+
+        fuTranscript3.docId = "5";
+        fuTranscript3.docCode = "D1005";
+        fuTranscript3.isSimple = true;
+
+        fuTranscript4.docId = "6";
+        fuTranscript4.docCode = "D1006";
+        fuTranscript4.isSimple = true;
+
+        fuTranscript5.docId = "5";
+        fuTranscript5.docCode = "D1005";
+        fuTranscript5.isSimple = true;
+
+        fuTranscript6.docId = "6";
+        fuTranscript6.docCode = "D1006";
+        fuTranscript6.isSimple = true;
+
+        #endregion
+
+        #region CorrectiveAction
+
+        fuCorrectiveAction1.docId = "6";
+        fuCorrectiveAction1.docCode = "D1006";
+        fuCorrectiveAction1.isSimple = true;
+
+        #endregion
+
+
+
+        #endregion        
+
+        #region PreviousCode
 
         fillInDates();
         divEMail.Visible = false;
@@ -174,6 +219,8 @@ public partial class ucCertificationApplication_Ankit : System.Web.UI.UserContro
 
         }
         //MessageBox.RunJsInUpdatePanel(this.Page, "InitiatePage();");
+        #endregion
+
     }
 
     private void fillInDates()
