@@ -10,7 +10,26 @@ public partial class LAPP_UI_Backoffice_Administration_ContentManagement_Ankit :
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
+        {
+            EditContent.Visible = false;
+            ShowContent.Visible = true;
+
             GetAllPages();
+            ShowAllContent();
+        }
+    }
+
+    public void ShowAllContent()
+    {
+        List<demo> lst = new List<demo>();
+
+        for (int i = 0; i < 15; i++)
+        {
+            lst.Add(new demo() { Id = i.ToString() });
+        }
+
+        rptContent.DataSource = lst;
+        rptContent.DataBind();
     }
 
     protected void ddlPage_Change(object sender, EventArgs e)
@@ -102,4 +121,34 @@ public partial class LAPP_UI_Backoffice_Administration_ContentManagement_Ankit :
         ddlPageTabSection.Items.Insert(0, "-- Select --");
     }
 
+    protected void btnSaveContentGrid_Click(object sender, EventArgs e)
+    {
+        EditContent.Visible = false;
+        ShowContent.Visible = true;
+
+        ShowAllContent();
+    }
+
+    protected void btnCancelContentGrid_Click(object sender, EventArgs e)
+    {
+        ShowContent.Visible = true;
+        ShowAllContent();
+
+        EditContent.Visible = false;
+    }
+
+    protected void rptContent_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName == "EditRow" && e.CommandArgument.ToString() != "")
+        {
+            ShowContent.Visible = false;
+            EditContent.Visible = true;
+        }
+    }
+
+}
+
+public class demo
+{
+    public string Id { get; set; }
 }

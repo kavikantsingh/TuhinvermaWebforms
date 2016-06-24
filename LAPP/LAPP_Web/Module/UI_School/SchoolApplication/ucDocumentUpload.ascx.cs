@@ -91,10 +91,10 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
     public void GetAllDocs()
     {
-        rptDocumentList.DataSource = new List<ProviderDocumentGET>();
+        rptDocumentList.DataSource = null;// new List<ProviderDocumentGET>();
         rptDocumentList.DataBind();
 
-        rptSimpleDocumentList.DataSource = new List<ProviderDocumentGET>();
+        rptSimpleDocumentList.DataSource = null;// new List<ProviderDocumentGET>();
         rptSimpleDocumentList.DataBind();
 
         string WebAPIUrl = string.Empty;
