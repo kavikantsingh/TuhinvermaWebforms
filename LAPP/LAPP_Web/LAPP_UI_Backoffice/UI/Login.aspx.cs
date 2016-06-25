@@ -48,7 +48,22 @@ public partial class LAPP_UI_Backoffice_UI_Login : System.Web.UI.Page
         if (res.Status)
         {
             Session["sObjUserInfo"] = res;
-            Response.Redirect("~/LAPP_UI_Backoffice/UI/DirectorGADashboard.aspx", false);
+
+            sUserLoginInfo sObjeUserLoginInfo = new sUserLoginInfo();
+
+            sObjeUserLoginInfo.EmailID = res.UserInfo.Email;
+            sObjeUserLoginInfo.Password = "";
+            sObjeUserLoginInfo.UserID = Convert.ToInt32(res.UserID);
+            sObjeUserLoginInfo.UserName = res.UserInfo.UserName;
+
+            sObjeUserLoginInfo.RoleId = Convert.ToInt32(res.UserInfo.UserTypeID);
+            sObjeUserLoginInfo.SessionID = SessionManager.CreateSession(Convert.ToInt32(res.UserID));
+            Session["sObjeUserLoginInfo"] = sObjeUserLoginInfo;
+
+            SessionManager objSessionManager = new SessionManager();
+            SessionManager.SetSession("sObjLoginInfo", sObjeUserLoginInfo);
+
+            Response.Redirect("~/LAPP_UI_Backoffice/UI/Dashboard.aspx", false);
         }
         else
             ltrMessage.Text = MessageBox.BuildValidationMessage(res.Message, 2);
