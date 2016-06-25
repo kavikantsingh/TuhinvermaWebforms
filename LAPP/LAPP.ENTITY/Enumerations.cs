@@ -288,6 +288,7 @@ namespace LAPP.ENTITY.Enumerations
         public int RoleId { get; set; }
     }
 
+    [Serializable]
     public class sSchoolLoginInfo
     {
         public string ApplicationStatus { get; set; }

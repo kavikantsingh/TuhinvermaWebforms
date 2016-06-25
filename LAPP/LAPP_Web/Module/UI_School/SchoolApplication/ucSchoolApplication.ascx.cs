@@ -24,41 +24,54 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     string UploadedImageUrl;
     protected void Page_Load(object sender, EventArgs e)
     {
+        fuStaff1.docId = "5";
+        fuStaff1.docCode = "D1005";
+        fuStaff1.isSimple = true;
+
+        fuStaff2.docId = "6";
+        fuStaff2.docCode = "D1006";
+        fuStaff2.isSimple = true;
+
+        fuStaff3.docId = "5";
+        fuStaff3.docCode = "D1005";
+        fuStaff3.isSimple = true;
 
         #region Initialize-DocUpload-UserControl-Ankit
 
         #region Transcript
 
-        fuTranscript1.docId = "4";
-        fuTranscript1.docCode = "D1004";
+        fuTranscript1.docId = "5";
+        fuTranscript1.docCode = "D1005";
         fuTranscript1.isSimple = true;
 
-        fuTranscript2.docId = "4";
-        fuTranscript2.docCode = "D1004";
+        fuTranscript2.docId = "6";
+        fuTranscript2.docCode = "D1006";
         fuTranscript2.isSimple = true;
 
-        fuTranscript3.docId = "4";
-        fuTranscript3.docCode = "D1004";        
+        fuTranscript3.docId = "5";
+        fuTranscript3.docCode = "D1005";
         fuTranscript3.isSimple = true;
 
-        fuTranscript4.docId = "4";
-        fuTranscript4.docCode = "D1004";
+        fuTranscript4.docId = "6";
+        fuTranscript4.docCode = "D1006";
         fuTranscript4.isSimple = true;
 
-        fuTranscript5.docId = "4";
-        fuTranscript5.docCode = "D1004";
+        fuTranscript5.docId = "5";
+        fuTranscript5.docCode = "D1005";
         fuTranscript5.isSimple = true;
 
-        fuTranscript6.docId = "4";
-        fuTranscript6.docCode = "D1004";
+        fuTranscript6.docId = "6";
+        fuTranscript6.docCode = "D1006";
         fuTranscript6.isSimple = true;
 
         #endregion
 
         #region CorrectiveAction
-        fuCorrectiveAction1.docId = "4";
-        fuCorrectiveAction1.docCode = "D1004";
+
+        fuCorrectiveAction1.docId = "6";
+        fuCorrectiveAction1.docCode = "D1006";
         fuCorrectiveAction1.isSimple = true;
+
         #endregion
 
         #endregion
@@ -126,7 +139,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             BindGridEducation2();
             BindGridApprovalAgency();
             BindGridMassageProgrameName();
-            BindGridBackgroundCheck();
+            BindStaff();
             BindGridRelatedSchool();
             BindGridWorkInfo1();
             BindGridWorkInfo2();
@@ -1218,7 +1231,13 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     public void BindGridPreviousSchools()
     {
-        ProviderInformationRQ rQ = new ProviderInformationRQ() { ApplicationId = UIHelper.GetApplicationId(), ProviderId = UIHelper.GetProviderId() };
+
+        string key = UIHelper.GetProviderKeyFromSession();
+        string providerId = UIHelper.ProviderIdFromSession().ToString();
+        string userId = UIHelper.GetProviderUserIdFromSession().ToString();
+        string applicationId = UIHelper.ApplicationIdFromSession().ToString();
+
+        ProviderInformationRQ rQ = new ProviderInformationRQ() { ApplicationId = UIHelper.ApplicationIdFromSession(), ProviderId = UIHelper.ProviderIdFromSession() };
         string WebAPIUrl = webAPIURL + "Provider/GetAllSchoolInformationDetails";
         Object obj;
         CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
@@ -4381,15 +4400,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     #endregion
 
 
-    #region Background Check
+    #region Staff Tab (renamed from Background Check) Shekhar Changes
 
-    public int EditIndexBackgroundCheck
+    public int EditIndexStaff
     {
         get
         {
-            if (ViewState["EditIndexBackgroundCheck"] != null)
+            if (ViewState["EditIndexStaff"] != null)
             {
-                return Convert.ToInt32(ViewState["EditIndexBackgroundCheck"]);
+                return Convert.ToInt32(ViewState["EditIndexStaff"]);
 
             }
             else
@@ -4399,20 +4418,22 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
         set
         {
-            ViewState["EditIndexBackgroundCheck"] = value;
+            ViewState["EditIndexStaff"] = value;
         }
     }
     protected void btnBackgroundCheckAddNew_Click(object sender, EventArgs e)
     {
         divAddbtnBackgroundCheck.Visible = false;
         divAddBackgroundCheck.Visible = true;
-        this.EditIndexBackgroundCheck = -1;
-        BindGridBackgroundCheck();
+        this.EditIndexStaff = -1;
+        BindStaff();
 
     }
 
     protected void btnBackgroundCheckAddNewSave_Click(object sender, EventArgs e)
     {
+
+        #region serverValidation - no longer needed
 
         string strErrAddStaff;
         strErrAddStaff = "";
@@ -4468,10 +4489,6 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
 
-
-
-
-
         if (strErrAddStaff == "")
         {
             divAddbtnBackgroundCheck.Visible = true;
@@ -4485,8 +4502,66 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             dvErrAddStaff.Visible = true;
         }
 
+        #endregion
 
+        //ProviderNameTitle : ProviderStaff
+        string positionId = "";
+        string positionTitle = "";
+
+        for (int i = 0; i < CheckBoxList3.Items.Count; i++)
+        {
+            if (CheckBoxList3.Items[i].Selected)
+            {
+                if (positionId == "")
+                    positionId = i.ToString();
+                else
+                    positionId += "," + i.ToString();
+
+                if (positionTitle == "")
+                    positionTitle = CheckBoxList3.Items[i].Text;
+                else
+                    positionTitle += "," + CheckBoxList3.Items[i].Text;
+            }
+        }
+
+        ProviderNameTitleRQ rQ = new ProviderNameTitleRQ()
+        {
+            ProviderStaffLastName = txtBackCheckLastName.Text,
+            ProviderStaffFirstName = txtBackCheckFirstName.Text,
+            ProviderStaffEmail = txtaddstaffEmail.Text,
+            ProviderStaffId = 0,
+            ProviderIndvNameInfoId = 0, //UIHelper.ProviderIndvNameInfoIdFromSession(),
+            ProviderId = UIHelper.ProviderIdFromSession(),
+            ApplicationId = UIHelper.ApplicationIdFromSession(),
+            ProviderContactId = 0,
+            IsBackgroundCheckReq = (rblBackgroundChekReq.SelectedIndex == 1 ? true : false),
+            CAMTCNumber = txtchkCAMTC.Text,
+            ReferenceNumber = "",
+            IsActive = true,
+            IsDeleted = false,
+            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+            CreatedOn = DateTime.Now,
+            ProviderStaffGuid = Guid.NewGuid().ToString(),
+
+            ProvIndvNameTitlePosId = 0,
+            ProvIndvNameTitlePositionId = positionId,
+            ProvIndvNameTitlePosition = positionTitle,
+            ProvIndvNameTitlePosGuid = Guid.NewGuid().ToString()
+        };
+
+        string WebAPIUrl = webAPIURL + "Provider/SaveProviderStaff/{key}";
+        Object obj;
+        CallWebAPI<CommonRS>(WebAPIUrl, rQ, out obj);
+        var res = (CommonRS)obj;
+        if (res.Status)
+        {
+            divAddbtnBackgroundCheck.Visible = true;
+            divAddBackgroundCheck.Visible = false;
+        }
+
+        BindStaff();
     }
+
 
     protected void lnkBackgroundCheckAddNewCancel_Click(object sender, EventArgs e)
     {
@@ -4494,31 +4569,40 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         divAddBackgroundCheck.Visible = false;
     }
 
-    public void BindGridBackgroundCheck()
+    public void BindStaff()
     {
 
-        ArrayList ArryListName = new ArrayList();
-        ArryListName.Add("CA");
-        ArryListName.Add("CA");
-
-
-
-        gvBackgroundCheck.EditIndex = this.EditIndexBackgroundCheck;
-        gvBackgroundCheck.DataSource = ArryListName;
-        gvBackgroundCheck.DataBind();
-
-        if (this.EditIndexBackgroundCheck >= 0)
+        ProviderStaffRQ rQ = new ProviderStaffRQ()
         {
-            gvBackgroundCheck.Rows[this.EditIndexBackgroundCheck].CssClass = "RowInEditMode";
-            gvBackgroundCheck.Rows[this.EditIndexBackgroundCheck].Cells[0].Attributes.Add("colspan", "6");
-            gvBackgroundCheck.Rows[this.EditIndexBackgroundCheck].Cells[1].Visible = false;
-            gvBackgroundCheck.Rows[this.EditIndexBackgroundCheck].Cells[2].Visible = false;
-            //gvBackgroundCheck.Rows[this.EditIndexMassageProgram].Cells[3].Visible = false;
+            ProviderIndvNameInfoId = 0, //UIHelper.ProviderIndvNameInfoIdFromSession(), 
+            ApplicationId = UIHelper.ApplicationIdFromSession(),
+            ProviderId = UIHelper.ProviderIdFromSession()
+        };
 
+        string WebAPIUrl = webAPIURL + "Provider/GetAllProviderStaffDetails";
+        Object obj;
+
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        httpWebRequest.ContentType = "application/json";
+        httpWebRequest.Method = "GET";
+
+        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+        {
+            obj = JsonConvert.DeserializeObject<ProviderStaffRS>(streamReader.ReadToEnd());
+        }
+        //CallWebAPI<ProviderStaffRS>(WebAPIUrl, rQ, out obj);
+        var res = (ProviderStaffRS)obj;
+        if (res.Status)
+        {
+            //Staff Grid 
+            gvStaff.EditIndex = this.EditIndexStaff;
+            gvStaff.DataSource = res.ListOfProviderStaff;
+            gvStaff.DataBind();
         }
     }
 
-    protected void gvBackgroundCheck_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void gvStaff_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
@@ -4561,15 +4645,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         divAddBackgroundCheck.Visible = false;
         divAddbtnBackgroundCheck.Visible = true;
-        this.EditIndexBackgroundCheck = -1;
+        this.EditIndexStaff = -1;
 
         ImageButton btnEdit = (ImageButton)sender;
         if (btnEdit != null)
         {
             int ID = Convert.ToInt32(btnEdit.CommandArgument);
-            this.EditIndexBackgroundCheck = Convert.ToInt32(btnEdit.Attributes["RowIndex"]);
-            BindGridBackgroundCheck();
-            FillControlBackgroundCheck(gvBackgroundCheck, this.EditIndexBackgroundCheck);
+            this.EditIndexStaff = Convert.ToInt32(btnEdit.Attributes["RowIndex"]);
+            BindStaff();
+            FillControlBackgroundCheck(gvStaff, this.EditIndexStaff);
         }
     }
 
@@ -4582,13 +4666,11 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         try
         {
-
-
-            TextBox txtBackCheckLastNameEdit = gv.Rows[this.EditIndexBackgroundCheck].FindControl("txtBackCheckLastNameEdit") as TextBox;
-            TextBox txtBackCheckFirstNameEdit = gv.Rows[this.EditIndexBackgroundCheck].FindControl("txtBackCheckFirstNameEdit") as TextBox;
-            TextBox txtBackCheckTitleEdit = gv.Rows[this.EditIndexBackgroundCheck].FindControl("txtBackCheckTitleEdit") as TextBox;
-            RadioButtonList rblBackgroundChekReqEdit = gv.Rows[this.EditIndexBackgroundCheck].FindControl("rblBackgroundChekReqEdit") as RadioButtonList;
-            TextBox txtchkCAMTCEdit = gv.Rows[this.EditIndexBackgroundCheck].FindControl("txtchkCAMTCEdit") as TextBox;
+            TextBox txtBackCheckLastNameEdit = gv.Rows[this.EditIndexStaff].FindControl("txtBackCheckLastNameEdit") as TextBox;
+            TextBox txtBackCheckFirstNameEdit = gv.Rows[this.EditIndexStaff].FindControl("txtBackCheckFirstNameEdit") as TextBox;
+            TextBox txtBackCheckTitleEdit = gv.Rows[this.EditIndexStaff].FindControl("txtBackCheckTitleEdit") as TextBox;
+            RadioButtonList rblBackgroundChekReqEdit = gv.Rows[this.EditIndexStaff].FindControl("rblBackgroundChekReqEdit") as RadioButtonList;
+            TextBox txtchkCAMTCEdit = gv.Rows[this.EditIndexStaff].FindControl("txtchkCAMTCEdit") as TextBox;
 
             txtBackCheckLastNameEdit.Text = "Last Name ";
             txtBackCheckFirstNameEdit.Text = "First Name";
@@ -4608,15 +4690,19 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void btnBackgroundCheckUpdate_Click(object sender, EventArgs e)
     {
-        this.EditIndexBackgroundCheck = -1;
-        BindGridBackgroundCheck();
+        this.EditIndexStaff = -1;
+        BindStaff();
     }
     protected void lnkBackgroundCheckCancelUpdate_Click(object sender, EventArgs e)
     {
-        this.EditIndexBackgroundCheck = -1;
-        BindGridBackgroundCheck();
+        this.EditIndexStaff = -1;
+        BindStaff();
     }
 
+    protected void gvStaff_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+
+    }
     #endregion
 
     #endregion
@@ -16834,6 +16920,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 //Added by Prem Singh K F
+#region Prem Singh
 public class ProviderInstructionsRQ
 {
     public int ProviderInstructionsId { get; set; }
@@ -17050,3 +17137,85 @@ public class ProviderNames
     public DateTime? ModifiedOn { get; set; }
     public string ProviderNameGuid { get; set; }
 }
+
+#endregion
+
+#region Shekhar
+
+public class ProviderStaff
+{
+    public int ProviderStaffId { get; set; }
+    public int ProviderIndvNameInfoId { get; set; }
+    public int ProviderId { get; set; }
+    public int ApplicationId { get; set; }
+    public int ProviderContactId { get; set; }
+    public bool IsBackgroundCheckReq { get; set; }
+    public string CAMTCNumber { get; set; }
+    public string ReferenceNumber { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderStaffGuid { get; set; }
+}
+
+public class ProviderNameTitle : ProviderStaff
+{
+    public int ProvIndvNameTitlePosId { get; set; }
+    public int ProvIndvNameTitlePositionId { get; set; }
+    public bool ProvIndvNameTitlePosition { get; set; }
+    public string ProvIndvNameTitlePosGuid { get; set; }
+}
+
+public class ProviderStaffRQ
+{
+    public string ProviderStaffFirstName { get; set; }
+    public string ProviderStaffLastName { get; set; }
+    public string ProviderStaffEmail { get; set; }
+    public int ProviderStaffId { get; set; }
+    public int ProviderIndvNameInfoId { get; set; }
+    public int ProviderId { get; set; }
+    public int ApplicationId { get; set; }
+    public int ProviderContactId { get; set; }
+    public bool IsBackgroundCheckReq { get; set; }
+    public string CAMTCNumber { get; set; }
+    public string ReferenceNumber { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderStaffGuid { get; set; }
+    public int ActionType { get; set; }
+}
+
+public class ProviderNameTitleRQ : ProviderStaffRQ
+{
+    public int ProvIndvNameTitlePosId { get; set; }
+    public string ProvIndvNameTitlePositionId { get; set; }
+    public string ProvIndvNameTitlePosition { get; set; }
+    public string ProvIndvNameTitlePosGuid { get; set; }
+}
+
+public class ProviderStaffRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<ProviderStaffRQ> ListOfProviderStaff { get; set; }
+    public List<ProviderNameTitleRQ> ListOfProviderNameTitle { get; set; }
+    //public List<AddressRQ> ListOfSatliteSchool { get; set; }
+    //public ProviderInformationRQ ProviderInformationDetails { get; set; }
+}
+
+//public class CommonRS
+//{
+//    public string Message { get; set; }
+//    public Boolean Status { get; set; }
+//    public Int32 StatusCode { get; set; }
+//}
+#endregion
