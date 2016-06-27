@@ -16694,6 +16694,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 //{
                 lblCourseTitle.Text = res.ProvReqCourseTitle[e.Row.RowIndex].CourseTitleName;
                 lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
+                lblReqCouStdy.Text = Session["lblReqCouStdy"].ToString();
+                lblMinReqHrs.Text = Session["lblMinReqHrs"].ToString();
                 //}
             }
 
@@ -16880,6 +16882,26 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
             int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
             this.EditIndexAdminInfo20 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+            if (EditIndexAdminInfo20 == 0)
+            {
+                Session["lblReqCouStdy"] = "Anatomy & Physiology";
+                Session["lblMinReqHrs"] = "64";
+            }
+            if (EditIndexAdminInfo20 == 1)
+            {
+                Session["lblReqCouStdy"] = "Contraindications";
+                Session["lblMinReqHrs"] = "13";
+            }
+            if (EditIndexAdminInfo20 == 2)
+            {
+                Session["lblReqCouStdy"] = "Health & Hygiene";
+                Session["lblMinReqHrs"] = "5";
+            }
+            if (EditIndexAdminInfo20 == 3)
+            {
+                Session["lblReqCouStdy"] = "Business & Ethics";
+                Session["lblMinReqHrs"] = "18";
+            }
             BindGridAdminInfo20();
             BindGridPHRW1();//
             gvCourseL2_Bind(EditIndexAdminInfo20);
