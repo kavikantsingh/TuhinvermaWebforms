@@ -67,7 +67,7 @@
                 <div class="relative-box ">
                     <div class="dynamic-panels ui-sortable" style="">
                         <div id="Cashflow" class=" clearfix">
-                            <asp:TabContainer ID="TabContainer1" runat="server" CssClass="fancy fancy-green">
+                            <asp:TabContainer ID="TabContainer1" runat="server" CssClass="fancy fancy-green" AutoPostBack="true" OnActiveTabChanged="TabContainer1_ActiveTabChanged">
                                 <asp:TabPanel ID="tbpnCodes" Enabled="true" TabIndex="1" runat="server">
                                     <HeaderTemplate>
                                         Codes
@@ -101,12 +101,12 @@
                                             runat="server" />
                                     </ContentTemplate>
                                 </asp:TabPanel>
-                                <asp:TabPanel ID="tbpnManual" Enabled="true" runat="server">
+                                <asp:TabPanel ID="tbpnManual" Enabled="true" runat="server" TabIndex="5">
                                     <HeaderTemplate>
                                         Application Configuration
                                     </HeaderTemplate>
                                     <ContentTemplate>
-                                        <uc1:ucConfiguration_Page ID="ucConfiguration_Page1" runat="server" />
+                                      Page is loading..Please wait....                                  
                                     </ContentTemplate>
                                 </asp:TabPanel>
                                 <asp:TabPanel ID="tbpnApplicationFee" Enabled="true" runat="server">

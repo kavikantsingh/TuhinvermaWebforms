@@ -152,6 +152,12 @@
                                 <%# Eval("Setting")%>
                             </ItemTemplate>
                         </asp:TemplateField>
+                         <asp:TemplateField HeaderText="Description">
+                            <ItemStyle />
+                            <ItemTemplate>
+                                <%# Eval("Description")%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Value">
                             <ItemStyle />
                             <ItemTemplate>

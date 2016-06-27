@@ -24,6 +24,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     string UploadedImageUrl;
     protected void Page_Load(object sender, EventArgs e)
     {
+        #region Document Upload Shekhar
+
+        #region Staff
         fuStaff1.docId = "5";
         fuStaff1.docCode = "D1005";
         fuStaff1.isSimple = true;
@@ -35,6 +38,70 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         fuStaff3.docId = "5";
         fuStaff3.docCode = "D1005";
         fuStaff3.isSimple = true;
+        #endregion
+
+        #region About The School
+
+        #endregion
+
+        #endregion
+
+        #region Doc-Upload-BASU
+        #region EnrollAgreement
+        fuEnrollAgree1.docId = "5";
+        fuEnrollAgree1.docCode = "D1005";
+        fuEnrollAgree1.isSimple = true;
+
+        fuEnrollAgree2.docId = "5";
+        fuEnrollAgree2.docCode = "D1005";
+        fuEnrollAgree2.isSimple = true;
+        #endregion EnrollAgreement
+
+        #region CourseCatalog
+        fuCourseCatalog1.docId = "5";
+        fuCourseCatalog1.docCode = "D1005";
+        fuCourseCatalog1.isSimple = true;
+
+        fuCourseCatalog2.docId = "5";
+        fuCourseCatalog2.docCode = "D1005";
+        fuCourseCatalog2.isSimple = true;
+        #endregion CourseCatalog
+
+        #region Curriculum
+        fuCurriculum1.docId = "5";
+        fuCurriculum1.docCode = "D1005";
+        fuCurriculum1.isSimple = true;
+
+        fuCurriculum2.docId = "5";
+        fuCurriculum2.docCode = "D1005";
+        fuCurriculum2.isSimple = true;
+
+        fuCurriculum3.docId = "5";
+        fuCurriculum3.docCode = "D1005";
+        fuCurriculum3.isSimple = true;
+
+        fuCurriculum4.docId = "5";
+        fuCurriculum4.docCode = "D1005";
+        fuCurriculum4.isSimple = true;
+
+        fuCurriculum5.docId = "5";
+        fuCurriculum5.docCode = "D1005";
+        fuCurriculum5.isSimple = true;
+
+        fuCurriculum6.docId = "5";
+        fuCurriculum6.docCode = "D1005";
+        fuCurriculum6.isSimple = true;
+
+        fuCurriculum7.docId = "5";
+        fuCurriculum7.docCode = "D1005";
+        fuCurriculum7.isSimple = true;
+
+        fuCurriculum8.docId = "3";
+        fuCurriculum8.docCode = "D1003";
+        fuCurriculum8.isSimple = false;
+
+        #endregion Curriculum
+        #endregion Doc-Upload-BASU
 
         #region Initialize-DocUpload-UserControl-Ankit
 
@@ -140,6 +207,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             BindGridApprovalAgency();
             BindGridMassageProgrameName();
             BindStaff();
+            BindGraduatesNumber(); // Shekhar
+
             BindGridRelatedSchool();
             BindGridWorkInfo1();
             BindGridWorkInfo2();
@@ -1033,7 +1102,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
     #endregion
-
+    
     #region Checklist
 
     //protected void btnNextSaveChecklist_Click(object sender, EventArgs e)
@@ -1387,17 +1456,17 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
             //ContentItemLkCode = "Code",
             //ReferenceNumber = "",
-            //InstructionsAcceptanceDate = DateTime.Now.Date,
-            //IsActive = true,
-            //IsDeleted = false,
-            //CreatedBy = UIHelper.GetProviderUserIdFromSession(),
-            //CreatedOn = DateTime.Now,
             //ModifiedBy = 1,
             //ModifiedOn = DateTime.Now,
 
             #endregion
 
             InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
+            InstructionsAcceptanceDate = DateTime.Now.Date,
+            IsActive = true,
+            IsDeleted = false,
+            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+            CreatedOn = DateTime.Now,
             ProviderInstructionsGuid = Guid.NewGuid().ToString(),
             ProviderInstructionsId = 1
         };
@@ -1415,6 +1484,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             MakeActiveLi(liMassageTherapistApplication);
         }
     }
+
 
     protected void btnSchoolInfoPreviousAddNewSave_Click(object sender, EventArgs e)
     {
@@ -4572,26 +4642,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     public void BindStaff()
     {
 
-        ProviderStaffRQ rQ = new ProviderStaffRQ()
-        {
-            ProviderIndvNameInfoId = 0, //UIHelper.ProviderIndvNameInfoIdFromSession(), 
-            ApplicationId = UIHelper.ApplicationIdFromSession(),
-            ProviderId = UIHelper.ProviderIdFromSession()
-        };
+        string ApplicationId = UIHelper.ApplicationIdFromSession().ToString();
+        string ProviderId = UIHelper.ProviderIdFromSession().ToString();
+        string Key = UIHelper.GetKey();
 
-        string WebAPIUrl = webAPIURL + "Provider/GetAllProviderStaffDetails";
+        string WebAPIUrl = webAPIURL + "Provider/GetAllProviderStaffDetails/?Key=" + Key + "&ApplicationId=" + ApplicationId + "&ProviderId=" + ProviderId + "";
         Object obj;
 
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create(WebAPIUrl);
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "GET";
+        WebApiUtility.CallWebAPI<ProviderStaffRS>(WebAPIUrl, null, out obj, "GET");
 
-        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-        using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-        {
-            obj = JsonConvert.DeserializeObject<ProviderStaffRS>(streamReader.ReadToEnd());
-        }
-        //CallWebAPI<ProviderStaffRS>(WebAPIUrl, rQ, out obj);
         var res = (ProviderStaffRS)obj;
         if (res.Status)
         {
@@ -4601,6 +4660,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             gvStaff.DataBind();
         }
     }
+
 
     protected void gvStaff_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -4707,7 +4767,47 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     #endregion
 
-    #region About the School - Related School
+    #region About the School - Shekhar Changes
+
+    public void BindBusinessOrganization()
+    {
+
+        string ApplicationId = UIHelper.ApplicationIdFromSession().ToString();
+        string ProviderId = UIHelper.ProviderIdFromSession().ToString();
+        string Key = UIHelper.GetKey();
+
+        string WebAPIUrl = webAPIURL + "Lookup/LookupGetBYLookupTypeID/?Key=" + Key + "&LookupTypeID=80";
+        Object obj;
+
+        WebApiUtility.CallWebAPI<LookUpRS>(WebAPIUrl, null, out obj, "GET");
+
+        var res = (LookUpRS)obj;
+        if (res.Status)
+        {
+            //cblBussOrg.DataSource = res.ListOfLookUp;
+            //cblBussOrg.DataBind();
+        }
+    }
+
+    public void BindGraduatesNumber()
+    {
+
+        string ApplicationId = UIHelper.ApplicationIdFromSession().ToString();
+        string ProviderId = UIHelper.ProviderIdFromSession().ToString();
+        string Key = UIHelper.GetKey();
+
+        string WebAPIUrl = webAPIURL + "Provider/GetAllProviderGraduatesNumber/?Key=" + Key + "&ApplicationId=" + ApplicationId + "&ProviderId=" + ProviderId + "";
+        Object obj;
+
+        WebApiUtility.CallWebAPI<ProviderGraduatesNumberRS>(WebAPIUrl, null, out obj, "GET");
+
+        var res = (ProviderGraduatesNumberRS)obj;
+        if (res.Status)
+        {
+            gvGraduatesNumber.DataSource = res.ListOfProviderGraduatesNumber;
+            gvGraduatesNumber.DataBind();
+        }
+    }
 
     public int EditIndexRelatedSchool
     {
@@ -16915,6 +17015,175 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
 
+    protected void btnSaveAboutFacility_Click(object sender, EventArgs e)
+    {
+
+        #region Save/Update Provider Graduates Number
+
+        int gradYear2016_estimate = 0;
+        int gradYear2015_estimate = 0;
+        int gradYear2014_estimate = 0;
+        int gradYear2013_estimate = 0;
+        int gradYear2012_estimate = 0;
+        int gradYear2011_estimate = 0;
+        int gradYear2010_estimate = 0;
+        int gradYear2009_estimate = 0;
+
+        int gradYear2016_estimate_hdn = 0;
+        int gradYear2015_estimate_hdn = 0;
+        int gradYear2014_estimate_hdn = 0;
+        int gradYear2013_estimate_hdn = 0;
+        int gradYear2012_estimate_hdn = 0;
+        int gradYear2011_estimate_hdn = 0;
+        int gradYear2010_estimate_hdn = 0;
+        int gradYear2009_estimate_hdn = 0;
+
+        if (txtGradYear.Text != "")
+            gradYear2016_estimate = Convert.ToInt32(txtGradYear.Text);
+
+        if (txtGradYear_1.Text != "")
+            gradYear2015_estimate = Convert.ToInt32(txtGradYear_1.Text);
+
+        if (txtGradYear_2.Text != "")
+            gradYear2014_estimate = Convert.ToInt32(txtGradYear_2.Text);
+
+        if (txtGradYear_3.Text != "")
+            gradYear2013_estimate = Convert.ToInt32(txtGradYear_3.Text);
+
+        if (txtGradYear_4.Text != "")
+            gradYear2012_estimate = Convert.ToInt32(txtGradYear_4.Text);
+
+        if (txtGradYear_5.Text != "")
+            gradYear2011_estimate = Convert.ToInt32(txtGradYear_5.Text);
+
+        if (txtGradYear_6.Text != "")
+            gradYear2010_estimate = Convert.ToInt32(txtGradYear_6.Text);
+
+        if (txtGradYear_7.Text != "")
+            gradYear2009_estimate = Convert.ToInt32(txtGradYear_7.Text);
+
+        if (hdnGradYear.Value != "")
+            gradYear2016_estimate_hdn = Convert.ToInt32(hdnGradYear.Value);
+
+        if (hdnGradYear_1.Value != "")
+            gradYear2015_estimate_hdn = Convert.ToInt32(hdnGradYear_1.Value);
+
+        if (hdnGradYear_2.Value != "")
+            gradYear2014_estimate_hdn = Convert.ToInt32(hdnGradYear_2.Value);
+
+        if (hdnGradYear_3.Value != "")
+            gradYear2013_estimate_hdn = Convert.ToInt32(hdnGradYear_3.Value);
+
+        if (hdnGradYear_4.Value != "")
+            gradYear2012_estimate_hdn = Convert.ToInt32(hdnGradYear_4.Value);
+
+        if (hdnGradYear_5.Value != "")
+            gradYear2011_estimate_hdn = Convert.ToInt32(hdnGradYear_5.Value);
+
+        if (hdnGradYear_6.Value != "")
+            gradYear2010_estimate_hdn = Convert.ToInt32(hdnGradYear_6.Value);
+
+        if (hdnGradYear_7.Value != "")
+            gradYear2009_estimate_hdn = Convert.ToInt32(hdnGradYear_7.Value);
+
+        int ProviderGraduatesNumberId = 0, calendarYear = 0, CalendarYearEstGradCount = 0, CalendarYearActualGradCount = 0;
+            
+        for(int i=1; i<=8; i++)
+        {
+            if(i==1)
+            {
+                ProviderGraduatesNumberId = gradYear2016_estimate_hdn;
+                calendarYear = 2016;
+                CalendarYearEstGradCount = gradYear2016_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 2)
+            {
+                ProviderGraduatesNumberId = gradYear2015_estimate_hdn;
+                calendarYear = 2015;
+                CalendarYearEstGradCount = gradYear2015_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 3)
+            {
+                ProviderGraduatesNumberId = gradYear2014_estimate_hdn;
+                calendarYear = 2014;
+                CalendarYearEstGradCount = gradYear2014_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 4)
+            {
+                ProviderGraduatesNumberId = gradYear2013_estimate_hdn;
+                calendarYear = 2013;
+                CalendarYearEstGradCount = gradYear2013_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 5)
+            {
+                ProviderGraduatesNumberId = gradYear2012_estimate_hdn;
+                calendarYear = 2012;
+                CalendarYearEstGradCount = gradYear2012_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 6)
+            {
+                ProviderGraduatesNumberId = gradYear2011_estimate_hdn;
+                calendarYear = 2011;
+                CalendarYearEstGradCount = gradYear2011_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 7)
+            {
+                ProviderGraduatesNumberId = gradYear2010_estimate_hdn;
+                calendarYear = 2010;
+                CalendarYearEstGradCount = gradYear2010_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+            if (i == 1)
+            {
+                ProviderGraduatesNumberId = gradYear2009_estimate_hdn;
+                calendarYear = 2009;
+                CalendarYearEstGradCount = gradYear2009_estimate;
+                CalendarYearActualGradCount = 0;
+            }
+
+
+            ProviderGraduatesNumberRQ rQ = new ProviderGraduatesNumberRQ()
+            {
+                ProviderGraduatesNumberId = ProviderGraduatesNumberId,
+                ProviderId = UIHelper.ProviderIdFromSession(),
+                ApplicationId = UIHelper.ApplicationIdFromSession(),
+                CalendarYear = calendarYear,
+                CalendarYearEstGradCount = CalendarYearEstGradCount,
+                CalendarYearActualGradCount = CalendarYearActualGradCount,
+                IsActive = true,
+                IsDeleted = false,
+                CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+                CreatedOn = DateTime.Now,
+                ProviderGraduatesNumberGuid = Guid.NewGuid().ToString(),
+            };
+
+            string WebAPIUrl = webAPIURL + "Provider/SaveProviderGraduatesNumber/{key}";
+            Object obj;
+            CallWebAPI<CommonRS>(WebAPIUrl, rQ, out obj);
+            var res = (CommonRS)obj;
+            if (res.Status)
+            {
+                
+            }
+        }        
+
+        BindStaff();
+
+        #endregion
+    }
 }
 
 
@@ -17212,6 +17481,59 @@ public class ProviderStaffRS
     //public ProviderInformationRQ ProviderInformationDetails { get; set; }
 }
 
+public class LookUp
+{
+    public int LookupId { get; set; }
+    public int LookupTypeId { get; set; }
+    public string LookupCode { get; set; }
+    public string LookupDesc { get; set; }
+    public int SortOrder { get; set; }
+    public bool IsEnabled { get; set; }
+    public bool IsActive { get; set; }
+}
+public class LookUpRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<LookUp> ListOfLookUp { get; set; }
+}
+
+public class ProviderGraduatesNumber
+{
+    public int EstimatedCalendarYear { get; set; }
+    public int CalendarYearEstGradCount { get; set; }
+    public int ActualCalendarYear { get; set; }
+    public int CalendarYearActualGradCount { get; set; }
+}
+
+public class ProviderGraduatesNumberRQ
+{
+    public int ProviderGraduatesNumberId { get; set; }
+    public int ProviderId { get; set; }
+    public int ApplicationId { get; set; }
+    public int CalendarYear { get; set; }
+    public int CalendarYearEstGradCount { get; set; }
+    public int CalendarYearActualGradCount { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderGraduatesNumberGuid { get; set; }
+    public string Action { get; set; }
+}
+
+public class ProviderGraduatesNumberRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<ProviderGraduatesNumber> ListOfProviderGraduatesNumber { get; set; }
+}
 //public class CommonRS
 //{
 //    public string Message { get; set; }
