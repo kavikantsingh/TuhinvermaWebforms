@@ -4656,7 +4656,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
             //Staff Grid 
             gvStaff.EditIndex = this.EditIndexStaff;
-            gvStaff.DataSource = res.ListOfProviderStaff;
+            gvStaff.DataSource = res.ListOfProviderStaffDetails;
             gvStaff.DataBind();
         }
     }
@@ -4664,41 +4664,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void gvStaff_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-
-            Label lblBackgroundCheckLastName = e.Row.FindControl("lblBackgroundCheckLastName") as Label;
-            Label lblBackgroundCheckFirstName = e.Row.FindControl("lblBackgroundCheckFirstName") as Label;
-            Label lblBackgroundCheckPosition = e.Row.FindControl("lblBackgroundCheckPosition") as Label;
-            Label lblBackgroundCheckRequerd = e.Row.FindControl("lblBackgroundCheckRequerd") as Label;
-            Label lblBackgroundCheckReason = e.Row.FindControl("lblBackgroundCheckReason") as Label;
-
-
-            if (lblBackgroundCheckLastName != null && lblBackgroundCheckReason != null && lblBackgroundCheckPosition != null && lblBackgroundCheckRequerd != null && lblBackgroundCheckFirstName != null)
-            {
-                if (ROWLic == 0)
-                {
-
-                    lblBackgroundCheckLastName.Text = "Program Name1";
-                    lblBackgroundCheckFirstName.Text = "Program Hours1";
-                    lblBackgroundCheckPosition.Text = "Program Hours1";
-                    lblBackgroundCheckRequerd.Text = "Program Hours1";
-                    lblBackgroundCheckReason.Text = "Program Hours1";
-
-                }
-                else if (ROWLic == 1)
-                {
-                    lblBackgroundCheckLastName.Text = "Program Name2";
-                    lblBackgroundCheckFirstName.Text = "Program Hours2";
-                    lblBackgroundCheckPosition.Text = "Program Hours2";
-                    lblBackgroundCheckRequerd.Text = "Program Hours2";
-                    lblBackgroundCheckReason.Text = "Program Hours2";
-                }
-            }
-
-            ROWLic++;
-
-        }
+        
     }
 
     protected void lnkBackgroundCheckEdit_Click(object sender, EventArgs e)
@@ -17475,7 +17441,7 @@ public class ProviderStaffRS
     public Boolean Status { get; set; }
     public Int32 StatusCode { get; set; }
     public string ResponseReason { get; set; }
-    public List<ProviderStaffRQ> ListOfProviderStaff { get; set; }
+    public List<ProviderStaffRQ> ListOfProviderStaffDetails { get; set; }
     public List<ProviderNameTitleRQ> ListOfProviderNameTitle { get; set; }
     //public List<AddressRQ> ListOfSatliteSchool { get; set; }
     //public ProviderInformationRQ ProviderInformationDetails { get; set; }

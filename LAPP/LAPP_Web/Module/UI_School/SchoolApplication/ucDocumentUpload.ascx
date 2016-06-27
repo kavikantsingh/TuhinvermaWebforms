@@ -90,10 +90,10 @@
             <table class="withoutbrder">
                 <tbody>
                     <tr>
-                        <td>
+                        <td style="min-width:205px; text-align:right;">
                             <asp:Label ID="lblSimpleDocText" Text="Document :" runat="server" CssClass="input-label required" />
                         </td>
-                        <td style="width: 277px;">
+                        <td> <%--style="width: 277px;"--%>
                             <asp:FileUpload ID="fuSimpleDocUpload" runat="server" />
                         </td>
                         <td>
