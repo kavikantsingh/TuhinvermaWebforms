@@ -1,0 +1,261 @@
+﻿/*content style 1 upto  here*/
+a.medium {
+    padding: 8px 10px 6px 10px;
+}
+
+a.small {
+    position: relative;
+    top: 0px;
+}
+
+.link-next-prev {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 7px 10px;
+}
+
+    .link-next-prev:hover {
+        text-decoration: none;
+    }
+
+.demo .expand a.open:link, .demo .expand a.open:visited {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.demo .expand a, .demo .expand a:active, .demo .expand a:focus {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.tdnum {
+    width: 18px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+
+div.divPrint {
+    position: absolute;
+    z-index: 9999;
+    background: #EEEEEE;
+    top: 40px;
+    padding: 10px;
+    right: 6px;
+    line-height: 8px;
+    border: 1px solid #D5A2A2;
+    border-top: 0px;
+    box-shadow: -1px 4px 8px #000;
+}
+
+.fancy-green .ajax__tab_header {
+    cursor: pointer;
+    border: 1px solid #4297D7;
+    color: #EAF5F7;
+    font-weight: bold;
+    background: #FFF none repeat scroll 0% 0% !important;
+    margin: 0px;
+    float: left;
+}
+
+.histdiv {
+    border: 1px solid rgb(221, 221, 221);
+    padding: 10px 0px !important;
+    margin-top: 10px;
+}
+
+body {
+    font-family: helvatica,sans-serif;
+    line-height: 22px;
+}
+
+.sectionDiv {
+    height: 30px;
+    background-color: #D6D3D3;
+    line-height: 30px;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.flsApplReqForm {
+    border: 1px solid #EAEAEA;
+    width: 95%;
+    margin: 10px auto 0px;
+}
+
+fieldset {
+    border: 0px none !important;
+}
+
+.flsParentNewApplReqForm {
+    border: 1px solid #EAEAEA;
+    width: 95%;
+    margin: 10px auto 0px;
+}
+
+.wdtmarauto {
+    width: 96%;
+    margin: 0px auto;
+}
+
+table.tblApplReqForm5 {
+    line-height: 33px;
+}
+
+.address-box {
+    position: relative;
+    margin-top: -110px;
+    min-height: 100px;
+    background-color: #FBF4F4;
+    padding: 12px;
+    border: 1px solid rgba(255, 5, 28, 0.4);
+    top: 2px;
+    z-index: 1;
+}
+
+.tblApplReqForm5 td {
+    padding: 10px 0px 0px !important;
+}
+
+.divaddnew {
+    height: 33px;
+}
+
+.divLicenseInfo {
+    margin: 3px auto;
+    width: 98%;
+    border: 1px solid #EEE;
+}
+
+.addNewDiv {
+    text-align: center;
+    height: 28px;
+    line-height: 25px;
+    background-color: #F9F9F9;
+    font-weight: bold;
+}
+
+.grid-header-other-name .index tr th {
+    height: 25px !important;
+    padding: 0px 0px 0px 3px !important;
+    line-height: 25px;
+}
+
+.readinstrucn {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.flsNewApplReqForm {
+    border: 1px solid #EAEAEA;
+    width: 95%;
+    margin: 10px auto 0px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border-width: 1px 0px 0px;
+    border-style: solid none none;
+    border-color: #CCC -moz-use-text-color -moz-use-text-color;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    margin: 1em 0px;
+    padding: 0px;
+}
+
+.grid-heading {
+    width: 100%;
+    background-color: #DDD;
+    font-weight: bold;
+}
+
+.index tbody td {
+    padding: 4px 3px;
+}
+
+.listbox {
+    width: 215px;
+    height: 170px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: 1px solid #DDD;
+    padding: 8px;
+}
+
+.gvDivUpr {
+    color: #000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    text-align: left;
+    text-indent: 0px;
+    text-transform: none;
+    white-space: normal;
+    word-spacing: 0px;
+}
+
+.tableborder_trcschk td {
+    border: 1px solid #DEDEDE;
+    padding: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.flsLiveScanApp {
+    border: 1px solid #EAEAEA;
+    width: 95%;
+    margin: 10px auto 0px;
+}
+
+.history .tblApplReqForm5 td {
+    padding: 2px 0px 0px 0px !important;
+}
+
+.history .tblApplReqForm5 .grid td {
+    padding: 0px 0px 0px 4px !important;
+}
+
+</style > <style type="text/css" > @-moz-document url-prefix() {
+    .expinputfirefox;
+
+{
+    color: red;
+}
+
+a.medium {
+    padding: 10px 10px 6px 10px;
+}
+
+.link-next-prev {
+    padding: 9px 10px 7px 10px !important;
+}
+
+}
+
+.colsp td {
+    vertical-align: baseline;
+    padding-top: 5px !important;
+}
+
+.sitevisite {
+    text-align: center;
+    background-color: rgb(236, 234, 234);
+    padding: 0px !important;
+    border-top: 1px solid rgb(216, 216, 216);
+    border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+
+/*content style 1 upto  here*/
