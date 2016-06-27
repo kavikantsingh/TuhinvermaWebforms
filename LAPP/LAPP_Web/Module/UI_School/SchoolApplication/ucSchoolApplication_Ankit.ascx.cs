@@ -13,11 +13,11 @@ using LAPP.ENTITY.Enumerations;
 using System.Net;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
-
+using System.Configuration;
 
 public partial class ucCertificationApplication_Ankit : System.Web.UI.UserControl
 {
-    String webAPIURL = "http://96.31.91.68/lappws/api/";
+    String webAPIURL = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/";
     //string webAPIURL = "http://192.168.0.100:5811/api/";
 
     #region Page Event Handler

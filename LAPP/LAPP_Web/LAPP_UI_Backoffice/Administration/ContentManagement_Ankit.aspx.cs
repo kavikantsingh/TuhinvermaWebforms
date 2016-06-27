@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 public partial class LAPP_UI_Backoffice_Administration_ContentManagement_Ankit : System.Web.UI.Page
 {
@@ -52,7 +53,7 @@ public partial class LAPP_UI_Backoffice_Administration_ContentManagement_Ankit :
     public void GetAllPages()
     {
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Page/PageGetAllPageNames/" + UIHelper.GetBackOfficeKeyFromSession();
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Page/PageGetAllPageNames/" + UIHelper.GetBackOfficeKeyFromSession();
 
         Object obj;
         WebApiUtility.CallWebAPI<PageModuleRS>(WebAPIUrl, null, out obj, "GET");
@@ -76,7 +77,7 @@ public partial class LAPP_UI_Backoffice_Administration_ContentManagement_Ankit :
     public void GetAllSubModuleByPageModuleId()
     {
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Page/PageGetAllTabsByPageModuleId/" + UIHelper.GetBackOfficeKeyFromSession() + "?PageModuleId=" + ddlPage.SelectedValue;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Page/PageGetAllTabsByPageModuleId/" + UIHelper.GetBackOfficeKeyFromSession() + "?PageModuleId=" + ddlPage.SelectedValue;
 
         Object obj;
         WebApiUtility.CallWebAPI<PageModuleTabSubModuleRS>(WebAPIUrl, null, out obj, "GET");
@@ -100,7 +101,7 @@ public partial class LAPP_UI_Backoffice_Administration_ContentManagement_Ankit :
     public void PageGetAllSectionsByTabId()
     {
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Page/PageGetAllSectionsByTabId/" + UIHelper.GetBackOfficeKeyFromSession() + "?PageModuleTabSubModuleId=" + ddlPageModuleTabsSubModule.SelectedValue;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Page/PageGetAllSectionsByTabId/" + UIHelper.GetBackOfficeKeyFromSession() + "?PageModuleTabSubModuleId=" + ddlPageModuleTabsSubModule.SelectedValue;
 
         Object obj;
         WebApiUtility.CallWebAPI<PageTabSectionRS>(WebAPIUrl, null, out obj, "GET");

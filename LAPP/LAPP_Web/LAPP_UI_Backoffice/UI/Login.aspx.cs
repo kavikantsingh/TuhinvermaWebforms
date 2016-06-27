@@ -38,7 +38,7 @@ public partial class LAPP_UI_Backoffice_UI_Login : System.Web.UI.Page
             LoginWithoutEmail = false
         };
 
-        string WebAPIUrl = "http://96.31.91.68/lappws/api/User/Login";
+        string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/User/Login";
 
         Object obj;
         WebApiUtility.CallWebAPI<BackOfficeLoginRS>(WebAPIUrl, rQ, out obj, "POST");

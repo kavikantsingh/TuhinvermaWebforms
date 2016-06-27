@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 using LAPP.ENTITY.Enumerations;
 using System.Web.Services;
+using System.Configuration;
 
 public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 {
@@ -30,7 +31,7 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         ProviderLoginRQ rQ = new ProviderLoginRQ() { Email = txtEmail.Text.Trim(), Password = txtPassword.Text.Trim() };
 
-        string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderLogin/key";
+        string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderLogin/key";
 
         Object obj;
         WebApiUtility.CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj, "POST");

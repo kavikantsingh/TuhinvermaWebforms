@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -50,7 +51,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     public void GetDocumentTypeList()
     {
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Document/DocumentGetDocumentTypeName/" + key + "?DocId=" + docId + "&DocCode=" + docCode;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Document/DocumentGetDocumentTypeName/" + key + "?DocId=" + docId + "&DocCode=" + docCode;
 
         Object obj;
         WebApiUtility.CallWebAPI<DocumentMasterRS>(WebAPIUrl, null, out obj, "GET");
@@ -98,7 +99,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
         rptSimpleDocumentList.DataBind();
 
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderGetProviderDocumentByProviderIdAndDocumentId/" + key + "?ProviderId=" + providerId + "&DocumentId=" + docId + "&ApplicationId=" + applicationId;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderGetProviderDocumentByProviderIdAndDocumentId/" + key + "?ProviderId=" + providerId + "&DocumentId=" + docId + "&ApplicationId=" + applicationId;
 
         Object obj;
         WebApiUtility.CallWebAPI<ProviderDocumentGETRS>(WebAPIUrl, null, out obj, "GET");
@@ -153,7 +154,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     string Base64File = Convert.ToBase64String(fileData);
 
-                    string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentSave/" + key;
+                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentSave/" + key;
 
                     ProviderDocument objUpload = new ProviderDocument()
                     {
@@ -228,7 +229,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
 
             Object obj;
             WebApiUtility.CallWebAPI<ProviderDocumentRS>(WebAPIUrl, null, out obj, "POST");
@@ -270,7 +271,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     string Base64File = Convert.ToBase64String(fileData);
 
-                    string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentSave/" + key;
+                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentSave/" + key;
 
                     ProviderDocument objUpload = new ProviderDocument()
                     {
@@ -349,7 +350,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
 
             Object obj;
             WebApiUtility.CallWebAPI<ProviderDocumentRS>(WebAPIUrl, null, out obj, "POST");
