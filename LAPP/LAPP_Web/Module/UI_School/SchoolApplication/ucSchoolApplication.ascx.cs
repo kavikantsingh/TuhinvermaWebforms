@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 public partial class ucCertificationApplication : System.Web.UI.UserControl
 {
-    String webAPIURL = "http://96.31.91.68/lappws/api/";
+    String webAPIURL = "http://ws.camtc.inlumon.com/api/";
     //string webAPIURL = "http://192.168.0.100:5811/api/";
 
     #region Page Event Handler
@@ -16734,7 +16734,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         int ProviderId = UIHelper.GetProviderId();
         try
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=" + Key + "&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
+            string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=" + Key + "&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
 
             Object obj; //http:"//localhost:1530/lappws/
             CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<LAPP.ENTITY.ProvReqCourseTitleRS>(WebAPIUrl, out obj);
@@ -16835,7 +16835,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         string Key = UIHelper.GetProviderKeyFromSession();
         try
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key=" + Key;
+            string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key=" + Key;
 
             Object obj;
             CallWebAPI_GET_ProvReqCourseOfStudyGetAll<LAPP.ENTITY.ProvReqCourseOfStudyRS>(WebAPIUrl, out obj);
@@ -16917,7 +16917,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
                 object obj;
                 string Key = UIHelper.GetProviderKeyFromSession();
-                string WebApiUrl = "http://96.31.91.68/lappws/api/providercurriculum/ProvReqCourseTitle/Key=" + Key; //http:"//96.31.91.68/;
+                string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitle/Key=" + Key; //http:"//96.31.91.68/;
                 CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
                 gvCourseL2_Bind(EditIndexAdminInfo20);
                 var res = (ProvReqCourseTitleRS)obj;
@@ -16967,7 +16967,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
                     object obj;
                     string Key = UIHelper.GetProviderKeyFromSession();
-                    string WebApiUrl = "http://96.31.91.68/lappws/api/providercurriculum/ProvClinicHours/Key=" + Key; //http:"//96.31.91.68/;
+                    string WebApiUrl = webAPIURL + "providercurriculum/ProvClinicHours/Key=" + Key; //http:"//96.31.91.68/;
                     CallWebApi_POST_ProvClinicHours<ProvClinicHoursRS>(WebApiUrl, rQ, out obj);
 
                     var res = (ProvClinicHoursRS)obj;
@@ -16988,7 +16988,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         int ProviderId = UIHelper.GetProviderId();
         try
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/ProviderCurriculum/ProvClinicHoursGetByProviderId/?Key=" + Key + "&ProviderId=" + ProviderId;//http:"//96.31.91.68/lappws/
+            string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvClinicHoursGetByProviderId/?Key=" + Key + "&ProviderId=" + ProviderId;//http:"//96.31.91.68/lappws/
 
             Object obj;
             CallWebApi_GET_ProvClinicHours<LAPP.ENTITY.ProvClinicHoursRS>(WebAPIUrl, out obj);
