@@ -1,4 +1,5 @@
 ﻿using LAPP.ENTITY;
+using System.Configuration;
 
 namespace LAPP.DAL
 {

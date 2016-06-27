@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using LAPP.ENTITY;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace LAPP.DAL
 {
