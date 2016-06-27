@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/LAPP/.vs/LAPP/v14
+/LAPP/LAPP.ENUM/obj/Debug
