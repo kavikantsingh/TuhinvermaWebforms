@@ -1793,8 +1793,43 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void btnProgHourReqWork_Click(object sender, EventArgs e)
     {
-        DisplayPanel(PnlProHoReqWorksheet);
-        MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
+        ProviderInstructionsRQ rQ = new ProviderInstructionsRQ()
+        {
+            ProviderId = UIHelper.ProviderIdFromSession(),
+            ApplicationId = UIHelper.ApplicationIdFromSession(),
+            ContentItemLkId = 1,
+
+            #region NotRequiredFields
+
+            //ContentItemLkCode = "Code",
+            //ModifiedBy = 1,
+            //ModifiedOn = DateTime.Now,
+
+            #endregion
+
+            ReferenceNumber = "Course Catalog",
+            InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
+            InstructionsAcceptanceDate = DateTime.Now.Date,
+            IsActive = true,
+            IsDeleted = false,
+            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+            CreatedOn = DateTime.Now,
+            ProviderInstructionsGuid = Guid.NewGuid().ToString(),
+            ProviderInstructionsId = 1
+        };
+
+        string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
+        Object obj;
+        CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
+        var res = (ProviderLoginRS)obj;
+        if (res.Status)
+        {
+            //TODO
+            //Make Tick mark appear for the instruction tab 
+            imgCourCataCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+            DisplayPanel(PnlProHoReqWorksheet);
+            MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
+        }
     }
 
     protected void btnSchFacList_Click(object sender, EventArgs e)
