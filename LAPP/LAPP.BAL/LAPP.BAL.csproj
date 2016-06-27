@@ -91,6 +91,10 @@
     <Compile Include="LAPP_userBAL.cs" />
     <Compile Include="LAPP_user_membershipBAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebApi\ApplicationTypeBAL.cs" />
+    <Compile Include="WebApi\TemplateBAL.cs" />
+    <Compile Include="WebApi\TemplateAppliesToTypeBAL.cs" />
+    <Compile Include="WebApi\TemplateTypeBAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LAPP.CORE\LAPP.CORE.csproj">

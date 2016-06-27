@@ -9,4 +9,13 @@ namespace LAPP.ENTITY
     {
 
     }
+
+    public class BaseEntityServiceResponse
+    {
+        public string Message { get; set; }
+        public bool Status { get; set; }
+        public string StatusCode { get; set; }
+        public string ResponseReason { get; set; }
+
+    }
 }

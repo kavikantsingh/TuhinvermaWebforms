@@ -4582,7 +4582,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         string WebAPIUrl = webAPIURL + "Provider/GetAllProviderStaffDetails";
         Object obj;
 
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiUrl);
+        var httpWebRequest = (HttpWebRequest)WebRequest.Create(WebAPIUrl);
         httpWebRequest.ContentType = "application/json";
         httpWebRequest.Method = "GET";
 

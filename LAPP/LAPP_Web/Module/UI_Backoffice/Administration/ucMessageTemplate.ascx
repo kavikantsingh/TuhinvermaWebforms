@@ -66,7 +66,7 @@
                     runat="server">
                     <h4>Template <span class="fltrt">
                         <% if (!ucMessageTemplateEdit2.Visible)
-                           { %>
+                            { %>
                         <asp:Button ID="btnAddNew" CssClass="buttonGreen medium" runat="server" Text="New Template"
                             OnClick="btnAddNew_Click1" /><%} %></span></h4>
                 </div>
@@ -207,6 +207,49 @@
                                                     </td>
                                                 </tr>--%>
                                                 <tr>
+                                                    <td>
+                                                        <label>
+                                                            Template Apply To :
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:DropDownList ID="TemplateApplyToDropDown" Width="258px" runat="server">
+                                                        </asp:DropDownList>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label>
+                                                            Start Date :
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="StartDateTextBox" CssClass="txtDatePicker" Width="250px" runat="server"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="StartDateTextBoxValidator" ValidationGroup="VGTemplate" ControlToValidate="StartDateTextBox"
+                                                            Text="*" ForeColor="Red" Display="None" SetFocusOnError="True" runat="server"
+                                                            ErrorMessage="Please enter Start Date"></asp:RequiredFieldValidator>
+                                                        <asp:ValidatorCalloutExtender ID="StartDateTextValidatorCalloutExtender" runat="server" TargetControlID="StartDateTextBoxValidator"
+                                                            PopupPosition="BottomLeft" HighlightCssClass="error">
+                                                        </asp:ValidatorCalloutExtender>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label>
+                                                            End Date :
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <asp:TextBox ID="EndDateTextBox" CssClass="txtDatePicker" Width="250px" runat="server"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="EndDateTextBoxValidator" ValidationGroup="VGTemplate" ControlToValidate="EndDateTextBox"
+                                                            Text="*" ForeColor="Red" Display="None" SetFocusOnError="True" runat="server"
+                                                            ErrorMessage="Please enter End Date"></asp:RequiredFieldValidator>
+                                                        <asp:ValidatorCalloutExtender ID="EndDateTextBoxValidatorCalloutExtender" runat="server" TargetControlID="EndDateTextBoxValidator"
+                                                            PopupPosition="BottomLeft" HighlightCssClass="error">
+                                                        </asp:ValidatorCalloutExtender>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td align="right">
                                                         <label class="input-label required">
                                                             Template Name :</label>
@@ -231,7 +274,7 @@
                                                         <asp:TextBox ID="txtTempSub" TextMode="MultiLine" runat="server" Width="250px" autocomplete="off"
                                                             CssClass="inputTextbox"></asp:TextBox>
                                                     </td>
-                                                </tr>
+                                                </tr>                                                
                                                 <%--     <tr>
                                                     <td align="right">
                                                         <label class="input-label required">
@@ -427,7 +470,7 @@
                                     </div>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <%# Eval("Name")%>
+                                    <%# Eval("ApplicationType")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-Width="125px">
@@ -436,7 +479,7 @@
                                     Template Name
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <%# Eval("template_name")%>
+                                    <%# Eval("TemplateName")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-Width="200px">
@@ -445,7 +488,7 @@
                                 </HeaderTemplate>
                                 <ItemStyle Width="40%" />
                                 <ItemTemplate>
-                                    <%# Eval("Template_Subject")%>
+                                    <%# Eval("TemplateSubject")%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-Width="180px" HeaderStyle-HorizontalAlign="Center">
@@ -456,7 +499,7 @@
                                 <ItemTemplate>
                                     <%--<asp:ImageButton ID="imgbtnDisable" CssClass="imgDelete" CommandArgument='<%# Eval("page_alert_message_id") %>'
                             runat="server" ToolTip='<%# Eval("ToolTip") %>' OnClick="Enable_Click" ImageUrl='<%# "~/App_Themes/Theme1/images/"+ Eval("ImageUrl") %>' />--%>
-                                    <asp:ImageButton ID="ImageButton1" CssClass="imgDelete" CommandArgument='<%# Eval("page_alert_message_id") %>'
+                                    <asp:ImageButton ID="ImageButton1" CssClass="imgDelete" CommandArgument='<%# Eval("TemplateId") %>'
                                         runat="server" ToolTip="Edit" RowIndex='<%# Container.DisplayIndex %>' ImageUrl="~/App_Themes/Theme1/images/edit.png"
                                         OnClick="imgBtnEdit_Click" />
                                     <%--   <asp:ImageButton ID="imgBtnDelete" CssClass="imgDelete" runat="server" ToolTip="Delete"

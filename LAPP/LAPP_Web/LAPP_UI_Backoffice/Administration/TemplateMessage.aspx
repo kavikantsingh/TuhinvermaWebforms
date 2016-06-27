@@ -45,7 +45,13 @@
         }
         //On Update method for this page
         function onUpdate() {
-
+            $('.txtDatePicker').datepicker(
+                {
+                    dateFormat: 'm/d/yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1950:2100'
+                });
             //For normal jquery calender
             //            $('.calender').datepicker({
             //                inline: true,
@@ -55,13 +61,8 @@
             //                yearRange: "1950:2023"
 
             //            });
-
-
-
             //Grid event
             //gridEvent();
-
-
         }
 
     </script>

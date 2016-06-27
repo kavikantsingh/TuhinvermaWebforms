@@ -56,6 +56,49 @@
             </tr>--%>
             <tr>
                 <td>
+                    <label>
+                        Template Apply To :
+                    </label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="TemplateApplyToDropDown" Width="258px" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Start Date :
+                    </label>
+                </td>
+                <td>
+                    <asp:TextBox ID="StartDateTextBox" CssClass="txtDatePicker" Width="250px" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="StartDateTextBoxValidator" ValidationGroup="VGTemplate" ControlToValidate="StartDateTextBox"
+                        Text="*" ForeColor="Red" Display="None" SetFocusOnError="True" runat="server"
+                        ErrorMessage="Please enter Start Date"></asp:RequiredFieldValidator>
+                    <asp:ValidatorCalloutExtender ID="StartDateTextValidatorCalloutExtender" runat="server" TargetControlID="StartDateTextBoxValidator"
+                        PopupPosition="BottomLeft" HighlightCssClass="error">
+                    </asp:ValidatorCalloutExtender>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        End Date :
+                    </label>
+                </td>
+                <td>
+                    <asp:TextBox ID="EndDateTextBox" CssClass="txtDatePicker" Width="250px" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="EndDateTextBoxValidator" ValidationGroup="VGTemplate" ControlToValidate="EndDateTextBox"
+                        Text="*" ForeColor="Red" Display="None" SetFocusOnError="True" runat="server"
+                        ErrorMessage="Please enter End Date"></asp:RequiredFieldValidator>
+                    <asp:ValidatorCalloutExtender ID="EndDateTextBoxValidatorCalloutExtender" runat="server" TargetControlID="EndDateTextBoxValidator"
+                        PopupPosition="BottomLeft" HighlightCssClass="error">
+                    </asp:ValidatorCalloutExtender>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label class="input-label required">
                         Template Name :</label>
                 </td>

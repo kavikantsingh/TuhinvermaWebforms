@@ -18,8 +18,9 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
     LAPP_exception_log_BAL objexLogBal = new LAPP_exception_log_BAL();
     LAPP_audit_info objAuditInfo = new LAPP_audit_info();
     LAPP_audit_info_BAL objAuditBal = new LAPP_audit_info_BAL();
-    LAPP_page_alert_message objPageAlertMsg = new LAPP_page_alert_message();
-    LAPP_page_alert_messageBAL objPageAlertMsgBAL = new LAPP_page_alert_messageBAL();
+    TemplateEntity _templateEntity = new TemplateEntity();
+    TemplateBAL _templateBal = new TemplateBAL();
+    ApplicationTypeBAL _applicationTypeBal = new ApplicationTypeBAL();
     LAPP_page_alert_message_hist objPageAlertMsgHist = new LAPP_page_alert_message_hist();
     LAPP_page_alert_message_histBAL objPageAlertMsgHistBAL = new LAPP_page_alert_message_histBAL();
 
@@ -57,9 +58,34 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
         {
             //BindDropDowneTemplateType();
             //BindFropDownOfApplyTo();
+            BindDropDownTemplateAppliesToType();
         }
     }
 
+    private void BindDropDownTemplateAppliesToType()
+    {
+        TemplateAppliesToTypeBAL templateAppliesToTypeBal = new TemplateAppliesToTypeBAL();
+
+        try
+        {
+            TemplateApplyToDropDown.DataSource = templateAppliesToTypeBal.GetAllTemplateAppliesToType();
+            TemplateApplyToDropDown.DataTextField = "Name";
+            TemplateApplyToDropDown.DataValueField = "TemplateAppliesToTypeId";
+            TemplateApplyToDropDown.DataBind();
+        }
+        catch (Exception ex)
+        {
+            objExLog = Fetchlog();
+            objExLog.Thread = ex.StackTrace.ToString();
+            objExLog.Logger = "ucMessageTemplateEdit.ascx.cs BindDropDownTemplateAppliesToType";
+            objExLog.Message = ex.Message;
+            objExLog.Exception = ex.ToString();
+            objExLog.Context = ex.Source;
+            objexLogBal.Save_LAPP_exception_log(objExLog);
+            objAuditBal.Save_LAPP_audit_info_save(BrowserInfo.GetobjAuditInfo());
+            MessageBox.Show(this.Page, ex.Message, 2);
+        }
+    }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -115,14 +141,13 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
     {
         try
         {
-            Lapp_application_feeBAL objLapp_application_feeBAL = new Lapp_application_feeBAL();
-            List<Lapp_application_fee> lstLapp_application_fee = new List<Lapp_application_fee>();
-            lstLapp_application_fee = objLapp_application_feeBAL.Get_Lapp_application_fee();
-            if (lstLapp_application_fee != null)
+            ApplicationTypeGetResponse applicationTypeGetResponse =
+            _applicationTypeBal.GetAllAplicationTypes(UIHelper.GetBackOfficeKeyFromSession());
+            if (applicationTypeGetResponse.Status)
             {
-                ddlApplicationType.DataSource = lstLapp_application_fee;
+                ddlApplicationType.DataSource = applicationTypeGetResponse.ApplicationTypeGetList;
                 ddlApplicationType.DataTextField = "Name";
-                ddlApplicationType.DataValueField = "Application_ID";
+                ddlApplicationType.DataValueField = "ApplicationTypeId";
                 ddlApplicationType.DataBind();
             }
             ddlApplicationType.Items.Insert(0, new ListItem("Select", "-1"));
@@ -148,35 +173,35 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
     {
         try
         {
-            objPageAlertMsg = FetchValueFormPageAlert();
-            if (objPageAlertMsg != null)
+            _templateEntity = FetchValueFormPageAlert();
+            if (_templateEntity != null)
             {
                 if (this.page_alert_message_id > 0)
                 {
-                    objPageAlertMsgBAL.Update_LAPP_page_alert_message(objPageAlertMsg, this.page_alert_message_id);
-                    objPageAlertMsgHist = FetchPageAlertMsgHistory();
-                    if (objPageAlertMsgHist != null)
-                    {
-                        objPageAlertMsgHist.Action = "U";
-                        objPageAlertMsgHist.Is_Deleted = objPageAlertMsg.Is_Deleted;
-                        objPageAlertMsgHist.Page_Alert_Message_Id = objPageAlertMsg.Page_Alert_Message_Id;
-                        objPageAlertMsgHistBAL.Save_LAPP_page_alert_message_hist(objPageAlertMsgHist);
-                        MessageBox.Show(this.Page, Messages.UpdateSuccess(), (int)eAlertType.Success);
-                    }
+                    _templateBal.UpdateTemplate(_templateEntity);
+                    //objPageAlertMsgHist = FetchPageAlertMsgHistory();
+                    //if (objPageAlertMsgHist != null)
+                    //{
+                    //    objPageAlertMsgHist.Action = "U";
+                    //    objPageAlertMsgHist.Is_Deleted = _templateEntity.Is_Deleted;
+                    //    objPageAlertMsgHist.Page_Alert_Message_Id = _templateEntity.Page_Alert_Message_Id;
+                    //    objPageAlertMsgHistBAL.Save_LAPP_page_alert_message_hist(objPageAlertMsgHist);
+                    //    MessageBox.Show(this.Page, Messages.UpdateSuccess(), (int)eAlertType.Success);
+                    //}
                 }
                 else
                 {
-                    int res = objPageAlertMsgBAL.Save_LAPP_page_alert_message(objPageAlertMsg);
+                    int res = _templateBal.CreateTemplate(_templateEntity);
                     if (res > 0)
                     {
-                        objPageAlertMsgHist = FetchPageAlertMsgHistory();
-                        if (objPageAlertMsgHist != null)
-                        {
-                            objPageAlertMsgHist.Action = "I";
-                            objPageAlertMsgHist.Is_Deleted = objPageAlertMsg.Is_Deleted;
-                            objPageAlertMsgHist.Page_Alert_Message_Id = res;
-                            objPageAlertMsgHistBAL.Save_LAPP_page_alert_message_hist(objPageAlertMsgHist);
-                        }
+                        //objPageAlertMsgHist = FetchPageAlertMsgHistory();
+                        //if (objPageAlertMsgHist != null)
+                        //{
+                        //    objPageAlertMsgHist.Action = "I";
+                        //    objPageAlertMsgHist.Is_Deleted = _templateEntity.Is_Deleted;
+                        //    objPageAlertMsgHist.Page_Alert_Message_Id = res;
+                        //    objPageAlertMsgHistBAL.Save_LAPP_page_alert_message_hist(objPageAlertMsgHist);
+                        //}
                         this.page_alert_message_id = res;
                         MessageBox.Show(this.Page, Messages.SaveSuccess(), (int)eAlertType.Success);
                     }
@@ -203,15 +228,18 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
         try
         {
 
-            objPageAlertMsg = objPageAlertMsgBAL.Get_LAPP_page_alert_message_BY_ID(page_alert_message_id);
-            if (objPageAlertMsg != null)
+            _templateEntity = _templateBal.GetTemplateById(page_alert_message_id);
+            if (_templateEntity != null)
             {
-                txtMessage.Text = objPageAlertMsg.Message;
+                txtMessage.Text = _templateEntity.TemplateMessage;
+                StartDateTextBox.Text = _templateEntity.EffectiveDate.ToShortDateString();
+                EndDateTextBox.Text = _templateEntity.EndDate.ToShortDateString();
                 //txtstartDate.Text = (objPageAlertMsg.Start_Date.Date != UIHelper.DefaultDate() ? objPageAlertMsg.Start_Date.ToShortDateString() : "");
                 //txtEndD.Text = (objPageAlertMsg.End_Date.Date != UIHelper.DefaultDate() ? objPageAlertMsg.End_Date.ToShortDateString() : "");
-                txtTempName.Text = objPageAlertMsg.Template_Name;
-                ddlApplicationType.SelectedValue = objPageAlertMsg.Template_Type_Id.ToString();
-                txtTempSub.Text = objPageAlertMsg.Template_Subject;
+                txtTempName.Text = _templateEntity.TemplateName;
+                ddlApplicationType.SelectedValue = _templateEntity.ApplicationTypeId.ToString();
+                TemplateApplyToDropDown.SelectedValue = _templateEntity.TemplateAppliesToTypeId.ToString();
+                txtTempSub.Text = _templateEntity.TemplateSubject;
                 //ddlApplyTo.SelectedValue = objPageAlertMsg.Apply_ID.ToString();
                 //ddlAccountTy.SelectedValue = objPageAlertMsg.Account_Type.ToString();
             }
@@ -299,40 +327,37 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
 
     #region Private Methods
 
-    private LAPP_page_alert_message FetchValueFormPageAlert()
+    private TemplateEntity FetchValueFormPageAlert()
     {
         try
         {
-            objPageAlertMsg = objPageAlertMsgBAL.Get_LAPP_page_alert_message_BY_ID(page_alert_message_id);
-            if (objPageAlertMsg != null)
+            _templateEntity = new TemplateEntity();
+            _templateEntity.TemplateName = txtTempName.Text.Trim();
+            _templateEntity.ApplicationTypeId = Convert.ToInt32(ddlApplicationType.SelectedValue.Trim()); ;
+            _templateEntity.TemplateMessage = txtMessage.Text.Trim();
+            DateTime startDate;
+            if (DateTime.TryParse(StartDateTextBox.Text, out startDate))
             {
-                objPageAlertMsg.Template_Name = txtTempName.Text.Trim();
-                objPageAlertMsg.Template_Type_Id = Convert.ToInt32(ddlApplicationType.SelectedValue.Trim()); ;
-                objPageAlertMsg.Message = txtMessage.Text.Trim();
-                objPageAlertMsg.Start_Date = DateTime.Now;
-                objPageAlertMsg.End_Date = DateTime.Now;
-                objPageAlertMsg.Template_Subject = txtTempSub.Text.Trim();
-                objPageAlertMsg.DTS = DateTime.Now;
-                objPageAlertMsg.Apply_ID = 0;
-                objPageAlertMsg.Account_Type = 0;
+                _templateEntity.EffectiveDate = startDate;
             }
-            else
+
+            DateTime endDate;
+            if (DateTime.TryParse(EndDateTextBox.Text, out endDate))
             {
-                objPageAlertMsg = new LAPP_page_alert_message();
-                objPageAlertMsg.Template_Name = txtTempName.Text.Trim();
-                objPageAlertMsg.Template_Type_Id = Convert.ToInt32(ddlApplicationType.SelectedValue.Trim()); ;
-                objPageAlertMsg.Message = txtMessage.Text.Trim();
-                objPageAlertMsg.Start_Date = DateTime.Now;
-                objPageAlertMsg.End_Date = DateTime.Now;
-                objPageAlertMsg.Template_Subject = txtTempSub.Text.Trim();
-                objPageAlertMsg.Is_Active = true;
-                objPageAlertMsg.Created_On = DateTime.Now;
-                objPageAlertMsg.DTS = DateTime.Now;
-                objPageAlertMsg.Is_Deleted = false;
-                objPageAlertMsg.Created_By = UIHelper.UserIDBySession();
-                objPageAlertMsg.Apply_ID = 0;
-                objPageAlertMsg.Account_Type = 0;
+                _templateEntity.EndDate = endDate;
             }
+
+            _templateEntity.TemplateSubject = txtTempSub.Text.Trim();
+            _templateEntity.IsActive = true;
+            _templateEntity.CreatedOn = DateTime.Now;
+            _templateEntity.IsDeleted = false;
+            _templateEntity.IsEnabled = true;
+            _templateEntity.CreatedBy = UIHelper.UserIDBySession();
+            _templateEntity.TemplateCode = " - ";
+            _templateEntity.MasterTransactionId = 1;
+            _templateEntity.PageModuleId = 1;
+            _templateEntity.PageModuleTabSubModuleId = 1;
+            _templateEntity.PageTabSectionId = 1;
         }
         catch (Exception ex)
         {
@@ -348,7 +373,7 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
 
         }
 
-        return objPageAlertMsg;
+        return _templateEntity;
     }
 
     private LAPP_page_alert_message_hist FetchPageAlertMsgHistory()
