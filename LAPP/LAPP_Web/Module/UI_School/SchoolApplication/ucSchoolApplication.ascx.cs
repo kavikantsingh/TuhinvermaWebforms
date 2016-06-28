@@ -1830,6 +1830,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             DisplayPanel(PnlProHoReqWorksheet);
             MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
         }
+        DisplayPanel(PnlProHoReqWorksheet);
     }
 
     protected void btnSchFacList_Click(object sender, EventArgs e)
@@ -15719,6 +15720,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         divAddCourseReq.Visible = true;
         this.EditIndexPHRW1 = -1;
         BindGridPHRW1();
+        gvCourseL2_Bind(EditIndexAdminInfo20);
     }
 
     protected void lnkCourseReqAddNewCancel_Click(object sender, EventArgs e)
