@@ -1830,6 +1830,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             DisplayPanel(PnlProHoReqWorksheet);
             MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
         }
+        MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
         DisplayPanel(PnlProHoReqWorksheet);
     }
 
@@ -15787,26 +15788,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         BindGridPHRW1();
     }
 
-    protected void lnkCourseTitleHourEdit_Click(object sender, EventArgs e)
-    {
-        divAddbtnCourseReq.Visible = true;
-        divAddCourseReq.Visible = false;
-        this.EditIndexPHRW1 = -1;
+   
 
-        ImageButton imgbtnRelatedSchoolEdit = (ImageButton)sender;
-        if (imgbtnRelatedSchoolEdit != null)
-        {
-            int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
-            this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
-            BindGridPHRW1();
-            FillControlPHRWInnerGrid(gvAdminInfo2, this.EditIndexPHRW1);
-        }
-    }
-
-    protected void lnkCourseTitleHourDelete_Click(object sender, EventArgs e)
-    {
-
-    }
+    
 
     #endregion
 
@@ -16687,6 +16671,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         Label lblCourseTitle = e.Row.FindControl("lblCourseTitle") as Label;
         Label lblCourseHours = e.Row.FindControl("lblCourseHours") as Label;
+        HiddenField hdnCourseTitleID = (HiddenField)e.Row.FindControl("hdnCourseTitleID");
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             var res = (ProvReqCourseTitleRS)Session["ProvReqCourseTitleRS"];//gvCourseL2_Bind(this.EditIndexAdminInfo20);
@@ -16696,6 +16681,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 //{
                 lblCourseTitle.Text = res.ProvReqCourseTitle[e.Row.RowIndex].CourseTitleName;
                 lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
+                hdnCourseTitleID.Value = (res.ProvReqCourseTitle[e.Row.RowIndex].ProvReqCourseTitleId).ToString();
+                
+                //---for binding labels of selected row of outer grid---//
                 lblReqCouStdy.Text = Session["lblReqCouStdy"].ToString();
                 lblMinReqHrs.Text = Session["lblMinReqHrs"].ToString();
                 //}
@@ -16905,7 +16893,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 Session["lblMinReqHrs"] = "18";
             }
             BindGridAdminInfo20();
-            BindGridPHRW1();//
+            //BindGridPHRW1();//
             gvCourseL2_Bind(EditIndexAdminInfo20);
             FillControlAdminInfo20(gvProgHrWrkSheet, this.EditIndexAdminInfo20);
         }
@@ -17035,9 +17023,180 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     }
 
+    
+
+
+    protected void btnCourseTitleUpdate_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string hdnCourseTitleID = Session["hdnCourseTitleID"].ToString();
+            string CourseTitle = null;
+            int CourseHours = 0;
+            TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit");
+            TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
+            if (txtCourseTitleEdit != null && txtCourseHrsEdit != null)
+            {
+                CourseTitle = txtCourseTitleEdit.Text.Trim();
+                CourseHours = Convert.ToInt32(txtCourseHrsEdit.Text);
+
+            }
+            //int NoOfHours = Convert.ToInt32(TextBox1450.Text.Trim());
+            if (CourseTitle != null && CourseHours > 0)
+            {
+                Lapp_ProvReqCourseTitle rQ = new Lapp_ProvReqCourseTitle()
+                {
+                    ProvReqCourseTitleId = Convert.ToInt32(hdnCourseTitleID),
+                    ProvReqCourseofStudyId = 0,//this.EditIndexAdminInfo20 + 1,
+                    ProviderId = UIHelper.GetProviderId(),
+                    CourseTitleName = CourseTitle,
+                    CourseHours = CourseHours,
+                    ApplicationId = UIHelper.GetApplicationId(),
+                    ReferenceNumber = "",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedBy = UIHelper.GetProviderId(),
+                    CreatedOn = DateTime.Now,
+                    ModifiedBy = 0,
+                    ModifiedOn = DateTime.Now,
+                    ProviderOtherProgramGuid = ""
+                };
+
+                object obj;
+                string Key = UIHelper.GetProviderKeyFromSession();
+                //string WebApiUrl = "http://localhost:1530/api/providercurriculum/ProvReqCourseTitleEdit/Key=" + Key;
+                string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleEdit/Key=" + Key; //http:"//96.31.91.68/;
+                CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+                gvCourseL2_Bind(EditIndexAdminInfo20);
+                var res = (ProvReqCourseTitleRS)obj;
+                if (res.Status)
+                {
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+        Session["hdnCourseTitleID"] = null;
+    }
+
+    protected void lnkCancelCourseTitleUpdate_Click(object sender, EventArgs e)
+    {
+        gvCourseL2_Bind(EditIndexAdminInfo20);
+    }
+
+    protected void lnkCourseTitleHourEdit_Click(object sender, EventArgs e)
+    {
+        divAddbtnCourseReq.Visible = true;
+        divAddCourseReq.Visible = false;
+        this.EditIndexPHRW1 = -1;
+        //---find the controls--//
+
+
+        ImageButton imgbtnRelatedSchoolEdit = (ImageButton)sender;
+        if (imgbtnRelatedSchoolEdit != null)
+        {
+            int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
+            this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+            //---find controls----//
+            Label lblCourseTitle = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseTitle");
+            Label lblCourseHours = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseHours");
+            Panel pnlgvCourseL2Edit = (Panel)gvCourseL2.Rows[EditIndexPHRW1].FindControl("pnlgvCourseL2Edit");
+            Label lblCouTitl = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCouTitl");
+            Label lblNoofHrs = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblNoofHrs");
+            TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit");
+            TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
+            HiddenField hdnCourseTitleID = (HiddenField)gvCourseL2.Rows[EditIndexPHRW1].FindControl("hdnCourseTitleID");
+            Session["hdnCourseTitleID"] = hdnCourseTitleID.Value;
+            //BindGridPHRW1();
+            //FillControlPHRWInnerGrid(gvAdminInfo2, this.EditIndexPHRW1);
+            if (this.EditIndexPHRW1 >= 0)
+            {
+                //gvCourseL2.Rows[this.EditIndexPHRW1].CssClass = "RowInEditMode";
+                //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].Attributes.Add("colspan", "6");
+                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[1].Visible = false;
+                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[2].Visible = false;
+                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[3].Visible = false;
+                //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].Visible = true;
+                pnlgvCourseL2Edit.Visible = true;
+                lblCouTitl.Text = lblCourseTitle.Text;
+                lblNoofHrs.Text = lblCourseHours.Text;
+                txtCourseTitleEdit.Text = lblCouTitl.Text;
+                txtCourseHrsEdit.Text = lblNoofHrs.Text;
+                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].ColumnSpan = 4;
+                //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[4].Visible = false;
+                //gvRelatedSchool.Rows[this.EditIndexAdminInfo2].Cells[5].Visible = false;
+
+            }
+        }
+    }
+
+    protected void lnkCourseTitleHourDelete_Click(object sender, EventArgs e)
+    {
+        this.EditIndexPHRW1 = -1;
+        //---find the controls--//
+
+        try
+        {
+            ImageButton imgbtnRelatedSchoolEdit = (ImageButton)sender;
+            if (imgbtnRelatedSchoolEdit != null)
+            {
+                int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
+                this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+                //---find controls----//
+
+                HiddenField hdnCourseTitleID = (HiddenField)gvCourseL2.Rows[EditIndexPHRW1].FindControl("hdnCourseTitleID");
+                Session["hdnCourseTitleID"] = hdnCourseTitleID.Value;
+                int CourseTitleID = Convert.ToInt32(hdnCourseTitleID.Value);
+                //= Session["hdnCourseTitleID"].ToString();
+                if (EditIndexPHRW1 >= 0)
+                {
+                    if (CourseTitleID > 0)
+                    {
+                        Lapp_ProvReqCourseTitle rQ = new Lapp_ProvReqCourseTitle()
+                        {
+                            ProvReqCourseTitleId = CourseTitleID,
+                            ProvReqCourseofStudyId = 0,//this.EditIndexAdminInfo20 + 1,
+                            ProviderId = UIHelper.GetProviderId(),
+                            CourseTitleName = "",//CourseTitle,
+                            CourseHours = 0,//CourseHours,
+                            ApplicationId = UIHelper.GetApplicationId(),
+                            ReferenceNumber = "",
+                            IsActive = true,
+                            IsDeleted = false,
+                            CreatedBy = UIHelper.GetProviderId(),
+                            CreatedOn = DateTime.Now,
+                            ModifiedBy = 0,
+                            ModifiedOn = DateTime.Now,
+                            ProviderOtherProgramGuid = ""
+                        };
+
+                        object obj;
+                        string Key = UIHelper.GetProviderKeyFromSession();
+                        //string WebApiUrl = "http://localhost:1530/api/providercurriculum/ProvReqCourseTitleDelete/Key=" + Key;
+                        string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleDelete/Key=" + Key; //http:"//96.31.91.68/;
+                        CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+                        gvCourseL2_Bind(EditIndexAdminInfo20);
+                        var res = (ProvReqCourseTitleRS)obj;
+                        if (res.Status)
+                        {
+                        }
+                    }
+                }
+            }
+            gvCourseL2_Bind(EditIndexAdminInfo20);
+            Session["hdnCourseTitleID"] = null;
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
     //--basu--//
     #endregion Basu_Curriculum
-
 
 
     protected void btnSaveAboutFacility_Click(object sender, EventArgs e)
@@ -17112,10 +17271,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             gradYear2009_estimate_hdn = Convert.ToInt32(hdnGradYear_7.Value);
 
         int ProviderGraduatesNumberId = 0, calendarYear = 0, CalendarYearEstGradCount = 0, CalendarYearActualGradCount = 0;
-            
-        for(int i=1; i<=8; i++)
+
+        for (int i = 1; i <= 8; i++)
         {
-            if(i==1)
+            if (i == 1)
             {
                 ProviderGraduatesNumberId = gradYear2016_estimate_hdn;
                 calendarYear = 2016;
@@ -17201,14 +17360,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             var res = (CommonRS)obj;
             if (res.Status)
             {
-                
+
             }
-        }        
+        }
 
         BindStaff();
 
         #endregion
     }
+
 }
 
 
