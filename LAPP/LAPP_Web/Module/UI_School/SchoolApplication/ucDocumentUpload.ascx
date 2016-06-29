@@ -125,7 +125,12 @@
                                     <tr>
                                         <td style="width: 110px; text-align: center;"><%# Eval("DocumentTypeIdName") %></td>
                                         <td style="width: 148px;"><%# Eval("DocumentName") %></td>
-                                        <td style="width: 145px;"><a id="hlkURL3" class="documentdetail" href="<%# Eval("DocumentPath") %>" target="_blank">Document Detail </a></td>
+                                        <td style="width: 145px;">
+                                            <a id="hlkURL3" class="documentdetail" target="_blank"
+                                            href='<%# "http://ws.camtc.inlumon.com/api/Provider/ProviderDocumentByProviderDocumentId/key?ProviderDocumentId=" + Eval("ProviderDocumentId") %>' >
+                                            Document Detail
+                                            </a>
+                                        </td>
                                         <td class="vligntop" align="center">
                                             <span class="fltrt" style="margin-right: 20px;">
                                                 <div style="width: 20px; display: inline-block">
