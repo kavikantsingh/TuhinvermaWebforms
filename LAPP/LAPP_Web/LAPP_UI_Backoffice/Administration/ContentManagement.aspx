@@ -11,9 +11,9 @@
             $('.calender').datepicker({
                 inline: true,
                 changeMonth: true,
-                changeYear: true, maxDate: "-18Y",
-                yearRange: "1900:+nn"
-
+                changeYear: true,
+                //maxDate: "-18Y",
+                yearRange: "2000:2030"
             });
         });
     </script>
@@ -47,7 +47,7 @@
                                         </div>
 
                                         <div style="width: 100%">
-                                            <asp:UpdatePanel ID="upDropdown" UpdateMode="Conditional" runat="server">
+                                            <asp:UpdatePanel ID="upDropdown" UpdateMode="Always" runat="server">
                                                 <ContentTemplate>
                                                     <div style="float: left; width: 15%">
                                                         <table class="SearchTable" align="left">
@@ -126,7 +126,7 @@
                                     <div class="brdr radius pdng5">
                                         <asp:Repeater ID="rptContent" OnItemCommand="rptContent_ItemCommand" runat="server">
                                             <HeaderTemplate>
-                                                <table id="example" class="display" cellspacing="0" width="100%">
+                                                <table id="example" class="display dataTable no-footer"  cellspacing="0" width="100%">
                                                     <thead>
                                                         <tr style="color: White; background-color: #0D83DD; border-style: None; font-weight: bold;">
                                                             <th>Content Item Code</th>
@@ -143,7 +143,8 @@
                                                 <tr>
                                                     <td><%# Eval("ContentItemLkCode") %></td>
                                                     <td><%# Eval("ContentItemHash") %></td>
-                                                    <td><%# Eval("ContentItemLkDesc") %></td>
+                                                    <td><%# Eval("ContentItemLkDesc")%></td>
+                                                    <%--<td><%# Eval("ContentItemLkDesc").ToString().Length < 300 ? Eval("ContentItemLkDesc") : Convert.ToString(Eval("ContentItemLkDesc")).Substring(0,300)  %></td>--%>
                                                     <td><%# Convert.ToDateTime(Eval("EffectiveDate")).ToString("MM/dd/yyyy").Replace("-", "/") %></td>
                                                     <td><%# Convert.ToDateTime(Eval("EndDate")).ToString("MM/dd/yyyy").Replace("-", "/") %></td>
                                                     <td>
@@ -223,7 +224,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#example').DataTable();
+            // $('#example').DataTable();
         });
 
         function showStuff(id) {
