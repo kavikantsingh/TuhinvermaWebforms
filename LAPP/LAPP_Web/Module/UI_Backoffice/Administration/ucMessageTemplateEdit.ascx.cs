@@ -358,6 +358,7 @@ public partial class Module_Administration_ucMessageTemplateEdit : System.Web.UI
             _templateEntity.PageModuleId = 1;
             _templateEntity.PageModuleTabSubModuleId = 1;
             _templateEntity.PageTabSectionId = 1;
+            _templateEntity.TemplateTypeId = 1;
         }
         catch (Exception ex)
         {

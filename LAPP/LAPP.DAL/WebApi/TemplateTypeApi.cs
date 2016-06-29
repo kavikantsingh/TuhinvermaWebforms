@@ -9,7 +9,7 @@ namespace LAPP.DAL
     {
         public List<TemplateTypeEntity> GetAllTemplateTypes()
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/GetAllTemplateTypes";
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/GetAllTemplateTypes";
             //string WebAPIUrl = "http://localhost:1530/api/Template/GetAllTemplateTypes";
 
             return WebApiUtility.Get<IEnumerable<TemplateTypeEntity>>(WebAPIUrl).ToList();
