@@ -277,7 +277,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     {
                         DocumentLkToPageTabSectionCode = "",
                         DocumentLkToPageTabSectionId = 0,
-                        DocumentName = "",
+                        DocumentName = Path.GetFileNameWithoutExtension(fuSimpleDocUpload.FileName),
                         DocumentPath = "",
                         EffectiveDate = null,
                         EndDate = null,

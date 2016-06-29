@@ -26,6 +26,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         #region Document Upload Shekhar
 
+
         #region Staff
         fuStaff1.docId = "5";
         fuStaff1.docCode = "D1005";
@@ -41,6 +42,62 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         #endregion
 
         #region About The School
+
+        fuAboutSchool1.docId = "3";
+        fuAboutSchool1.docCode = "D1003";
+        fuAboutSchool1.isSimple = false;
+
+        fuAboutSchool2.docId = "4";
+        fuAboutSchool2.docCode = "D1004";
+        fuAboutSchool2.isSimple = false;
+
+        fuAboutSchool3.docId = "5";
+        fuAboutSchool3.docCode = "D1005";
+        fuAboutSchool3.isSimple = true;
+
+        fuAboutSchool4.docId = "6";
+        fuAboutSchool4.docCode = "D1006";
+        fuAboutSchool4.isSimple = true;
+
+        fuAboutSchool5.docId = "9";
+        fuAboutSchool5.docCode = "D1009";
+        fuAboutSchool5.isSimple = true;
+
+        fuAboutSchool6.docId = "10";
+        fuAboutSchool6.docCode = "D1010";
+        fuAboutSchool6.isSimple = true;
+
+        fuAboutSchool7.docId = "11";
+        fuAboutSchool7.docCode = "D1011";
+        fuAboutSchool7.isSimple = false;
+
+        fuAboutSchool8.docId = "12";
+        fuAboutSchool8.docCode = "D1012";
+        fuAboutSchool8.isSimple = true;
+
+        fuAboutSchool9.docId = "13";
+        fuAboutSchool9.docCode = "D10013";
+        fuAboutSchool9.isSimple = false;
+
+        fuAboutSchool10.docId = "14";
+        fuAboutSchool10.docCode = "D1014";
+        fuAboutSchool10.isSimple = true;
+
+        fuAboutSchool11.docId = "15";
+        fuAboutSchool11.docCode = "D1015";
+        fuAboutSchool11.isSimple = true;
+
+        fuAboutSchool12.docId = "16";
+        fuAboutSchool12.docCode = "D1016";
+        fuAboutSchool12.isSimple = true;
+
+        fuAboutSchool13.docId = "17";
+        fuAboutSchool13.docCode = "D1017";
+        fuAboutSchool13.isSimple = true;
+
+        fuAboutSchool14.docId = "18";
+        fuAboutSchool14.docCode = "D1018";
+        fuAboutSchool14.isSimple = false;
 
         #endregion
 
@@ -151,6 +208,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //ltrMessage.Text = "";
         if (!IsPostBack)
         {
+            GetTabStatus();
             ltrErrorMessageNewApp.Text = "";
             //ltrMessage.Text = "";
             BindGridInstQualSectionA1();
@@ -316,6 +374,58 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
     #endregion
+
+    public void GetTabStatus()
+    {
+
+        string ApplicationId = UIHelper.ApplicationIdFromSession().ToString();
+        string ProviderId = UIHelper.ProviderIdFromSession().ToString();
+        string Key = UIHelper.GetKey();
+
+        string WebAPIUrl = webAPIURL + "Provider/GetAllProviderTabStatus/?Key=" + Key + "&ApplicationId=" + ApplicationId + "&ProviderId=" + ProviderId + "";
+        Object obj;
+
+        WebApiUtility.CallWebAPI<TabStatusRS>(WebAPIUrl, null, out obj, "GET");
+
+        var res = (TabStatusRS)obj;
+        if (res.Status)
+        {
+            if (res.ProviderTabStatusList.Count > 0)
+            {
+                for (int i = 0; i < res.ProviderTabStatusList.Count; i++)
+                {
+                    if (res.ProviderTabStatusList[i].TabName == "Instructions")
+                    {
+                        rblQuestionEdit1.SelectedValue = "1";
+                        imgbtnInstruction.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+                    }
+                    else if (res.ProviderTabStatusList[i].TabName == "School Information")
+                        imgMassageTherapistApplication.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "School Eligibility")
+                        imgSection2.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "About The School")
+                        imgSection3.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "Transcript")
+                        imgTransCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "Enrollment Agreement")
+                        imgEnrollAgreeCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "Course Catalog")
+                        imgCourCataCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "Curriculum")
+                        imgProgHourReqWork.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+
+                    else if (res.ProviderTabStatusList[i].TabName == "Staff")
+                        ibtnSchoolContactStaff.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+                }
+            }
+        }
+    }
 
     #region CertificationApplication
 
@@ -4701,7 +4811,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void gvStaff_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        
+
     }
 
     protected void lnkBackgroundCheckEdit_Click(object sender, EventArgs e)
@@ -17719,6 +17829,22 @@ public class ProviderGraduatesNumberRS
     public string ResponseReason { get; set; }
     public List<ProviderGraduatesNumber> ListOfProviderGraduatesNumber { get; set; }
 }
+
+public class TabStatusRQ
+{
+    public string TabName { get; set; }
+    public bool ApplicationTabStatus { get; set; }
+}
+
+public class TabStatusRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<TabStatusRQ> ProviderTabStatusList { get; set; }
+}
+
 //public class CommonRS
 //{
 //    public string Message { get; set; }
