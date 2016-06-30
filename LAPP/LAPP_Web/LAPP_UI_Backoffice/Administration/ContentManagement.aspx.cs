@@ -262,12 +262,12 @@ public partial class LAPP_UI_Backoffice_Administration_ContentManagement : Syste
 
             if (res.Status)
             {
-                MessageBox.Show(this.Page, "Updated Successfully.");
                 ShowAllContent();
+                MessageBox.Show(this.Page, "Updated Successfully.");
             }
             else
             {
-                MessageBox.Show(this.Page, res.Message ?? "");
+                MessageBox.Show(this.Page, res.Message ?? "",2);
             }
         }
     }

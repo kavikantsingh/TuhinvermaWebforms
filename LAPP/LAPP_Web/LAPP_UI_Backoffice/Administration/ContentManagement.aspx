@@ -47,7 +47,7 @@
                                         </div>
 
                                         <div style="width: 100%">
-                                            <asp:UpdatePanel ID="upDropdown" UpdateMode="Always" runat="server">
+                                            <asp:UpdatePanel ID="upDropdown" UpdateMode="Conditional" runat="server">
                                                 <ContentTemplate>
                                                     <div style="float: left; width: 15%">
                                                         <table class="SearchTable" align="left">
@@ -124,87 +124,91 @@
 
                                 <div id="Datatable" class="brdr">
                                     <div class="brdr radius pdng5">
-                                        <asp:Repeater ID="rptContent" OnItemCommand="rptContent_ItemCommand" runat="server">
-                                            <HeaderTemplate>
-                                                <table id="example" class="display dataTable no-footer"  cellspacing="0" width="100%">
-                                                    <thead>
-                                                        <tr style="color: White; background-color: #0D83DD; border-style: None; font-weight: bold;">
-                                                            <th>Content Item Code</th>
-                                                            <th>Content Item#</th>
-                                                            <th>Content Description</th>
-                                                            <th>Effective Date</th>
-                                                            <th>End Date</th>
-                                                            <th>Action</th>
+
+                                      
+
+                                                <asp:Repeater ID="rptContent" OnItemCommand="rptContent_ItemCommand" runat="server">
+                                                    <HeaderTemplate>
+                                                        <table id="example" class="display dataTable no-footer" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr style="color: White; background-color: #0D83DD; border-style: None; font-weight: bold;">
+                                                                    <th>Content Item Code</th>
+                                                                    <th>Content Item#</th>
+                                                                    <th>Content Description</th>
+                                                                    <th>Effective Date</th>
+                                                                    <th>End Date</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td><%# Eval("ContentItemLkCode") %></td>
+                                                            <td><%# Eval("ContentItemHash") %></td>
+                                                            <td><%# Eval("ContentItemLkDesc")%></td>
+                                                            <%--<td><%# Eval("ContentItemLkDesc").ToString().Length < 300 ? Eval("ContentItemLkDesc") : Convert.ToString(Eval("ContentItemLkDesc")).Substring(0,300)  %></td>--%>
+                                                            <td><%# Convert.ToDateTime(Eval("EffectiveDate")).ToString("MM/dd/yyyy").Replace("-", "/") %></td>
+                                                            <td><%# Convert.ToDateTime(Eval("EndDate")).ToString("MM/dd/yyyy").Replace("-", "/") %></td>
+                                                            <td>
+                                                                <input type="image" id="imgDelete" class='<%#Eval("ContentItemLkId") %>' onclick="showStuff(this); return false" src="/App_Themes/Theme1/images/edit.png" alt="Submit">
+                                                            </td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                            </HeaderTemplate>
-                                            <ItemTemplate>
-                                                <tr>
-                                                    <td><%# Eval("ContentItemLkCode") %></td>
-                                                    <td><%# Eval("ContentItemHash") %></td>
-                                                    <td><%# Eval("ContentItemLkDesc")%></td>
-                                                    <%--<td><%# Eval("ContentItemLkDesc").ToString().Length < 300 ? Eval("ContentItemLkDesc") : Convert.ToString(Eval("ContentItemLkDesc")).Substring(0,300)  %></td>--%>
-                                                    <td><%# Convert.ToDateTime(Eval("EffectiveDate")).ToString("MM/dd/yyyy").Replace("-", "/") %></td>
-                                                    <td><%# Convert.ToDateTime(Eval("EndDate")).ToString("MM/dd/yyyy").Replace("-", "/") %></td>
-                                                    <td>
-                                                        <input type="image" id="imgDelete" class='<%#Eval("ContentItemLkId") %>' onclick="showStuff(this); return false" src="/App_Themes/Theme1/images/edit.png" alt="Submit">
-                                                    </td>
-                                                </tr>
 
-                                                <tr id='<%#Eval("ContentItemLkId") %>' style="display: none;">
-                                                    <td colspan='6'>
-                                                        <div class="pdng5" style="padding: 15px 0px 15px 0px; width: 100%;">
+                                                        <tr id='<%#Eval("ContentItemLkId") %>' style="display: none;">
+                                                            <td colspan='6'>
+                                                                <div class="pdng5" style="padding: 15px 0px 15px 0px; width: 100%;">
 
-                                                            <table style="margin: 0 auto; width: 100%;">
-                                                                <tr>
-                                                                    <td align="right">
-                                                                        <label class="input-label required">
-                                                                            Effective Date :</label>
-                                                                    </td>
-                                                                    <td align="left">
-                                                                        <asp:TextBox ID="txtEffectiveDate" ReadOnly="true" CssClass="inputTextbox calender" Text='<%# Convert.ToDateTime(Eval("EffectiveDate")).ToString("MM/dd/yyyy").Replace("-", "/") %>' runat="server"></asp:TextBox>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="right">
-                                                                        <label class="input-label required">
-                                                                            End Date :</label>
-                                                                    </td>
-                                                                    <td align="left">
-                                                                        <asp:TextBox ID="txtEndDate" ReadOnly="true" CssClass="inputTextbox calender" Text='<%# Convert.ToDateTime(Eval("EndDate")).ToString("MM/dd/yyyy").Replace("-", "/") %>' runat="server"></asp:TextBox>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="right">
-                                                                        <label class="input-label required">
-                                                                            Content Text :</label>
-                                                                    </td>
-                                                                    <td align="left">
-                                                                        <asp:HiddenField ID="hdnContentItemLkId" Value='<%# Eval("ContentItemLkId") %>' runat="server" />
-                                                                        <asp:HiddenField ID="hdnContentItemHash" Value='<%# Eval("ContentItemHash") %>' runat="server" />
-                                                                        <CKEditor:CKEditorControl ID="txtContentTextGrid" Text='<%# Eval("ContentItemLkDesc")%>' runat="server"></CKEditor:CKEditorControl>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                                    <table style="margin: 0 auto; width: 100%;">
+                                                                        <tr>
+                                                                            <td align="right">
+                                                                                <label class="input-label required">
+                                                                                    Effective Date :</label>
+                                                                            </td>
+                                                                            <td align="left">
+                                                                                <asp:TextBox ID="txtEffectiveDate" CssClass="inputTextbox calender" Text='<%# Convert.ToDateTime(Eval("EffectiveDate")).ToString("MM/dd/yyyy").Replace("-", "/") %>' runat="server"></asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="right">
+                                                                                <label class="input-label required">
+                                                                                    End Date :</label>
+                                                                            </td>
+                                                                            <td align="left">
+                                                                                <asp:TextBox ID="txtEndDate" CssClass="inputTextbox calender" Text='<%# Convert.ToDateTime(Eval("EndDate")).ToString("MM/dd/yyyy").Replace("-", "/") %>' runat="server"></asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="right">
+                                                                                <label class="input-label required">
+                                                                                    Content Text :</label>
+                                                                            </td>
+                                                                            <td align="left">
+                                                                                <asp:HiddenField ID="hdnContentItemLkId" Value='<%# Eval("ContentItemLkId") %>' runat="server" />
+                                                                                <asp:HiddenField ID="hdnContentItemHash" Value='<%# Eval("ContentItemHash") %>' runat="server" />
+                                                                                <CKEditor:CKEditorControl ID="txtContentTextGrid" Text='<%# Eval("ContentItemLkDesc")%>' runat="server"></CKEditor:CKEditorControl>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
 
-                                                        </div>
-                                                        <div class="toolbar clear" style="">
-                                                            <span class="fltrt">
-                                                                <asp:Button ID="btnUpdate" runat="server" Text="Save" CommandArgument='<%#Eval("ContentItemLkId") %>' CssClass="buttongreen medium" CommandName="UpdateRow" />
-                                                                <input id="btnCancel" type="button" name='<%#Eval("ContentItemLkId") %>' value="Cancel" class="secondary medium" onclick="hideStuff(this); return false" />
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                </tbody>
+                                                                </div>
+                                                                <div class="toolbar clear" style="">
+                                                                    <span class="fltrt">
+                                                                        <asp:Button ID="btnUpdate" runat="server" Text="Save" CommandArgument='<%#Eval("ContentItemLkId") %>' CssClass="buttongreen medium" CommandName="UpdateRow" />
+                                                                        <input id="btnCancel" type="button" name='<%#Eval("ContentItemLkId") %>' value="Cancel" class="secondary medium" onclick="hideStuff(this); return false" />
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        </tbody>
                                                 </table>
-                                            </FooterTemplate>
-                                        </asp:Repeater>
+                                                    </FooterTemplate>
+                                                </asp:Repeater>
 
-                                        <uc1:PagerControl ID="PagerControl1" runat="server" />
+                                                <uc1:PagerControl ID="PagerControl1" runat="server" />
+
 
                                     </div>
                                 </div>
