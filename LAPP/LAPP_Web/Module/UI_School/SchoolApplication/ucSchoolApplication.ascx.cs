@@ -4917,8 +4917,61 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         var res = (ProviderGraduatesNumberRS)obj;
         if (res.Status)
         {
-            gvGraduatesNumber.DataSource = res.ListOfProviderGraduatesNumber;
+            gvGraduatesNumber.DataSource = res.ProviderGraduatesNumberList;
             gvGraduatesNumber.DataBind();
+        }
+
+        for (int i = 0; i < res.ProviderGraduatesNumberList.Count; i++)
+        {
+
+            if (i == 1)
+            {
+                hdnGradYear.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 2)
+            {
+                hdnGradYear_1.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_1.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 3)
+            {
+                hdnGradYear_2.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_2.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 4)
+            {
+                hdnGradYear_3.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_3.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 5)
+            {
+                hdnGradYear_4.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_4.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 6)
+            {
+                hdnGradYear_5.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_5.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 7)
+            {
+                hdnGradYear_6.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_6.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
+            if (i == 8)
+            {
+                hdnGradYear_7.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
+                txtGradYear_7.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
+            }
+
         }
     }
 
@@ -15830,7 +15883,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         divAddbtnCourseReq.Visible = false;
         divAddCourseReq.Visible = true;
         this.EditIndexPHRW1 = -1;
-        BindGridPHRW1();
+        //BindGridPHRW1();
         gvCourseL2_Bind(EditIndexAdminInfo20);
     }
 
@@ -16782,21 +16835,21 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         Label lblCourseTitle = e.Row.FindControl("lblCourseTitle") as Label;
         Label lblCourseHours = e.Row.FindControl("lblCourseHours") as Label;
         HiddenField hdnCourseTitleID = (HiddenField)e.Row.FindControl("hdnCourseTitleID");
+
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             var res = (ProvReqCourseTitleRS)Session["ProvReqCourseTitleRS"];//gvCourseL2_Bind(this.EditIndexAdminInfo20);
             if (res != null && lblCourseTitle != null && lblCourseHours != null)
             {
-                //for(int i=0; i< res.ProvReqCourseTitle.Count;i++)
-                //{
+
                 lblCourseTitle.Text = res.ProvReqCourseTitle[e.Row.RowIndex].CourseTitleName;
                 lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
                 hdnCourseTitleID.Value = (res.ProvReqCourseTitle[e.Row.RowIndex].ProvReqCourseTitleId).ToString();
-                
+
                 //---for binding labels of selected row of outer grid---//
-                lblReqCouStdy.Text = Session["lblReqCouStdy"].ToString();
-                lblMinReqHrs.Text = Session["lblMinReqHrs"].ToString();
-                //}
+                //lblReqCouStdy.Text = Session["lblReqCouStdy"].ToString();------
+                //lblMinReqHrs.Text = Session["lblMinReqHrs"].ToString();------
+
             }
 
             Label lblSchoolName = e.Row.FindControl("lblSchoolName") as Label;
@@ -16831,15 +16884,20 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     public ProvReqCourseTitleRS gvCourseL2_Bind(int courseofstudyId)
     {
+        //----for highlighting selected row ofouter grid----//
+        lblReqCouStdy.Text = Session["lblReqCouStdy"].ToString();
+        lblMinReqHrs.Text = Session["lblMinReqHrs"].ToString();
+        //---------------------------------------------------//
 
         string Key = UIHelper.GetProviderKeyFromSession();
         int CourseOfStudyId = courseofstudyId + 1;
-        int ProviderId = UIHelper.GetProviderId();
+        int ProviderId = UIHelper.GetProviderUserIdFromSession();
         try
         {
+            //string WebAPIUrl = "http:'//localhost:1530/api/ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=" + Key + "&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
             string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvReqCourseTitleGetAllByCourseOfStudyId/?Key=" + Key + "&CourseOfStudyId=" + CourseOfStudyId + "&ProviderId=" + ProviderId + "";
 
-            Object obj; //http:"//localhost:1530/lappws/
+            Object obj;
             CallWebAPI_GET_ProvReqCourseTitleGetAllByCourseOfStudyId<LAPP.ENTITY.ProvReqCourseTitleRS>(WebAPIUrl, out obj);
 
 
@@ -16938,6 +16996,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         string Key = UIHelper.GetProviderKeyFromSession();
         try
         {
+            //string WebAPIUrl = "http:'//localhost:1530/api/ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key=" + Key;
             string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvReqCourseOfStudyGetAll/Key=" + Key;
 
             Object obj;
@@ -17024,14 +17083,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 {
                     ProvReqCourseTitleId = 0,
                     ProvReqCourseofStudyId = this.EditIndexAdminInfo20 + 1,
-                    ProviderId = UIHelper.GetProviderId(),
+                    ProviderId = UIHelper.GetProviderUserIdFromSession(),
                     CourseTitleName = CourseTitle,
                     CourseHours = NoOfHours,
                     ApplicationId = UIHelper.GetApplicationId(),
                     ReferenceNumber = "",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedBy = UIHelper.GetProviderId(),
+                    CreatedBy = UIHelper.GetProviderUserIdFromSession(),
                     CreatedOn = DateTime.Now,
                     ModifiedBy = 0,
                     ModifiedOn = DateTime.Now,
@@ -17040,7 +17099,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
                 object obj;
                 string Key = UIHelper.GetProviderKeyFromSession();
-                string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitle/Key=" + Key; //http:"//96.31.91.68/;
+                //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvReqCourseTitle/Key=" + Key;
+                string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitle/Key=" + Key;
                 CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
                 gvCourseL2_Bind(EditIndexAdminInfo20);
                 var res = (ProvReqCourseTitleRS)obj;
@@ -17075,13 +17135,13 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     Lapp_ProvClinicHours rQ = new Lapp_ProvClinicHours()
                     {
                         ProvClinicHoursId = 0,
-                        ProviderId = UIHelper.GetProviderId(),
+                        ProviderId = UIHelper.GetProviderUserIdFromSession(),
                         ApplicationId = UIHelper.GetApplicationId(),
                         ClinicHours = Convert.ToInt32(clinicHours),
                         ReferenceNumber = "",
                         IsActive = true,
                         IsDeleted = false,
-                        CreatedBy = UIHelper.GetProviderId(),
+                        CreatedBy = UIHelper.GetProviderUserIdFromSession(),
                         CreatedOn = DateTime.Now,
                         ModifiedBy = 0,
                         ModifiedOn = DateTime.Now,
@@ -17090,7 +17150,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
                     object obj;
                     string Key = UIHelper.GetProviderKeyFromSession();
-                    string WebApiUrl = webAPIURL + "providercurriculum/ProvClinicHours/Key=" + Key; //http:"//96.31.91.68/;
+                    //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvClinicHours/Key=" + Key;
+                    string WebApiUrl = webAPIURL + "providercurriculum/ProvClinicHours/Key=" + Key;
                     CallWebApi_POST_ProvClinicHours<ProvClinicHoursRS>(WebApiUrl, rQ, out obj);
 
                     var res = (ProvClinicHoursRS)obj;
@@ -17108,10 +17169,11 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     protected void txtcarculum_Bind()
     {
         string Key = UIHelper.GetProviderKeyFromSession();
-        int ProviderId = UIHelper.GetProviderId();
+        int ProviderId = UIHelper.GetProviderUserIdFromSession();
         try
         {
-            string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvClinicHoursGetByProviderId/?Key=" + Key + "&ProviderId=" + ProviderId;//http:"//96.31.91.68/lappws/
+            //string WebAPIUrl = "http:'//localhost:1530/api/ProviderCurriculum/ProvClinicHoursGetByProviderId/?Key=" + Key + "&ProviderId=" + ProviderId;
+            string WebAPIUrl = webAPIURL + "ProviderCurriculum/ProvClinicHoursGetByProviderId/?Key=" + Key + "&ProviderId=" + ProviderId;
 
             Object obj;
             CallWebApi_GET_ProvClinicHours<LAPP.ENTITY.ProvClinicHoursRS>(WebAPIUrl, out obj);
@@ -17133,17 +17195,16 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     }
 
-    
-
 
     protected void btnCourseTitleUpdate_Click(object sender, EventArgs e)
     {
         try
         {
-            string hdnCourseTitleID = Session["hdnCourseTitleID"].ToString();
+            string hdnCourseTitleID = Session["hdnCourseTitleID"].ToString(); // this Session["hdnCourseTitleID"] is assigned values in on click of edit event
             string CourseTitle = null;
             int CourseHours = 0;
-            TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit");
+            //---- find controls in the row that was clicked ----- //
+            TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit"); // here EditIndexPHRW1 is row index of the edit button that wa clicked.
             TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
             if (txtCourseTitleEdit != null && txtCourseHrsEdit != null)
             {
@@ -17158,24 +17219,24 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 {
                     ProvReqCourseTitleId = Convert.ToInt32(hdnCourseTitleID),
                     ProvReqCourseofStudyId = 0,//this.EditIndexAdminInfo20 + 1,
-                    ProviderId = UIHelper.GetProviderId(),
+                    ProviderId = UIHelper.GetProviderUserIdFromSession(),
                     CourseTitleName = CourseTitle,
                     CourseHours = CourseHours,
                     ApplicationId = UIHelper.GetApplicationId(),
                     ReferenceNumber = "",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedBy = UIHelper.GetProviderId(),
+                    CreatedBy = UIHelper.GetProviderUserIdFromSession(),
                     CreatedOn = DateTime.Now,
                     ModifiedBy = 0,
                     ModifiedOn = DateTime.Now,
-                    ProviderOtherProgramGuid = ""
+                    ProviderOtherProgramGuid = Guid.NewGuid().ToString()
                 };
 
                 object obj;
                 string Key = UIHelper.GetProviderKeyFromSession();
-                //string WebApiUrl = "http://localhost:1530/api/providercurriculum/ProvReqCourseTitleEdit/Key=" + Key;
-                string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleEdit/Key=" + Key; //http:"//96.31.91.68/;
+                //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvReqCourseTitleEdit/Key=" + Key;
+                string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleEdit/Key=" + Key;
                 CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
                 gvCourseL2_Bind(EditIndexAdminInfo20);
                 var res = (ProvReqCourseTitleRS)obj;
@@ -17201,44 +17262,52 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         divAddbtnCourseReq.Visible = true;
         divAddCourseReq.Visible = false;
         this.EditIndexPHRW1 = -1;
-        //---find the controls--//
+        //---find the controls---//
 
-
-        ImageButton imgbtnRelatedSchoolEdit = (ImageButton)sender;
-        if (imgbtnRelatedSchoolEdit != null)
+        try
         {
-            int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
-            this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
-            //---find controls----//
-            Label lblCourseTitle = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseTitle");
-            Label lblCourseHours = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseHours");
-            Panel pnlgvCourseL2Edit = (Panel)gvCourseL2.Rows[EditIndexPHRW1].FindControl("pnlgvCourseL2Edit");
-            Label lblCouTitl = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCouTitl");
-            Label lblNoofHrs = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblNoofHrs");
-            TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit");
-            TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
-            HiddenField hdnCourseTitleID = (HiddenField)gvCourseL2.Rows[EditIndexPHRW1].FindControl("hdnCourseTitleID");
-            Session["hdnCourseTitleID"] = hdnCourseTitleID.Value;
-            //BindGridPHRW1();
-            //FillControlPHRWInnerGrid(gvAdminInfo2, this.EditIndexPHRW1);
-            if (this.EditIndexPHRW1 >= 0)
-            {
-                //gvCourseL2.Rows[this.EditIndexPHRW1].CssClass = "RowInEditMode";
-                //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].Attributes.Add("colspan", "6");
-                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[1].Visible = false;
-                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[2].Visible = false;
-                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[3].Visible = false;
-                //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].Visible = true;
-                pnlgvCourseL2Edit.Visible = true;
-                lblCouTitl.Text = lblCourseTitle.Text;
-                lblNoofHrs.Text = lblCourseHours.Text;
-                txtCourseTitleEdit.Text = lblCouTitl.Text;
-                txtCourseHrsEdit.Text = lblNoofHrs.Text;
-                gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].ColumnSpan = 4;
-                //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[4].Visible = false;
-                //gvRelatedSchool.Rows[this.EditIndexAdminInfo2].Cells[5].Visible = false;
 
+            ImageButton imgbtnRelatedSchoolEdit = (ImageButton)sender;
+            if (imgbtnRelatedSchoolEdit != null)
+            {
+                int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
+                this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+                //---find controls----//
+                Label lblCourseTitle = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseTitle");
+                Label lblCourseHours = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseHours");
+                HiddenField hdnCourseTitleID = (HiddenField)gvCourseL2.Rows[EditIndexPHRW1].FindControl("hdnCourseTitleID");
+                Panel pnlgvCourseL2Edit = (Panel)gvCourseL2.Rows[EditIndexPHRW1].FindControl("pnlgvCourseL2Edit");
+                Label lblCouTitl = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCouTitl");
+                Label lblNoofHrs = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblNoofHrs");
+                TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit");
+                TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
+
+                Session["hdnCourseTitleID"] = hdnCourseTitleID.Value;
+                //BindGridPHRW1();
+                //FillControlPHRWInnerGrid(gvAdminInfo2, this.EditIndexPHRW1);
+                if (this.EditIndexPHRW1 >= 0)
+                {
+                    //gvCourseL2.Rows[this.EditIndexPHRW1].CssClass = "RowInEditMode";
+                    //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].Attributes.Add("colspan", "6");
+                    gvCourseL2.Rows[this.EditIndexPHRW1].Cells[1].Visible = false;
+                    gvCourseL2.Rows[this.EditIndexPHRW1].Cells[2].Visible = false;
+                    gvCourseL2.Rows[this.EditIndexPHRW1].Cells[3].Visible = false;
+                    //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].Visible = true;
+                    pnlgvCourseL2Edit.Visible = true;
+                    lblCouTitl.Text = lblCourseTitle.Text;
+                    lblNoofHrs.Text = lblCourseHours.Text;
+                    txtCourseTitleEdit.Text = lblCouTitl.Text;
+                    txtCourseHrsEdit.Text = lblNoofHrs.Text;
+                    gvCourseL2.Rows[this.EditIndexPHRW1].Cells[0].ColumnSpan = 4;
+                    //gvCourseL2.Rows[this.EditIndexPHRW1].Cells[4].Visible = false;
+                    //gvRelatedSchool.Rows[this.EditIndexAdminInfo2].Cells[5].Visible = false;
+
+                }
             }
+        }
+        catch (Exception ex)
+        {
+
         }
     }
 
@@ -17268,24 +17337,24 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                         {
                             ProvReqCourseTitleId = CourseTitleID,
                             ProvReqCourseofStudyId = 0,//this.EditIndexAdminInfo20 + 1,
-                            ProviderId = UIHelper.GetProviderId(),
+                            ProviderId = UIHelper.GetProviderUserIdFromSession(),
                             CourseTitleName = "",//CourseTitle,
                             CourseHours = 0,//CourseHours,
                             ApplicationId = UIHelper.GetApplicationId(),
                             ReferenceNumber = "",
-                            IsActive = true,
-                            IsDeleted = false,
-                            CreatedBy = UIHelper.GetProviderId(),
+                            IsActive = false, //deactive user
+                            IsDeleted = true,
+                            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
                             CreatedOn = DateTime.Now,
-                            ModifiedBy = 0,
+                            ModifiedBy = UIHelper.GetProviderUserIdFromSession(),
                             ModifiedOn = DateTime.Now,
-                            ProviderOtherProgramGuid = ""
+                            ProviderOtherProgramGuid = Guid.NewGuid().ToString()
                         };
 
                         object obj;
                         string Key = UIHelper.GetProviderKeyFromSession();
-                        //string WebApiUrl = "http://localhost:1530/api/providercurriculum/ProvReqCourseTitleDelete/Key=" + Key;
-                        string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleDelete/Key=" + Key; //http:"//96.31.91.68/;
+                        //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvReqCourseTitleDelete/Key=" + Key;
+                        string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleDelete/Key=" + Key;
                         CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
                         gvCourseL2_Bind(EditIndexAdminInfo20);
                         var res = (ProvReqCourseTitleRS)obj;
@@ -17474,7 +17543,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             }
         }
 
-        BindStaff();
+        BindGraduatesNumber();
 
         #endregion
     }
@@ -17797,6 +17866,8 @@ public class LookUpRS
 
 public class ProviderGraduatesNumber
 {
+    public int ProviderGraduatesNumberId { get; set; }
+    public int CalendarYear { get; set; }
     public int EstimatedCalendarYear { get; set; }
     public int CalendarYearEstGradCount { get; set; }
     public int ActualCalendarYear { get; set; }
@@ -17827,7 +17898,7 @@ public class ProviderGraduatesNumberRS
     public Boolean Status { get; set; }
     public Int32 StatusCode { get; set; }
     public string ResponseReason { get; set; }
-    public List<ProviderGraduatesNumber> ListOfProviderGraduatesNumber { get; set; }
+    public List<ProviderGraduatesNumber> ProviderGraduatesNumberList { get; set; }
 }
 
 public class TabStatusRQ
