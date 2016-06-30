@@ -2,3 +2,8 @@ C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENUM\bin\Debug\LAPP.ENUM.dll
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENUM\bin\Debug\LAPP.ENUM.pdb
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENUM\obj\Debug\LAPP.ENUM.dll
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.ENUM\obj\Debug\LAPP.ENUM.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENUM\bin\Debug\LAPP.ENUM.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENUM\bin\Debug\LAPP.ENUM.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENUM\obj\Debug\LAPP.ENUM.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENUM\obj\Debug\LAPP.ENUM.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENUM\obj\Debug\LAPP.ENUM.csprojResolveAssemblyReference.cache

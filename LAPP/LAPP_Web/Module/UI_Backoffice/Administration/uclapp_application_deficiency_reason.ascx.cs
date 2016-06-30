@@ -70,7 +70,8 @@ using System.IO;
             if (!IsPostBack)
             {
                 BindGridDocumentType();
-                BindDDLDocType();
+            BindDeficiencyTemplate();
+                BindDDLMasterTransaction();
             }
         }
 
@@ -106,7 +107,6 @@ using System.IO;
             }
             catch (Exception ex)
             {
-
                 objExLog = Fetchlog();
                 objExLog.Thread = ex.StackTrace.ToString();
                 objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs btnDocumentsUpdate_Click";
@@ -142,8 +142,10 @@ using System.IO;
                     this.Deficiency_ID = ID;
                     this.EditIndex = Convert.ToInt32(btnEdit.Attributes["RowIndex"]);
                     BindGridDocumentType();
-                    DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddltypeEdit") as DropDownList;
+                    DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddlMasterTransaction1Edit") as DropDownList;
+                    DropDownList ddldeftempEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddldeftempEdit") as DropDownList;
                     BindDDLDocTypeEdit(ddltypeEdit);
+                    BindDDLDefTempEdit(ddldeftempEdit);
                     FillControlDocType(gvDeficiency, this.EditIndex);
                 }
             }
@@ -184,7 +186,7 @@ using System.IO;
             }
             catch (Exception ex)
             {
-                objExLog = Fetchlog();
+            objExLog = Fetchlog();
                 objExLog.Thread = ex.StackTrace.ToString();
                 objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs imgBtnDelete_Click";
                 objExLog.Message = ex.Message;
@@ -212,7 +214,7 @@ using System.IO;
             }
             catch (Exception ex)
             {
-                objExLog = Fetchlog();
+            objExLog = Fetchlog();
                 objExLog.Thread = ex.StackTrace.ToString();
                 objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs btnSaveDocument_Click";
                 objExLog.Message = ex.Message;
@@ -226,7 +228,72 @@ using System.IO;
 
         }
 
-        protected void btnCancelSave_Click(object sender, EventArgs e)
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            BindGridDocumentType(true);
+        }
+        catch (Exception ex)
+        {
+            objExLog = Fetchlog();
+            objExLog.Thread = ex.StackTrace.ToString();
+            objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs btnSearch_Click";
+            objExLog.Message = ex.Message;
+            objExLog.Message = ex.Message;
+            objExLog.Exception = ex.ToString();
+            objExLog.Context = ex.Source;
+            objexLogBal.Save_LAPP_exception_log(objExLog);
+            objAuditBal.Save_LAPP_audit_info_save(BrowserInfo.GetobjAuditInfo());
+            MessageBox.Show(this.Page, ex.Message, 2);
+        }
+
+    }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            BindGridDocumentType();
+        }
+        catch (Exception ex)
+        {
+            objExLog = Fetchlog();
+            objExLog.Thread = ex.StackTrace.ToString();
+            objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs btnCancel_Click";
+            objExLog.Message = ex.Message;
+            objExLog.Message = ex.Message;
+            objExLog.Exception = ex.ToString();
+            objExLog.Context = ex.Source;
+            objexLogBal.Save_LAPP_exception_log(objExLog);
+            objAuditBal.Save_LAPP_audit_info_save(BrowserInfo.GetobjAuditInfo());
+            MessageBox.Show(this.Page, ex.Message, 2);
+        }
+
+    }
+    protected void btnShowAll_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            BindGridDocumentType();
+        }
+        catch (Exception ex)
+        {
+            objExLog = Fetchlog();
+            objExLog.Thread = ex.StackTrace.ToString();
+            objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs btnShowAll_Click";
+            objExLog.Message = ex.Message;
+            objExLog.Message = ex.Message;
+            objExLog.Exception = ex.ToString();
+            objExLog.Context = ex.Source;
+            objexLogBal.Save_LAPP_exception_log(objExLog);
+            objAuditBal.Save_LAPP_audit_info_save(BrowserInfo.GetobjAuditInfo());
+            MessageBox.Show(this.Page, ex.Message, 2);
+        }
+
+    }
+
+    protected void btnCancelSave_Click(object sender, EventArgs e)
         {
             ClearControl();
             ltrDocumentType.Text = string.Empty;
@@ -246,20 +313,20 @@ using System.IO;
         #endregion
 
         #region Public Methods
-        public void BindDDLDocType()
+        public void BindDeficiencyTemplate()
         {
             try
             {
-                List<Lapp_application_fee> lstLapp_application_fee = new List<Lapp_application_fee>();
-                lstLapp_application_fee = objLapp_application_feeBAL.Get_All_Lapp_application_fee();
+                List<LAPP_DeficiencyTemplate> lstLapp_application_fee = new List<LAPP_DeficiencyTemplate>();
+                lstLapp_application_fee = objLapp_application_feeBAL.Get_All_LAPP_DeficiencyTemplate();
                 if (lstLapp_application_fee != null)
                 {
-                    ddlApplicationtype.DataSource = lstLapp_application_fee;
-                    ddlApplicationtype.DataTextField = "Name";
-                    ddlApplicationtype.DataValueField = "Application_ID";
-                    ddlApplicationtype.DataBind();
+                    ddldeftemp.DataSource = lstLapp_application_fee;
+                ddldeftemp.DataTextField = "Deficiency_Template_Name";
+                ddldeftemp.DataValueField = "Deficiency_Template_ID";
+                ddldeftemp.DataBind();
                 }
-                ddlApplicationtype.Items.Insert(0, new ListItem("Select", "-1"));
+            ddldeftemp.Items.Insert(0, new ListItem("Select", "-1"));
             }
             catch (Exception ex)
             {
@@ -275,26 +342,32 @@ using System.IO;
 
             }
         }
-        public void BindDDLDocTypeSearch()
+        public void BindDDLMasterTransaction()
         {
             try
             {
-                List<Lapp_application_fee> lstLapp_application_fee = new List<Lapp_application_fee>();
-                lstLapp_application_fee = objLapp_application_feeBAL.Get_All_Lapp_application_fee();
-                if (lstLapp_application_fee != null)
+                List<LAPP_MasterTransaction> lstLAPP_MasterTransaction = new List<LAPP_MasterTransaction>();
+                lstLAPP_MasterTransaction = objLapp_application_feeBAL.Get_All_MasterTransaction();
+                if (lstLAPP_MasterTransaction != null)
                 {
-                    ddlApplicationTySearch.DataSource = lstLapp_application_fee;
-                    ddlApplicationTySearch.DataTextField = "Name";
-                    ddlApplicationTySearch.DataValueField = "Application_ID";
-                    ddlApplicationTySearch.DataBind();
-                }
-                ddlApplicationTySearch.Items.Insert(0, new ListItem("Select", "-1"));
+                ddlMasterTransaction.DataSource = lstLAPP_MasterTransaction;
+                ddlMasterTransaction.DataTextField = "MasterTransactionName";
+                ddlMasterTransaction.DataValueField = "MasterTransactionId";
+                ddlMasterTransaction.DataBind();
+
+                ddlMasterTransaction1.DataSource = lstLAPP_MasterTransaction;
+                ddlMasterTransaction1.DataTextField = "MasterTransactionName";
+                ddlMasterTransaction1.DataValueField = "MasterTransactionId";
+                ddlMasterTransaction1.DataBind();
             }
+            ddlMasterTransaction.Items.Insert(0, new ListItem("Select", "-1"));
+            ddlMasterTransaction1.Items.Insert(0, new ListItem("Select", "-1"));
+        }
             catch (Exception ex)
             {
                 objExLog = Fetchlog();
                 objExLog.Thread = ex.StackTrace.ToString();
-                objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs BindDDLDocTypeSearch";
+                objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs BindDDLMasterTransaction";
                 objExLog.Message = ex.Message;
                 objExLog.Exception = ex.ToString();
                 objExLog.Context = ex.Source;
@@ -308,13 +381,13 @@ using System.IO;
         {
             try
             {
-                List<Lapp_application_fee> lstLapp_application_fee = new List<Lapp_application_fee>();
-                lstLapp_application_fee = objLapp_application_feeBAL.Get_All_Lapp_application_fee();
-                if (lstLapp_application_fee != null)
+                List<LAPP_MasterTransaction> lstLAPP_MasterTransaction = new List<LAPP_MasterTransaction>();
+                lstLAPP_MasterTransaction = objLapp_application_feeBAL.Get_All_MasterTransaction();
+                if (lstLAPP_MasterTransaction != null)
                 {
-                    ddltypeEdit.DataSource = lstLapp_application_fee;
-                    ddltypeEdit.DataTextField = "Name";
-                    ddltypeEdit.DataValueField = "Application_ID";
+                    ddltypeEdit.DataSource = lstLAPP_MasterTransaction;
+                    ddltypeEdit.DataTextField = "MasterTransactionName";
+                    ddltypeEdit.DataValueField = "MasterTransactionId";
                     ddltypeEdit.DataBind();
                 }
             }
@@ -332,11 +405,58 @@ using System.IO;
 
             }
         }
-        public void BindGridDocumentType()
+
+    public void BindDDLDefTempEdit(DropDownList ddldeftempEdit)
+    {
+        try
+        {
+            List<LAPP_DeficiencyTemplate> lstLapp_application_fee = new List<LAPP_DeficiencyTemplate>();
+            lstLapp_application_fee = objLapp_application_feeBAL.Get_All_LAPP_DeficiencyTemplate();
+            if (lstLapp_application_fee != null)
+            {
+                ddldeftempEdit.DataSource = lstLapp_application_fee;
+                ddldeftempEdit.DataTextField = "Deficiency_Template_Name";
+                ddldeftempEdit.DataValueField = "Deficiency_Template_ID";
+                ddldeftempEdit.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            objExLog = Fetchlog();
+            objExLog.Thread = ex.StackTrace.ToString();
+            objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs BindDDLDefTempEdit";
+            objExLog.Message = ex.Message;
+            objExLog.Exception = ex.ToString();
+            objExLog.Context = ex.Source;
+            objexLogBal.Save_LAPP_exception_log(objExLog);
+            objAuditBal.Save_LAPP_audit_info_save(BrowserInfo.GetobjAuditInfo());
+            MessageBox.Show(this.Page, ex.Message, 2);
+
+        }
+    }
+
+    public void BindGridDocumentType(bool IsSearch=false)
         {
             try
             {
-                string Query = "SELECT *,f.Name FROM lapp_application_deficiency_reason dr JOIN lapp_application_fee f ON dr.Application_Type_ID=f.Application_ID WHERE dr.Is_Deleted=0 ORDER BY dr.Application_Type_ID,dr.DTS DESC";
+                string Filter = "";
+                if (IsSearch)
+                {
+                    if (ddlMasterTransaction.SelectedValue != "-1")
+                    {
+                    Filter = Filter + " and dr.ApplicationTypeId=" + Convert.ToInt32(ddlMasterTransaction.SelectedValue);
+                    }
+                    if (txtDefNameSearch.Text != "")
+                    {
+                    Filter = Filter + " and dr.DeficiencyReasonName Like '%" + txtDefNameSearch.Text + "'";
+                    }
+                    if (chkIsActiveSearch.Checked)
+                    {
+                    Filter = Filter + " and dr.IsActive=1";
+                    }
+                }
+                string Query = "SELECT *,f.mastertransactionName FROM deficiencyreason  dr JOIN mastertransaction f ON dr.ApplicationTypeID=f.mastertransactionid WHERE dr.IsDeleted=0 "+Filter+" ORDER BY dr.mastertransactionid,dr.CreatedOn DESC";
+                
                 List<lapp_application_deficiency_reason> lstlapp_application_deficiency_reason = new List<lapp_application_deficiency_reason>();
                 lstlapp_application_deficiency_reason = objlapp_application_deficiency_reasonBAL.Get_lapp_application_deficiency_reason_By_Query_List(Query);
                 if (lstlapp_application_deficiency_reason != null)
@@ -349,11 +469,12 @@ using System.IO;
                     if (this.EditIndex >= 0)
                     {
                         gvDeficiency.Rows[this.EditIndex].CssClass = "RowInEditMode";
-                        gvDeficiency.Rows[this.EditIndex].Cells[0].Attributes.Add("colspan", "4");
+                        gvDeficiency.Rows[this.EditIndex].Cells[0].Attributes.Add("colspan", "6");
                         gvDeficiency.Rows[this.EditIndex].Cells[1].Visible = false;
                         gvDeficiency.Rows[this.EditIndex].Cells[2].Visible = false;
                         gvDeficiency.Rows[this.EditIndex].Cells[3].Visible = false;
-
+                        gvDeficiency.Rows[this.EditIndex].Cells[4].Visible = false;
+                        gvDeficiency.Rows[this.EditIndex].Cells[5].Visible = false;
                     }
                 }
             }
@@ -374,10 +495,12 @@ using System.IO;
         {
             try
             {
-                DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddltypeEdit") as DropDownList;
+                DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddlMasterTransaction1Edit") as DropDownList;
                 TextBox txtNameEdit = gvDeficiency.Rows[this.EditIndex].FindControl("txtNameEdit") as TextBox;
                 TextBox txtDescEdit = gvDeficiency.Rows[this.EditIndex].FindControl("txtDescEdit") as TextBox;
-                CheckBox chkIsActiveEdit = gvDeficiency.Rows[this.EditIndex].FindControl("chkIsActiveEdit") as CheckBox;
+                CheckBox chkadditionalEdit = gvDeficiency.Rows[this.EditIndex].FindControl("chkadditionalEdit") as CheckBox;
+                CheckBox chkIsActiveEdit = gvDeficiency.Rows[this.EditIndex].FindControl("chkIsActive1Edit") as CheckBox;
+                DropDownList ddldeftempEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddldeftempEdit") as DropDownList;
                 objlapp_application_deficiency_reason = objlapp_application_deficiency_reasonBAL.Get_lapp_application_deficiency_reason_by_Deficiency_ID(this.Deficiency_ID);
                 if (objlapp_application_deficiency_reason != null)
                 {
@@ -385,12 +508,13 @@ using System.IO;
                     txtNameEdit.Text = objlapp_application_deficiency_reason.Deficiency_Name;
                     txtDescEdit.Text = objlapp_application_deficiency_reason.Description;
                     chkIsActiveEdit.Checked = objlapp_application_deficiency_reason.Is_Active;
+                    chkadditionalEdit.Checked = objlapp_application_deficiency_reason.Additional_Text;
+                    ddldeftempEdit.SelectedValue = objlapp_application_deficiency_reason.Deficiency_Template_ID.ToString();
 
-                }
+            }
             }
             catch (Exception ex)
             {
-
                 objExLog = Fetchlog();
                 objExLog.Thread = ex.StackTrace.ToString();
                 objExLog.Logger = "uclapp_application_deficiency_reason.ascx.cs FillControlDocType";
@@ -437,7 +561,7 @@ using System.IO;
             bool validate = true;
             try
             {
-                validateMsg += ValidationHelper.IsRequiredDDL(ddlApplicationtype.SelectedValue, "<li>Please Select Application Type.</li>");
+                validateMsg += ValidationHelper.IsRequiredDDL(ddlMasterTransaction1.SelectedValue, "<li>Please Select Transaction Type.</li>");
                 validateMsg += ValidationHelper.IsRequired(txtName.Text, "<li>Please enter Deficiency Name.</li>");
                 if (!String.IsNullOrEmpty(validateMsg))
                 {
@@ -471,10 +595,10 @@ using System.IO;
             bool validate = true;
             try
             {
-                DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddltypeEdit") as DropDownList;
+                DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddlMasterTransaction1Edit") as DropDownList;
                 TextBox txtNameEdit = gvDeficiency.Rows[this.EditIndex].FindControl("txtNameEdit") as TextBox;
 
-                validateMsg += ValidationHelper.IsRequiredDDL(ddltypeEdit.SelectedValue, "<li>Please Select Application Type.</li>");
+                validateMsg += ValidationHelper.IsRequiredDDL(ddltypeEdit.SelectedValue, "<li>Please Select Transaction Type.</li>");
                 validateMsg += ValidationHelper.IsRequired(txtNameEdit.Text, "<li>Please enter Deficiency Name.</li>");
 
                 if (!String.IsNullOrEmpty(validateMsg))
@@ -500,10 +624,10 @@ using System.IO;
         }
         public void ClearControl()
         {
-            ddlApplicationtype.SelectedValue = "-1";
+            ddlMasterTransaction1.SelectedValue = "-1";
             txtDesc.Text = string.Empty;
             txtName.Text = string.Empty;
-            chkIsActive.Checked = false;
+            chkIsActive1.Checked = false;
             this.Deficiency_ID = 0;
         }
         public LAPP_exception_log Fetchlog()
@@ -527,16 +651,17 @@ using System.IO;
             {
                 objlapp_application_deficiency_reason = new lapp_application_deficiency_reason();
 
-                objlapp_application_deficiency_reason.Application_Type_ID = Convert.ToInt32(ddlApplicationtype.SelectedValue);
+                objlapp_application_deficiency_reason.Application_Type_ID = Convert.ToInt32(ddlMasterTransaction1.SelectedValue);
                 objlapp_application_deficiency_reason.Deficiency_Name = txtName.Text.Trim();
                 objlapp_application_deficiency_reason.Description = txtDesc.Text.Trim();
-                objlapp_application_deficiency_reason.Is_Active = chkIsActive.Checked;
+                objlapp_application_deficiency_reason.Is_Active = chkIsActive1.Checked;
                 objlapp_application_deficiency_reason.Is_Deleted = false;
                 objlapp_application_deficiency_reason.Created_On = DateTime.Now;
                 objlapp_application_deficiency_reason.Created_By = 0;
                 objlapp_application_deficiency_reason.Modified_On = DateTime.Now;
                 objlapp_application_deficiency_reason.Modified_By = 0;
-                objlapp_application_deficiency_reason.DTS = DateTime.Now;
+                objlapp_application_deficiency_reason.Additional_Text = chkadditional.Checked;
+                objlapp_application_deficiency_reason.Deficiency_Template_ID = Convert.ToInt32(ddldeftemp.SelectedValue);
             }
             catch (Exception ex)
             {
@@ -557,11 +682,13 @@ using System.IO;
             try
             {
                 objlapp_application_deficiency_reason = new lapp_application_deficiency_reason();
-                DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddltypeEdit") as DropDownList;
+                DropDownList ddltypeEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddlMasterTransaction1Edit") as DropDownList;
                 TextBox txtNameEdit = gvDeficiency.Rows[this.EditIndex].FindControl("txtNameEdit") as TextBox;
                 TextBox txtDescEdit = gvDeficiency.Rows[this.EditIndex].FindControl("txtDescEdit") as TextBox;
-                CheckBox chkIsActiveEdit = gvDeficiency.Rows[this.EditIndex].FindControl("chkIsActiveEdit") as CheckBox;
-                objlapp_application_deficiency_reason = objlapp_application_deficiency_reasonBAL.Get_lapp_application_deficiency_reason_by_Deficiency_ID(this.Deficiency_ID);
+                CheckBox chkIsActiveEdit = gvDeficiency.Rows[this.EditIndex].FindControl("chkIsActive1Edit") as CheckBox;
+            CheckBox chkadditionalEdit = gvDeficiency.Rows[this.EditIndex].FindControl("chkadditionalEdit") as CheckBox;
+            DropDownList ddldeftempEdit = gvDeficiency.Rows[this.EditIndex].FindControl("ddldeftempEdit") as DropDownList;
+            objlapp_application_deficiency_reason = objlapp_application_deficiency_reasonBAL.Get_lapp_application_deficiency_reason_by_Deficiency_ID(this.Deficiency_ID);
                 if (objlapp_application_deficiency_reason != null && this.Deficiency_ID > 0)
                 {
                     objlapp_application_deficiency_reason.Application_Type_ID = Convert.ToInt32(ddltypeEdit.SelectedValue);
@@ -571,10 +698,11 @@ using System.IO;
                     objlapp_application_deficiency_reason.Is_Active = chkIsActiveEdit.Checked;
                     objlapp_application_deficiency_reason.Modified_On = DateTime.Now;
                     objlapp_application_deficiency_reason.Modified_By = 0;
-                    objlapp_application_deficiency_reason.DTS = DateTime.Now;
+                    objlapp_application_deficiency_reason.Additional_Text = chkadditionalEdit.Checked;
                     objlapp_application_deficiency_reason.Created_On = DateTime.Now;
                     objlapp_application_deficiency_reason.Created_By = 0;
-                }
+                    objlapp_application_deficiency_reason.Deficiency_Template_ID = Convert.ToInt32(ddldeftempEdit.SelectedValue);
+            }
             }
             catch (Exception ex)
             {

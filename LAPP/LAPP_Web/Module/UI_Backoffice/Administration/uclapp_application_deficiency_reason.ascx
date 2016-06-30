@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="uclapp_application_deficiency_reason.ascx.cs"
     Inherits="uclapp_application_deficiency_reason" %>
+<%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
+
 <style type="text/css">
     .grid .bordrbtm {
         border-bottom: 0px !important;
@@ -108,11 +110,11 @@
                             <td>
 
                                 <label>
-                                    Application Type :</label>
+                                    Transaction Type :</label>
 
                             </td>
                             <td>
-                                <asp:DropDownList ID="ddlApplicationTySearch" Style="width: 208px;" CssClass="DropdownList"
+                                <asp:DropDownList ID="ddlMasterTransaction" Style="width: 208px;" CssClass="DropdownList"
                                     runat="server">
                                 </asp:DropDownList>
                             </td>
@@ -128,7 +130,7 @@
                         <tr>
                             <td>
                                 <label>
-                                    Is Active :</label>
+                                    Display Only Active Records :</label>
                             </td>
                             <td>
                                 <asp:CheckBox ID="chkIsActiveSearch" runat="server" />
@@ -139,8 +141,8 @@
                 <div class="clear">
                 </div>
                 <span class="fltrt">
-                    <asp:Button ID="btnSearch" CssClass="buttonGreen small" runat="server" Text="Search" />
-                    <asp:LinkButton ID="btnSearchCancel" CssClass="secondary small" runat="server" Text="Cancel"></asp:LinkButton></span>
+                    <asp:Button ID="btnSearch" CssClass="buttonGreen small" runat="server" Text="Search" OnClick="btnSearch_Click"/>
+                    <asp:LinkButton ID="btnSearchCancel" CssClass="secondary small" runat="server" Text="Cancel" OnClick="btnCancel_Click"></asp:LinkButton></span>
             </fieldset>
             <div class="clearb">
             </div>
@@ -149,7 +151,7 @@
         </div>
         <div class="gridUpperDiv">
             <a class="down_arrow"></a><span class="fltlt">
-                <asp:LinkButton ID="LinkButton1" CssClass="" runat="server">Show All</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton1" CssClass="" runat="server" OnClick="btnShowAll_Click">Show All</asp:LinkButton>
             </span>
             <div class="fltrt rightIcon">
                 <a title="find" href="javascript:void()" onclick="javascript:showDivSlide('.userHide');hideDivSlide('.searchBbutton');">
@@ -159,14 +161,14 @@
         <asp:Literal ID="ltrDocumentType" runat="server"></asp:Literal>
         <div class="brdr radius" id="divAddAppReqPanel" runat="server" visible="false">
             <div style="padding: 25px 0px 12px 0px;">
-                <table style="width: 65%; margin: 0px auto;">
+                <table style="width: 100%; margin: 0px auto;">
                     <tr>
                         <td align="right">
                             <label class="input-label required">
-                                Application Type :</label>
+                                Transaction Type :</label>
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddlApplicationtype" Style="width: 208px;" CssClass="DropdownList"
+                            <asp:DropDownList ID="ddlMasterTransaction1" Style="width: 208px;" CssClass="DropdownList"
                                 runat="server">
                             </asp:DropDownList>
                         </td>
@@ -181,20 +183,41 @@
                     <tr>
                         <td align="right">
                             <label class="input-label ">
-                                Description :</label>
+                                Message :</label>
                         </td>
                         <td colspan="3">
-                            <asp:TextBox CssClass="inputTextbox" Style="width: 542px; height: 60px;" ID="txtDesc"
-                                runat="server" TextMode="MultiLine"></asp:TextBox>
+                            <%--<asp:TextBox CssClass="inputTextbox" Style="width: 542px; height: 60px;" ID="txtDesc"
+                                runat="server" TextMode="MultiLine"></asp:TextBox>--%>
+                            <CKEditor:CKEditorControl ID="txtDesc" Width="700px" runat="server"></CKEditor:CKEditorControl>
                         </td>
                     </tr>
                     <tr>
                         <td align="right">
                             <label class="input-label ">
-                                Is Active :</label>
+                                Additional Text? :</label>
                         </td>
                         <td>
-                            <asp:CheckBox ID="chkIsActive" runat="server" />
+                            <asp:CheckBox ID="chkadditional" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label class="input-label ">
+                                Is Active? :</label>
+                        </td>
+                        <td>
+                            <asp:CheckBox ID="chkIsActive1" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label class="input-label ">
+                                Deficiency Template to Use :</label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddldeftemp" Style="width: 208px;" CssClass="DropdownList"
+                                runat="server">
+                            </asp:DropDownList>
                         </td>
                     </tr>
                 </table>
@@ -216,24 +239,26 @@
                     ForeColor="#333333" OnPageIndexChanging="gvDeficiency_PageIndexChanging">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Application Type">
+                        <asp:TemplateField HeaderText="Transaction Type">
                             <ItemStyle CssClass="" Width="20%" />
                             <EditItemTemplate>
                                 <div class="divGridEdit">
-                                    <table style="margin: 5px auto; width: 75%;" class="tblParentNewApplReqForm tblLicensureInformation wthtop20">
+                                    <table style="margin: 5px auto; width: 100%;" class="tblParentNewApplReqForm tblLicensureInformation wthtop20">
                                         <tr>
                                             <td align="right">
                                                 <label class="input-label required">
-                                                    Application Type :</label>
+                                                    Transaction Type :</label>
                                             </td>
                                             <td>
-                                                <asp:DropDownList ID="ddltypeEdit" Style="width: 208px;" CssClass="DropdownList"
+                                                <asp:DropDownList ID="ddlMasterTransaction1Edit" Style="width: 208px;" CssClass="DropdownList"
                                                     runat="server">
                                                 </asp:DropDownList>
                                             </td>
+                                         </tr>
+                                        <tr>
                                             <td align="right">
                                                 <label class="input-label required">
-                                                    Name :</label>
+                                                    Deficiency Name :</label>
                                             </td>
                                             <td>
                                                 <asp:TextBox CssClass="inputTextbox" Style="width: 200px;" ID="txtNameEdit" runat="server"></asp:TextBox>
@@ -242,24 +267,43 @@
                                         <tr>
                                             <td align="right">
                                                 <label class="input-label ">
-                                                    Description :</label>
+                                                    Message :</label>
                                             </td>
                                             <td colspan="3">
-                                                <asp:TextBox CssClass="inputTextbox" ID="txtDescEdit" Style="width: 540px; height: 60px;" runat="server"
-                                                    TextMode="MultiLine"></asp:TextBox>
+                                                <%--<asp:TextBox CssClass="inputTextbox" Style="width: 542px; height: 60px;" ID="txtDescEdit"
+                                                    runat="server" TextMode="MultiLine"></asp:TextBox>--%>
+                                                <CKEditor:CKEditorControl ID="txtDescEdit" Width="700px" runat="server"></CKEditor:CKEditorControl>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
-                                                <label class="input-label">
-                                                    Is Active :
-                                                </label>
+                                                <label class="input-label ">
+                                                    Additional Text? :</label>
                                             </td>
                                             <td>
-                                                <label class="input-label">
-                                                    <asp:CheckBox ID="chkIsActiveEdit" runat="server" Text="" />
-                                                </label>
+                                                <asp:CheckBox ID="chkadditionalEdit" runat="server" />
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <label class="input-label ">
+                                                    Is Active? :</label>
+                                            </td>
+                                            <td>
+                                                <asp:CheckBox ID="chkIsActive1Edit" runat="server" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <label class="input-label ">
+                                                    Deficiency Template to Use :</label>
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList ID="ddldeftempEdit" Style="width: 208px;" CssClass="DropdownList"
+                                                    runat="server">
+                                                </asp:DropDownList>
+                                            </td>
+                                        </tr>
                                     </table>
                                     <div class="toolBar" style="padding: 4px; margin: 6px;">
                                         <span class="fltrt">
@@ -278,6 +322,18 @@
                             <ItemStyle Width="15%" />
                             <ItemTemplate>
                                 <%#Eval("Deficiency_Name")%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="End Date">
+                            <ItemStyle Width="15%" />
+                            <ItemTemplate>
+                                <%#Eval("End_Date")%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Additional Text?">
+                            <ItemStyle Width="10%" />
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkadtext" runat="server" Checked='<%#Eval("Additional_Text")%>' Enabled="false" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Is Active">

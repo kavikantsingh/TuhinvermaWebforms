@@ -3,3 +3,8 @@ C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CORE\bin\Debug\LAPP.CORE.pdb
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CORE\obj\Debug\LAPP.CORE.csprojResolveAssemblyReference.cache
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CORE\obj\Debug\LAPP.CORE.dll
 C:\ProjectSourceCode\LicensingApp\LAPP\LAPP.CORE\obj\Debug\LAPP.CORE.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CORE\bin\Debug\LAPP.CORE.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CORE\bin\Debug\LAPP.CORE.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CORE\obj\Debug\LAPP.CORE.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CORE\obj\Debug\LAPP.CORE.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CORE\obj\Debug\LAPP.CORE.csprojResolveAssemblyReference.cache

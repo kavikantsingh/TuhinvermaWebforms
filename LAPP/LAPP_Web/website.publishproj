@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+***********************************************************************************************
+website.publishproj
+
+WARNING: DO NOT MODIFY this file, it is used for the web publish process.
+
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30319</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{113f5bc0-98a4-49c0-83b0-44e31e731d5e}</ProjectGuid>
+    <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
+    <SourceWebVirtualPath>/LAPP_Web</SourceWebVirtualPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SourceWebProject>
+    </SourceWebProject>
+    <SourceWebMetabasePath>
+    </SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- for VS2010 we need to use 10.5 but for VS2012+ we should use VisualStudioVersion -->
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)' =='' and '$(VisualStudioVersion)' == 10.0 ">10.5</WebPublishTargetsVersion>
+    <WebPublishTargetsVersion Condition=" '$(WebPublishTargetsVersion)'=='' ">$(VisualStudioVersion)</WebPublishTargetsVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(WebPublishTargetsVersion)</VSToolsPath>
+    <_WebPublishTargetsPath Condition=" '$(_WebPublishTargetsPath)'=='' ">$(VSToolsPath)</_WebPublishTargetsPath>
+    <AssemblyFileVersion Condition="'$(AssemblyFileVersion)' == ''">1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <Value>$(AssemblyFileVersion)</Value>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <Value>$(AssemblyVersion)</Value>
+    </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LAPP.BAL\LAPP.BAL.csproj">
+      <Project>{0D518DCB-BBF1-499A-8C91-C1B4C3BB2337}</Project>
+      <Name>LAPP.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.CONFIG\LAPP.CONFIG.csproj">
+      <Project>{2E44A0AD-F8BD-41B0-94EA-5ABDE5E1E409}</Project>
+      <Name>LAPP.CONFIG</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.CORE\LAPP.CORE.csproj">
+      <Project>{92F47D89-596B-4FDA-B53E-798944D7E154}</Project>
+      <Name>LAPP.CORE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.DAL\LAPP.DAL.csproj">
+      <Project>{6FCFEA1B-4B43-4A89-A697-9C549CA81643}</Project>
+      <Name>LAPP.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.ENTITY\LAPP.ENTITY.csproj">
+      <Project>{0415ABB4-AB3E-4B3B-A6A6-7DBEEA9BC838}</Project>
+      <Name>LAPP.ENTITY</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LAPP.ENUM\LAPP.ENUM.csproj">
+      <Project>{E87694DC-4C85-43F3-83AF-E59F7770AC84}</Project>
+      <Name>LAPP.ENUM</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
+</Project>

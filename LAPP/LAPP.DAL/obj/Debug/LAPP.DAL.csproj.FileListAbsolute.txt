@@ -18,3 +18,13 @@ D:\LAPP\LAPP_CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.ENTITY.pdb
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.csprojResolveAssemblyReference.cache
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.dll
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.DAL.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.DAL.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.CORE.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.ENTITY.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\MySql.Data.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.CORE.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\bin\Debug\LAPP.ENTITY.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.csprojResolveAssemblyReference.cache
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.DAL\obj\Debug\LAPP.DAL.pdb

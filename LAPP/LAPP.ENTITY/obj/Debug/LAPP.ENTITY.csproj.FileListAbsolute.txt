@@ -12,3 +12,10 @@ D:\LAPP\LAPP_CAMTC\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.pdb
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.csprojResolveAssemblyReference.cache
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.dll
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\bin\Debug\LAPP.ENTITY.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\bin\Debug\LAPP.ENTITY.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\bin\Debug\LAPP.CORE.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.csprojResolveAssemblyReference.cache
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.ENTITY\obj\Debug\LAPP.ENTITY.pdb

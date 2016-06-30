@@ -18,6 +18,8 @@
     TagPrefix="uc6" %>
 <%@ Register Src="~/Module/UI_Backoffice/Administration/ucTransactionFeeConfig.ascx" TagName="ucTransactionFeeConfig"
     TagPrefix="uc7" %>
+    <%@ Register Src="~/Module/UI_Backoffice/Administration/ucDeficiencyTemplate.ascx" TagName="ucDeficiencyTemplate"
+    TagPrefix="uc8" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <link href="../../App_Themes/Theme1/css/Codes.css?" rel="stylesheet" type="text/css" />
     <link href="../../App_Themes/Theme1/css/UserAccount.css?" rel="stylesheet" type="text/css" />
@@ -92,7 +94,16 @@
                                         <uc4:ucStatus_Code ID="ucStatus_Code1" runat="server" />
                                     </ContentTemplate>
                                 </asp:TabPanel>
-                                <asp:TabPanel ID="tbpnDeficiencyReason" Enabled="true" TabIndex="4" runat="server">
+                                <asp:TabPanel ID="TabPanel1" Enabled="true" TabIndex="4" runat="server">
+                                    <HeaderTemplate>
+                                        Deficiency Template
+                                    </HeaderTemplate>
+                                    <ContentTemplate>
+                                        <uc8:ucDeficiencyTemplate ID="ucDeficiencyTemplate1"
+                                            runat="server" />
+                                    </ContentTemplate>
+                                </asp:TabPanel>
+                                <asp:TabPanel ID="tbpnDeficiencyReason" Enabled="true" TabIndex="5" runat="server">
                                     <HeaderTemplate>
                                         Deficiency Reason
                                     </HeaderTemplate>
@@ -101,7 +112,7 @@
                                             runat="server" />
                                     </ContentTemplate>
                                 </asp:TabPanel>
-                                <asp:TabPanel ID="tbpnManual" Enabled="true" runat="server" TabIndex="5">
+                                <asp:TabPanel ID="tbpnManual" Enabled="true" runat="server" TabIndex="6">
                                     <HeaderTemplate>
                                         Application Configuration
                                     </HeaderTemplate>

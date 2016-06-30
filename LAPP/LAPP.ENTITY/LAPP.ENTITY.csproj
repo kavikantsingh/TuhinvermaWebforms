@@ -59,6 +59,7 @@
     <Compile Include="LAPP_configuration_hist.cs" />
     <Compile Include="lapp_content.cs" />
     <Compile Include="LAPP_country_code.cs" />
+    <Compile Include="LAPP_DeficiencyTemplate.cs" />
     <Compile Include="lapp_documents.cs" />
     <Compile Include="Lapp_document_master.cs" />
     <Compile Include="Lapp_Document_Type.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="lapp_individual_application_lk.cs" />
     <Compile Include="LAPP_individual_names.cs" />
     <Compile Include="lapp_license_print_queue_holder.cs" />
+    <Compile Include="LAPP_MasterTransaction.cs" />
     <Compile Include="LAPP_menu_master.cs" />
     <Compile Include="LAPP_message_template_apply_to.cs" />
     <Compile Include="LAPP_message_template_apply_to_hist.cs" />

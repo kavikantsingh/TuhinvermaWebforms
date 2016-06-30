@@ -30,3 +30,20 @@ D:\LAPP\LAPP_CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.DAL.pdb
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.csprojResolveAssemblyReference.cache
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.dll
 D:\LAPP\LAPP_CAMTC\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CONFIG.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CONFIG.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.BAL.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CORE.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENTITY.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENUM.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.DAL.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\MySql.Data.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\Newtonsoft.Json.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.BAL.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.CORE.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENTITY.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.ENUM.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\bin\Debug\LAPP.DAL.pdb
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.csprojResolveAssemblyReference.cache
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.dll
+D:\Work\Tuhin Verma\CAMTC\LAPP\LAPP.CONFIG\obj\Debug\LAPP.CONFIG.pdb
