@@ -12,7 +12,7 @@ namespace LAPP.DAL
     {
         public List<TemplateEntity> GetAllTemplates()
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/GetAllTemplates";
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/GetAllTemplates";
             //string WebAPIUrl = "http://localhost:1530/api/Template/GetAllTemplates";
 
             return WebApiUtility.Get<IEnumerable<TemplateEntity>>(WebAPIUrl).ToList();
@@ -20,7 +20,7 @@ namespace LAPP.DAL
 
         public TemplateEntity GetTemplateById(int id)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/GetTemplateById/?id=" + id;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/GetTemplateById/?id=" + id;
             //string WebAPIUrl = "http://localhost:1530/api/Template/GetTemplateById/?id=" + id;
 
             return WebApiUtility.Get<TemplateEntity>(WebAPIUrl);
@@ -28,7 +28,7 @@ namespace LAPP.DAL
 
         public void DeleteTemplateById(int id)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/DeleteTemplateById";
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/DeleteTemplateById";
             //string WebAPIUrl = "http://localhost:1530/api/Template/DeleteTemplateById";
 
             WebApiUtility.Post<TemplateEntity>(WebAPIUrl, new { id = id });
@@ -36,7 +36,7 @@ namespace LAPP.DAL
 
         public void UpdateTemplate(TemplateEntity templateEntity)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/UpdateTemplate";
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/UpdateTemplate";
             //string WebAPIUrl = "http://localhost:1530/api/Template/UpdateTemplate";
 
             WebApiUtility.Post<TemplateEntity>(WebAPIUrl, templateEntity);
@@ -44,7 +44,7 @@ namespace LAPP.DAL
 
         public int CreateTemplate(TemplateEntity templateEntity)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/CreateTemplate";
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/CreateTemplate";
             //string WebAPIUrl = "http://localhost:1530/api/Template/CreateTemplate";
 
             return WebApiUtility.Post<int>(WebAPIUrl, templateEntity);
@@ -52,7 +52,7 @@ namespace LAPP.DAL
 
         public List<TemplateEntity> GetAllTemplatesGetByAppTyId(int applicationTy)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/GetAllTemplatesGetByAppTyId/?applicationTy=" + applicationTy;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/GetAllTemplatesGetByAppTyId/?applicationTy=" + applicationTy;
             //string WebAPIUrl = "http://localhost:1530/api/Template/GetAllTemplatesGetByAppTyId/?applicationTy=" + applicationTy;
 
             return WebApiUtility.Get<IEnumerable<TemplateEntity>>(WebAPIUrl).ToList();
@@ -60,7 +60,7 @@ namespace LAPP.DAL
 
         public List<TemplateEntity> GetAllTemplatesGetByTemplateName(string tempName)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/GetAllTemplatesGetByTemplateName/?tempName=" + tempName;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/GetAllTemplatesGetByTemplateName/?tempName=" + tempName;
             //string WebAPIUrl = "http://localhost:1530/api/Template/GetAllTemplatesGetByTemplateName/?tempName=" + tempName;
 
             return WebApiUtility.Get<IEnumerable<TemplateEntity>>(WebAPIUrl).ToList();
@@ -68,7 +68,7 @@ namespace LAPP.DAL
 
         public List<TemplateEntity> GetAllTemplatesGetByAppTyIdTemplateName(int applicationTy, string tempName)
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Template/GetAllTemplatesGetByAppTyIdTemplateName/?applicationTy=" + applicationTy + "&tempName=" + tempName;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Template/GetAllTemplatesGetByAppTyIdTemplateName/?applicationTy=" + applicationTy + "&tempName=" + tempName;
             //string WebAPIUrl = "http://localhost:1530/api/Template/GetAllTemplatesGetByAppTyIdTemplateName/?applicationTy=" + applicationTy + "&tempName=" + tempName;
 
             return WebApiUtility.Get<IEnumerable<TemplateEntity>>(WebAPIUrl).ToList();

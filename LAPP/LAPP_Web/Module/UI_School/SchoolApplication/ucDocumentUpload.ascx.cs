@@ -206,6 +206,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     else
                     {
+                        lblSuccess.Visible = false;
                         lblError.Visible = true;
                         lblError.Text = "Oops! some error occurred. <br/>" + res.Message;
                     }
@@ -213,12 +214,14 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                 }
                 catch (Exception ex)
                 {
+                    lblSuccess.Visible = false;
                     lblError.Visible = true;
                     lblError.Text = "Oops! some error occurred. <br/>" + ex.Message;
                 }
             }
             else
             {
+                lblSuccess.Visible = false;
                 lblError.Visible = true;
                 lblError.Text = "Only .txt/.doc/.docx/.pdf file types allowed.<br/>";
             }
@@ -277,7 +280,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     {
                         DocumentLkToPageTabSectionCode = "",
                         DocumentLkToPageTabSectionId = 0,
-                        DocumentName = "",
+                        DocumentName = Path.GetFileNameWithoutExtension(fuSimpleDocUpload.FileName),
                         DocumentPath = "",
                         EffectiveDate = null,
                         EndDate = null,
@@ -321,6 +324,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     else
                     {
+                        lblSimpleSuccess.Visible = false;
                         lblSimpleError.Visible = true;
                         lblSimpleError.Text = "Oops! some error occurred. <br/>" + res.Message;
                     }
@@ -328,18 +332,21 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                 }
                 catch (Exception ex)
                 {
+                    lblSimpleSuccess.Visible = false;
                     lblSimpleError.Visible = true;
                     lblSimpleError.Text = "Oops! some error occurred. <br/>" + ex.Message;
                 }
             }
             else
             {
+                lblSimpleSuccess.Visible = false;
                 lblSimpleError.Visible = true;
                 lblSimpleError.Text = "Only .txt/.doc/.docx/.pdf file types allowed.<br/>";
             }
         }
         else
         {
+            lblSimpleSuccess.Visible = false;
             lblSimpleError.Visible = true;
             lblSimpleError.Text = "Please fill *required fileds.";
             return;

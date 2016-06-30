@@ -132,6 +132,66 @@ public class PageTabSection
     public DateTime ModifiedOn { get; set; }
 }
 
+public class ContentLkToPageTabSectionRS : CommonRS
+{
+    public List<ContentLkToPageTabSection> ContentLkToPageTabSection { get; set; }
+}
+
+public class ContentLkToPageTabSection
+{
+    public int ContentLkToPageTabSectionId { get; set; }
+    public string ContentTypeName { get; set; }
+    public int MasterTransactionId { get; set; }
+    public int PageModuleId { get; set; }
+    public int PageModuleTabSubModuleId { get; set; }
+    public int PageTabSectionId { get; set; }
+    public DateTime? EffectiveDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public bool IsEnabled { get; set; }
+    public bool IsEditable { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime? CreatedOn { get; set; }
+    public int ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+}
+
+public class ContentItemLkRS : CommonRS
+{
+    public List<ContentItemLk> ContentItemLk { get; set; }
+}
+
+public class ContentItemLk
+{
+    public int ContentItemLkId { get; set; }
+    public int ContentLkToPageTabSectionId { get; set; }
+    public string ContentItemLkCode { get; set; }
+    public int ContentItemHash { get; set; }
+    public string ContentItemLkDesc { get; set; }
+    public int SortOrder { get; set; }
+    public DateTime? EffectiveDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public bool IsEnabled { get; set; }
+    public bool IsEditable { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime? CreatedOn { get; set; }
+    public int ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+}
+
+
+public class ContentItemLkRQ
+{
+    public int ContentItemLkId { get; set; }
+    public int ContentItemHash { get; set; }
+    public string ContentItemLkDesc { get; set; }
+    public DateTime? EffectiveDate { get; set; }
+    public DateTime? EndDate { get; set; }
+}
+
 #endregion
 
 #region ProviderLogin
