@@ -4924,49 +4924,49 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         for (int i = 0; i < res.ProviderGraduatesNumberList.Count; i++)
         {
 
-            if (i == 1)
+            if (i == 0)
             {
                 hdnGradYear.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 2)
+            if (i == 1)
             {
                 hdnGradYear_1.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_1.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 3)
+            if (i == 2)
             {
                 hdnGradYear_2.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_2.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 4)
+            if (i == 3)
             {
                 hdnGradYear_3.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_3.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 5)
+            if (i == 4)
             {
                 hdnGradYear_4.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_4.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 6)
+            if (i == 5)
             {
                 hdnGradYear_5.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_5.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 7)
+            if (i == 6)
             {
                 hdnGradYear_6.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_6.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
             }
 
-            if (i == 8)
+            if (i == 7)
             {
                 hdnGradYear_7.Value = res.ProviderGraduatesNumberList[i].ProviderGraduatesNumberId.ToString();
                 txtGradYear_7.Text = res.ProviderGraduatesNumberList[i].CalendarYearEstGradCount.ToString();
