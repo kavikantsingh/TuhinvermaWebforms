@@ -109,7 +109,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
         if (res.Status)
         {
-            if (res.ProviderDocumentGET.Count > 0)
+            if (res.ProviderDocumentGET != null && res.ProviderDocumentGET.Count > 0)
                 hfStatus.Value = "1";
 
             if (isSimple)
