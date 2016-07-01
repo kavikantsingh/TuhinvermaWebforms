@@ -5,6 +5,9 @@
 <asp:UpdatePanel UpdateMode="Conditional" ChildrenAsTriggers="true" ID="upDoc" runat="server">
     <ContentTemplate>
 
+
+        <asp:HiddenField ID="hfStatus" Value="0" runat="server" />
+
         <asp:Panel ID="upComplex" runat="server">
             <table class="tblApplReqForm5 wthtop20" style="width: 97%; margin-left: 10px; border: 1px solid rgb(222, 222, 222);">
                 <tr>
@@ -90,10 +93,10 @@
             <table class="withoutbrder">
                 <tbody>
                     <tr>
-                        <td style="min-width:205px; text-align:right;">
+                        <td style="min-width: 205px; text-align: right;">
                             <asp:Label ID="lblSimpleDocText" Text="Document :" runat="server" CssClass="input-label required" />
                         </td>
-                        <td> <%--style="width: 277px;"--%>
+                        <td><%--style="width: 277px;"--%>
                             <asp:FileUpload ID="fuSimpleDocUpload" runat="server" />
                         </td>
                         <td>
@@ -127,8 +130,7 @@
                                         <td style="width: 148px;"><%# Eval("DocumentName") %></td>
                                         <td style="width: 145px;">
                                             <a id="hlkURL3" class="documentdetail" target="_blank"
-                                            href='<%# "http://ws.camtc.inlumon.com/api/Provider/ProviderDocumentByProviderDocumentId/key?ProviderDocumentId=" + Eval("ProviderDocumentId") %>' >
-                                            Document Detail
+                                                href='<%# "http://ws.camtc.inlumon.com/api/Provider/ProviderDocumentByProviderDocumentId/key?ProviderDocumentId=" + Eval("ProviderDocumentId") %>'>Document Detail
                                             </a>
                                         </td>
                                         <td class="vligntop" align="center">

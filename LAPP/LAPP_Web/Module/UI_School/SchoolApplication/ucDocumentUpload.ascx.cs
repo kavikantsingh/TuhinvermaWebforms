@@ -21,6 +21,8 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
     public bool isSimple { get; set; }
 
+    public bool doValidate { get; set; }
+
     public static readonly List<string> fileExtension = new List<string> { ".TXT", ".DOC", ".PDF", ".DOCX" };
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -51,7 +53,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     public void GetDocumentTypeList()
     {
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Document/DocumentGetDocumentTypeName/" + key + "?DocId=" + docId + "&DocCode=" + docCode;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Document/DocumentGetDocumentTypeName/" + key + "?DocId=" + docId + "&DocCode=" + docCode;
 
         Object obj;
         WebApiUtility.CallWebAPI<DocumentMasterRS>(WebAPIUrl, null, out obj, "GET");
@@ -99,7 +101,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
         rptSimpleDocumentList.DataBind();
 
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderGetProviderDocumentByProviderIdAndDocumentId/" + key + "?ProviderId=" + providerId + "&DocumentId=" + docId + "&ApplicationId=" + applicationId;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderGetProviderDocumentByProviderIdAndDocumentId/" + key + "?ProviderId=" + providerId + "&DocumentId=" + docId + "&ApplicationId=" + applicationId;
 
         Object obj;
         WebApiUtility.CallWebAPI<ProviderDocumentGETRS>(WebAPIUrl, null, out obj, "GET");
@@ -107,6 +109,9 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
         if (res.Status)
         {
+            if (res.ProviderDocumentGET.Count > 0)
+                hfStatus.Value = "1";
+
             if (isSimple)
             {
                 rptSimpleDocumentList.DataSource = res.ProviderDocumentGET;
@@ -154,7 +159,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     string Base64File = Convert.ToBase64String(fileData);
 
-                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentSave/" + key;
+                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentSave/" + key;
 
                     ProviderDocument objUpload = new ProviderDocument()
                     {
@@ -203,6 +208,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                         txtDocumentName.Text = "";
 
                         GetAllDocs();
+
                     }
                     else
                     {
@@ -232,7 +238,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
         {
-            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
 
             Object obj;
             WebApiUtility.CallWebAPI<ProviderDocumentRS>(WebAPIUrl, null, out obj, "POST");
@@ -274,7 +280,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     string Base64File = Convert.ToBase64String(fileData);
 
-                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentSave/" + key;
+                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentSave/" + key;
 
                     ProviderDocument objUpload = new ProviderDocument()
                     {
@@ -357,7 +363,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
         {
-            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] +"api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
 
             Object obj;
             WebApiUtility.CallWebAPI<ProviderDocumentRS>(WebAPIUrl, null, out obj, "POST");
