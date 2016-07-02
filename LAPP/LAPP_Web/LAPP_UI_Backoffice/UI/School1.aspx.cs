@@ -55,13 +55,17 @@ public partial class SchoolInfo1 : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Page.Form.Attributes.Add("enctype", "multipart/form-data");
+        if (!IsPostBack)
+        {
+            Page.Form.Attributes.Add("enctype", "multipart/form-data");
 
-        string key = UIHelper.GetBackOfficeKeyFromSession();
-        string providerId = UIHelper.ProviderIdFromSession().ToString();
-        string userId = UIHelper.GetProviderUserIdFromSession().ToString();
-        string applicationId = UIHelper.ApplicationIdFromSession().ToString();
+           Session["Key"]  = UIHelper.GetBackOfficeKeyFromSession();
+            
+            string providerId = UIHelper.ProviderIdFromSession().ToString();
+            string userId = UIHelper.GetProviderUserIdFromSession().ToString();
+            string applicationId = UIHelper.ApplicationIdFromSession().ToString();
 
-        hdnKey.Value = key;
+            //hdnKey.Value = key;
+        }
     }
 }

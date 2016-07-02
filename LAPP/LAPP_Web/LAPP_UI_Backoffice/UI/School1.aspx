@@ -3,22 +3,10 @@
 <%@ Register Src="~/Module/UI_Backoffice/SchoolInfo/ucSchoolInfo.ascx" TagPrefix="uc1" TagName="ucSchoolInfo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script src="../../Scripts/angular.js" type="text/javascript"></script>
-    <script src="../../Scripts/ag-grid.min.js" type="text/javascript"></script>
-    <script src="../../Js/app.js" type="text/javascript"></script>
-    <script src="../../Js/Controllers/SchoolInfoController.js" type="text/javascript"></script>
-    <script src="../../Js/Services/SchoolInfoServices.js" type="text/javascript"></script>
-    <link href="../../App_Themes/Theme1/css/NewButton.css" rel="stylesheet" type="text/css" />
-    <script src="../../App_Themes/Theme1/js/jquery.mask.min.js" type="text/javascript"></script>
-    <script src="../../App_Themes/Theme1/Expandables/expand.js" type="text/javascript"></script>
-    <script src="../../Validation/FormValidation.js" type="text/javascript"></script>
-    <link href="../../App_Themes/Theme1/css/Individual.css?" rel="stylesheet" type="text/css" />
-    <link href="../../App_Themes/Theme1/css/IndividualDetails.css?" rel="stylesheet" type="text/css" />
-    <link href="../../App_Themes/Agency/css/OnlineApplication.css?" rel="stylesheet" type="text/css" />
-    <link href="../../App_Themes/Agency/css/searchPanel.css?" rel="stylesheet" type="text/css" />
-    <script>
+    <script type="text/javascript">
         window.onload = function () {
             showDivSlide('.userHide');
+           
         };
         function toggleDiv(e) {
             $(e).toggle();
@@ -51,7 +39,7 @@
         function RemoveElement(e) {
             $(e).remove();
         }
-
+        
         function ShowChildMessage(msg, type) {
             $('#MsgDivUploadAll').html(BuildValidationMessage(msg, type)); HideLoader();
         } function ShowChildMessageDiv(element, msg, type) {
@@ -108,7 +96,27 @@
 
             });
         });
+
     </script>
+    <script type="text/javascript">
+        var key = '<%=Session["Key"]%>';
+
+    </script>
+    <script src="../../App_Themes/Theme1/js/ebsoft-loader.js" type="text/javascript"></script>
+    <script src="../../Scripts/angular.js" type="text/javascript"></script>
+    <script src="../../Scripts/ag-grid.min.js" type="text/javascript"></script>
+    <script src="../../Js/app.js" type="text/javascript"></script>
+    <script src="../../Js/Controllers/SchoolInfoController.js" type="text/javascript"></script>
+    <script src="../../Js/Services/SchoolInfoServices.js" type="text/javascript"></script>
+    <link href="../../App_Themes/Theme1/css/NewButton.css" rel="stylesheet" type="text/css" />
+    <script src="../../App_Themes/Theme1/js/jquery.mask.min.js" type="text/javascript"></script>
+    <script src="../../App_Themes/Theme1/Expandables/expand.js" type="text/javascript"></script>
+    <script src="../../Validation/FormValidation.js" type="text/javascript"></script>
+    <link href="../../App_Themes/Theme1/css/Individual.css?" rel="stylesheet" type="text/css" />
+    <link href="../../App_Themes/Theme1/css/IndividualDetails.css?" rel="stylesheet" type="text/css" />
+    <link href="../../App_Themes/Agency/css/OnlineApplication.css?" rel="stylesheet" type="text/css" />
+    <link href="../../App_Themes/Agency/css/searchPanel.css?" rel="stylesheet" type="text/css" />
+
     <link href="../../App_Themes/Theme1/css/IndividualDetails.css?" rel="stylesheet" type="text/css" />
 
     <style>
@@ -141,7 +149,7 @@
     </script>
 
     <div ng-app="LAPP" ng-controller="SchoolController" class="container primary-content ">
-        <asp:HiddenField ID="hdnKey" runat="server" />
+        
 
         <div class="container primary-content ">
             <br />

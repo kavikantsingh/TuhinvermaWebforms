@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ucSchoolInfo.ascx.cs" Inherits="NVBMT_WebProject.Modules.IndiVidual.ucAddress" %>
+
 <div>
     <div id="error_validation" class="address-box posFixed" style="display: none; color: red; margin-top: 0px; border-radius: 5px;"></div>
 </div>
@@ -24,7 +25,7 @@
                             </label>
                         </td>
                         <td colspan="6">
-                            <asp:TextBox ID="txtFirstNameEdit" Style="width: 482px !important;" runat="server" CssClass="tooltip OnlyAlphabet inputTextbox capitalize-text NewAppPersonalTxtbx" data-ng-model="ProviderName" title="Only A-Z characters are allowed."></asp:TextBox>
+                            <asp:TextBox ID="txtFirstNameEdit" Style="width: 482px !important;" runat="server" CssClass="tooltip OnlyAlphabet inputTextbox capitalize-text NewAppPersonalTxtbx" data-ng-model="ProviderName" ReadOnly="true" title="Only A-Z characters are allowed."></asp:TextBox>
                         </td>
 
                     </tr>
@@ -35,12 +36,12 @@
                             </label>
                         </td>
                         <td style="width: 180px;">
-                            <asp:TextBox ID="txtSchoolTel" runat="server" Style="width: 170px;" CssClass="phone_us" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformation.ProviderInformationDetails.SchoolTelephone"
+                            <asp:TextBox ID="txtSchoolTel" runat="server" Style="width: 170px;" CssClass="phone_us" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformationDetails.SchoolTelephone"
                                 autocomplete="off"
                                 MaxLength="14"></asp:TextBox>
                         </td>
                         <td colspan="6">
-                            <asp:CheckBox ID="CheckBox57" Style="margin-left: 10px;" Text="Mobile" runat="server" /></td>
+                            <asp:CheckBox ID="CheckBox57" data-ng-model="ProviderInformationDetails.IsSchoolTelephoneMobile" Style="margin-left: 10px;" Text="Mobile" runat="server" /></td>
 
                     </tr>
                     <tr>
@@ -48,7 +49,7 @@
                             <label class="input-label required">School Website :</label>
                         </td>
                         <td colspan="6">
-                            <asp:TextBox ID="txtschoolwebsite" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" data-ng-model="ProviderInformation.ProviderInformationDetails.SchoolWebsite"
+                            <asp:TextBox ID="txtschoolwebsite" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" data-ng-model="ProviderInformationDetails.SchoolWebsite"
                                 autocomplete="off" placeholder="www.websitename.com" MaxLength="150"></asp:TextBox>
                         </td>
                     </tr>
@@ -80,7 +81,7 @@
                     </td>
                 </tr>
             </table>
-            <div data-ag-grid="PrevAddrGrid" class="ag-blue" style="width: 55%; margin-left: 180px; border: 1px solid #ddd; height: 300px;"></div>
+            <div data-ag-grid="PrevAddrGrid" class="ag-blue" style="width: 55%; margin-left: 180px; border: 1px solid #ddd;"></div>
         </div>
     </fieldset>
 
@@ -98,14 +99,14 @@
                     <label class="input-label required">Street : </label>
                 </td>
                 <td colspan="6">
-                    <asp:TextBox ID="TextBox3" runat="server" Width="482px" CssClass="calWidth us_street"
+                    <asp:TextBox ID="TextBox3" runat="server" Width="482px" CssClass="calWidth us_street" data-ng-model="ProviderInformationDetails.SchoolAddressStreet1"
                         MaxLength="500"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="6">
-                    <asp:TextBox ID="txtschool_Add" runat="server" Width="482px" CssClass="calWidth us_street"
+                    <asp:TextBox ID="txtschool_Add" runat="server" Width="482px" CssClass="calWidth us_street" data-ng-model="ProviderInformationDetails.SchoolAddressStreet2"
                         MaxLength="500"></asp:TextBox>
                 </td>
             </tr>
@@ -116,7 +117,7 @@
                     </label>
                 </td>
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtCityResEdit" runat="server" CssClass="tooltip OnlyAlphabet calWidth"
+                    <asp:TextBox ID="txtCityResEdit" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformationDetails.SchoolAddressCity"
                         Width="124px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
                 <td class="txtalgnrgt" style="width: 52px;">
@@ -125,16 +126,16 @@
                     </label>
                 </td>
                 <td style="width: 106px;">
-                    <asp:DropDownList ID="ddlStateResEdit" runat="server" Style="width: 105px !important;" CssClass="inputTextbox"
-                        title="Select your state">
-                        <asp:ListItem Selected="True" Value="CA">CALIFORNIA</asp:ListItem>
-                    </asp:DropDownList>
+                    <select data-ng-model="ProviderInformationDetails.SchoolAddressState" name="SchoolAddressState" class="form-control" data-ng-options="item.StateCode as item.Name for item in StateList">
+                        <option value="">- Select country -</option>
+                    </select>
+
                 </td>
                 <td class="txtalgnrgt" style="width: 47px;">
                     <label class="input-label required">Zip :</label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtZipResEdit" runat="server" placeholder="xxxxx-xxxx or xxxxx" CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: XXXXX-XXXX or XXXXX"></asp:TextBox>
+                    <asp:TextBox ID="txtZipResEdit" runat="server" placeholder="xxxxx-xxxx or xxxxx" CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: XXXXX-XXXX or XXXXX" data-ng-model="ProviderInformationDetails.SchoolAddressZip"></asp:TextBox>
                 </td>
             </tr>
         </table>
@@ -306,14 +307,15 @@
         <div class="divLicenseInfon divaddnew AfterApproved" id="divAddbtnSchoolInfoPrevious"
             runat="server">
             <span style="float: right; margin-right: 32px; margin-top: 15px;">
-                <asp:Button ID="btnSchoolInfoPreviousAddNew" CssClass="buttonGreen small" runat="server"
-                    Text="Add" CausesValidation="true" />
+                <input type="button" value="Add" data-ng-click="ShowPopup(1)" class="buttonGreen small" />
+                <%--<asp:Button ID="btnSchoolInfoPreviousAddNew" CssClass="buttonGreen small" runat="server"
+                    Text="Add" CausesValidation="true" />--%>
             </span>
         </div>
 
         <asp:Literal ID="ltrSchoolInfoPrevious" runat="server"></asp:Literal>
 
-        <div class="divLicenseInfo" id="divAddSchoolInfoPrevious" runat="server" style="width: 91%; margin-top: 20px; margin-bottom: 10px;">
+        <div class="divLicenseInfo" id="divAddSchoolInfoPrevious" style="width: 91%; margin-top: 20px; margin-bottom: 10px;">
             <p class="addNewDiv">
                 <span>School Previous Address</span>
             </p>
@@ -352,15 +354,11 @@
                         </label>
                     </td>
                     <td style="width: 106px;">
-                        <%--ng-options="item.Id as item.CountryName for item in Country"--%>
-                        <select data-ng-model="PrevAdd.StateCode" style="width: 105px !important;" class="inputTextbox" name="CountryId">
-                            <option value="CA" selected="selected">CALIFORNIA</option>
+
+                        <select data-ng-model="PrevAdd.StateCode" name="StateCode" class="form-control" data-ng-options="item.StateCode as item.Name for item in StateList">
+                            <option value="">- Select country -</option>
                         </select>
 
-                        <%--   <asp:DropDownList ID="ddlPreviousAddState" Style="width: 105px !important;" runat="server" CssClass="inputTextbox" data-ng-model=""
-                            title="Select your state">
-                            <asp:ListItem Selected="True" Value="CA">CALIFORNIA</asp:ListItem>
-                        </asp:DropDownList>--%>
                     </td>
 
 
@@ -534,15 +532,14 @@
                 <span class="fltrt">
 
                     <input type="button" value="Add" data-ng-click="AddPreviousAddress()" class="buttonGreen small" />
-                    <%-- <asp:Button ID="btnSchoolInfoPreviousAddNewSave" CssClass="buttonGreen medium"
-                        runat="server" Text="Save" CausesValidation="true" />--%>
-                    <asp:LinkButton ID="lnkSchoolInfoPreviousAddNewCancel" CssClass="secondary medium bottom buttonalignment"
-                        runat="server">Cancel</asp:LinkButton></span>
+
+                    <input type="button" value="Cancel" data-ng-click="clearPreviousAddress()" class="secondary medium bottom buttonalignment" />
+                </span>
             </div>
         </div>
 
         <div class="divLicenseInfo" style="margin-top: 20px; width: 91%;">
-            <div data-ag-grid="PrevAddrIfanyGrid" class="ag-blue" style="color: #000; height: 300px;"></div>
+            <div data-ag-grid="PrevAddrIfanyGrid" class="ag-blue" style="color: #000;"></div>
         </div>
 
         <%--end--%>
@@ -563,14 +560,14 @@
                     </label>
                 </td>
                 <td colspan="5">
-                    <asp:TextBox ID="txtMailingAdd" runat="server" Width="482px" CssClass="calWidth us_street"
+                    <asp:TextBox ID="txtMailingAdd" runat="server" Width="482px" CssClass="calWidth us_street" data-ng-model="ProviderInformationDetails.MailingAddressStreet1"
                         MaxLength="500"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="6">
-                    <asp:TextBox ID="TextBox140" runat="server" Width="482px" CssClass="calWidth us_street"
+                    <asp:TextBox ID="TextBox140" runat="server" Width="482px" CssClass="calWidth us_street" data-ng-model="ProviderInformationDetails.MailingAddressStreet2"
                         MaxLength="500"></asp:TextBox>
                 </td>
             </tr>
@@ -582,7 +579,7 @@
                     </label>
                 </td>
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtMailingCity" runat="server" CssClass="tooltip OnlyAlphabet calWidth"
+                    <asp:TextBox ID="txtMailingCity" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformationDetails.MailingAddressCity"
                         Width="124px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
                 <td class="txtalgnrgt" style="width: 52px;">
@@ -591,10 +588,10 @@
                     </label>
                 </td>
                 <td style="width: 106px;">
-                    <asp:DropDownList ID="ddlMailingState" runat="server" Style="width: 105px !important;" CssClass="inputTextbox"
-                        title="Select your state">
-                        <asp:ListItem Selected="True" Value="CA">CALIFORNIA</asp:ListItem>
-                    </asp:DropDownList>
+                    <select data-ng-model="ProviderInformationDetails.MailingAddressState" name="MailingAddressState" class="form-control" data-ng-options="item.StateCode as item.Name for item in StateList">
+                        <option value="">- Select country -</option>
+                    </select>
+
                 </td>
                 <td class="txtalgnrgt" style="width: 47px;">
                     <label class="input-label required">
@@ -602,7 +599,7 @@
                     </label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtMailngZip" runat="server" placeholder="xxxxx-xxxx or xxxxx"
+                    <asp:TextBox ID="txtMailngZip" runat="server" placeholder="xxxxx-xxxx or xxxxx" data-ng-model="ProviderInformationDetails.MailingAddressZip"
                         CssClass="tooltip zip_us calWidth" Width="124px" MaxLength="500" title="Enter valid Zip eg: XXXXX-XXXX or XXXXX"></asp:TextBox>
                 </td>
             </tr>
@@ -782,7 +779,7 @@
                 </td>
 
                 <td style="width: 151px;">
-                    <asp:TextBox ID="TextBox141" runat="server" CssClass="tooltip OnlyAlphabet calWidth"
+                    <asp:TextBox ID="TextBox141" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformationDetails.DirectorFirstName"
                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
 
@@ -794,7 +791,7 @@
                     </label>
                 </td>
                 <td style="width: 150px;">
-                    <asp:TextBox ID="txtDirectorEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com" data-ng-model="ProviderInformation.ProviderInformationDetails.DirectorAdministratorEmaile"
+                    <asp:TextBox ID="txtDirectorEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com" data-ng-model="ProviderInformationDetails.DirectorAdministratorEmail"
                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
             </tr>
@@ -806,7 +803,7 @@
                 </td>
 
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtSclInfoJobTitle" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformation.ProviderInformationDetails.DirectorAdministratorEmaile"
+                    <asp:TextBox ID="txtSclInfoJobTitle" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformationDetails.DirectorJobTitle"
                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
                 <td colspan="2"></td>
@@ -818,12 +815,12 @@
                     </label>
                 </td>
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtDirectorTel" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformation.ProviderInformationDetails.DirectorPrimaryNumber"
+                    <asp:TextBox ID="txtDirectorTel" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformationDetails.DirectorPrimaryNumber"
                         Width="170px" MaxLength="14"></asp:TextBox>
 
                 </td>
                 <td style="text-align: left;">
-                    <asp:CheckBox ID="CheckBox15" runat="server" Text="Mobile" /></td>
+                    <asp:CheckBox ID="CheckBox15" data-ng-model="ProviderInformationDetails.DirectorPrimaryNumberIsMobile" runat="server" Text="Mobile" /></td>
             </tr>
             <tr>
                 <td class="txtalgnrgt" style="width: 124px;">
@@ -832,12 +829,12 @@
                     </label>
                 </td>
                 <td style="width: 151px;">
-                    <asp:TextBox ID="TextBox142" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformation.ProviderInformationDetails.DirectorSecondaryNumber"
+                    <asp:TextBox ID="TextBox142" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformationDetails.DirectorSecondaryNumber"
                         Width="170px" MaxLength="14"></asp:TextBox>
 
                 </td>
                 <td style="text-align: left;">
-                    <asp:CheckBox ID="CheckBox16" runat="server" Text="Mobile" /></td>
+                    <asp:CheckBox ID="CheckBox16" data-ng-model="ProviderInformationDetails.DirectorSecondaryNumberIsMobile" runat="server" Text="Mobile" /></td>
             </tr>
 
         </table>
@@ -860,7 +857,7 @@
                 </td>
 
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtApplicationName" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformation.ProviderInformationDetails.ContactNameAdministratorEmail"
+                    <asp:TextBox ID="txtApplicationName" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformationDetails.ContactNameFirstName"
                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
 
@@ -872,7 +869,7 @@
                     </label>
                 </td>
                 <td style="width: 150px;">
-                    <asp:TextBox ID="txtApplicationEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com" data-ng-model="ProviderInformation.ProviderInformationDetails.ContactNameAdministratorEmail"
+                    <asp:TextBox ID="txtApplicationEmail" runat="server" CssClass="inputTextbox NewAppPersonalTxtbx" placeholder="joe@email.com" data-ng-model="ProviderInformationDetails.ContactNameAdministratorEmail"
                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
             </tr>
@@ -884,7 +881,7 @@
                 </td>
 
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtSchInfoSecJobtitle" runat="server" CssClass="tooltip OnlyAlphabet calWidth"
+                    <asp:TextBox ID="txtSchInfoSecJobtitle" runat="server" CssClass="tooltip OnlyAlphabet calWidth" data-ng-model="ProviderInformationDetails.ContactNameJobTitle"
                         Width="170px" MaxLength="500" title="Only A-Z characters are allowed."></asp:TextBox>
                 </td>
                 <td colspan="2"></td>
@@ -896,12 +893,12 @@
                     </label>
                 </td>
                 <td style="width: 151px;">
-                    <asp:TextBox ID="txtApplicationNum" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformation.ProviderInformationDetails.ContactNamePrimaryNumber"
+                    <asp:TextBox ID="txtApplicationNum" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformationDetails.ContactNamePrimaryNumber"
                         Width="170px" MaxLength="14"></asp:TextBox>
 
                 </td>
                 <td style="text-align: left;">
-                    <asp:CheckBox ID="CheckBox17" runat="server" Text="Mobile" /></td>
+                    <asp:CheckBox ID="CheckBox17" data-ng-model="ProviderInformationDetails.ContactNamePrimaryNumberIsMobile" runat="server" Text="Mobile" /></td>
             </tr>
             <tr>
                 <td class="txtalgnrgt" style="width: 124px;">
@@ -910,12 +907,12 @@
                     </label>
                 </td>
                 <td style="width: 151px;">
-                    <asp:TextBox ID="TextBox143" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformation.ProviderInformationDetails.ContactNameSecondaryNumber"
+                    <asp:TextBox ID="TextBox143" runat="server" CssClass="phone_us" autocomplete="off" placeholder="(xxx) xxx-xxxx" data-ng-model="ProviderInformationDetails.ContactNameSecondaryNumber"
                         Width="170px" MaxLength="14"></asp:TextBox>
 
                 </td>
                 <td style="text-align: left;">
-                    <asp:CheckBox ID="CheckBox18" runat="server" Text="Mobile" /></td>
+                    <asp:CheckBox ID="CheckBox18" data-ng-model="ProviderInformationDetails.ContactNameSecondaryNumberIsMobile" runat="server" Text="Mobile" /></td>
             </tr>
 
         </table>
@@ -939,8 +936,9 @@
         <div class="divLicenseInfon divaddnew AfterApproved" id="divAddbtnSatelliteLocation"
             runat="server">
             <span style="float: right; margin-right: 32px; margin-top: 15px;">
-                <asp:Button ID="btnSatelliteLocationAddNew" CssClass="buttonGreen small" runat="server"
-                    Text="Add" CausesValidation="true" />
+                <input type="button" value="Add" data-ng-click="ShowPopup(2)" class="buttonGreen small" />
+                <%-- <asp:Button ID="btnSatelliteLocationAddNew" CssClass="buttonGreen small" runat="server"
+                    Text="Add" CausesValidation="true" />--%>
             </span>
 
 
@@ -948,7 +946,7 @@
 
         <asp:Literal ID="ltrSatelliteLocation" runat="server"></asp:Literal>
 
-        <div class="divLicenseInfo" id="divAddSatelliteLocation" runat="server" style="width: 91%; margin-top: 20px; margin-bottom: 10px;">
+        <div class="divLicenseInfo" id="divAddSatelliteLocation" style="width: 91%; margin-top: 20px; margin-bottom: 10px;">
             <p class="addNewDiv">
                 <span>Satellite Location Address </span>
             </p>
@@ -988,9 +986,10 @@
                             State :
                         </label>
                     </td>
+
                     <td style="width: 106px;">
-                        <select data-ng-model="SateliteAdd.StateCode" style="width: 105px !important;" class="inputTextbox" name="CountryId">
-                            <option value="CA" selected="selected">CALIFORNIA</option>
+                        <select data-ng-model="SateliteAdd.StateCode" name="StateCode" class="form-control" data-ng-options="item.StateCode as item.Name for item in StateList">
+                            <option value="">- Select country -</option>
                         </select>
                     </td>
                     <td class="txtalgnrgt" style="width: 47px;">
@@ -1167,11 +1166,12 @@
             <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                 <span class="fltrt">
                     <input type="button" value="Save" data-ng-click="AddSateliteAddress()" class="buttonGreen medium" />
-                    <asp:LinkButton ID="lnkSatelliteLocationAddNewCancel" CssClass="secondary medium bottom buttonalignment" runat="server">Cancel</asp:LinkButton></span>
+                    <input type="button" value="Cancel" data-ng-click="clearsateliteAddress()" class="secondary medium bottom buttonalignment medium" />
+                    <%--<asp:LinkButton ID="lnkSatelliteLocationAddNewCancel" CssClass="secondary medium bottom buttonalignment" runat="server">Cancel</asp:LinkButton></span>--%>
             </div>
         </div>
         <div class="divLicenseInfo" style="margin-top: 20px; width: 91%;">
-            <div data-ag-grid="SateliteAddrIfanyGrid " class="ag-blue" style="color: #000; height: 300px;"></div>
+            <div data-ag-grid="SateliteAddrIfanyGrid " class="ag-blue" style="color: #000;"></div>
         </div>
 
 
@@ -1186,8 +1186,15 @@
             </tr>
 
         </table>
-
-        <div class="divLicenseInfo" id="dvadlx" runat="server" style="margin-top: 30px;">
+        <div class="divLicenseInfon divaddnew AfterApproved" id="div1"
+            runat="server">
+            <span style="float: right; margin-right: 32px; margin-top: 15px;">
+                <input type="button" value="Add" data-ng-click="ShowPopup(3)" class="buttonGreen small" />
+                <%--<asp:Button ID="btnSchoolInfoPreviousAddNew" CssClass="buttonGreen small" runat="server"
+                    Text="Add" CausesValidation="true" />--%>
+            </span>
+        </div>
+        <div id="divMblex" class="divLicenseInfo" style="margin-top: 30px;">
 
             <p class="addNewDiv">
                 <span>MBLEx Passing Rates</span>
@@ -1201,7 +1208,7 @@
                         </label>
                     </td>
                     <td>
-                        <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TextBox5" data-ng-model="Mblex.PassingRates" runat="server"></asp:TextBox>
                     </td>
 
                 </tr>
@@ -1212,10 +1219,19 @@
                         </label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="DropDownList4" Style="width: 144px ! important;" runat="server" CssClass="inputTextbox">
-                            <asp:ListItem Value="-1">Select</asp:ListItem>
 
-                        </asp:DropDownList>
+
+                        <select data-ng-model="Mblex.PassingYear" style="width: 105px !important;" class="inputTextbox">
+                            <option value="">Select</option>
+                            <option value="2016">2016</option>
+                            <option value="2016">2015</option>
+                            <option value="2016">2014</option>
+                            <option value="2016">2013</option>
+                            <option value="2016">2012</option>
+                            <option value="2016">2011</option>
+                            <option value="2016">2010</option>
+
+                        </select>
                     </td>
 
                 </tr>
@@ -1226,10 +1242,12 @@
                         </label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="DropDownList3" Style="width: 144px ! important;" runat="server" CssClass="inputTextbox">
-                            <asp:ListItem Value="-1">Select</asp:ListItem>
+                        <select data-ng-model="Mblex.PassingHalf" style="width: 105px !important;" class="inputTextbox">
+                            <option value="">Select</option>
+                            <option value="1st" selected="selected">1st</option>
+                            <option value="2nd">2nd</option>
+                        </select>
 
-                        </asp:DropDownList>
                     </td>
 
                 </tr>
@@ -1238,10 +1256,11 @@
 
             <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
                 <span class="fltrt">
-                    <asp:Button ID="Button5" CssClass="buttonGreen medium"
-                        runat="server" Text="Save" CausesValidation="true" />
-                    <asp:LinkButton ID="LinkButton1" CssClass="secondary medium bottom buttonalignment"
-                        runat="server">Cancel</asp:LinkButton></span>
+                    <input type="button" value="Save" data-ng-click="Save_providermblex()" class="buttonGreen medium" />
+
+                    <%--<asp:LinkButton ID="LinkButton1" CssClass="secondary medium bottom buttonalignment"
+                        runat="server">Cancel</asp:LinkButton></span>--%>
+                    <input type="button" value="Cancel" data-ng-click="clearMblex()" class="secondary medium bottom buttonalignment" />
             </div>
 
 
@@ -1249,7 +1268,7 @@
 
         </div>
 
-        <div data-ag-grid="MBLExGrid " class="ag-blue" style="color: #000; height: 300px; width: 98%; border: 1px solid rgb(221, 221, 221) ! important; margin-left: 7px; box-shadow: none; margin-top: 23px;"></div>
+        <div data-ag-grid="MBLExGrid " class="ag-blue" style="color: #000; width: 98%; border: 1px solid rgb(221, 221, 221) ! important; margin-left: 7px; box-shadow: none; margin-top: 23px;"></div>
 
         <table class=" tblApplReqForm5">
 
@@ -1381,7 +1400,7 @@
 
         </div>
 
-        <div data-ag-grid="SiteDetailsGrid " class="ag-blue" style="color: #000; height: 300px; width: 98%; border: 1px solid rgb(221, 221, 221) ! important; margin-left: 7px; box-shadow: none; margin-top: 23px;"></div>
+        <div data-ag-grid="SiteDetailsGrid " class="ag-blue" style="color: #000; width: 98%; border: 1px solid rgb(221, 221, 221) ! important; margin-left: 7px; box-shadow: none; margin-top: 23px;"></div>
 
 
     </fieldset>
@@ -1404,10 +1423,11 @@
 
     <div class="toolBar AfterApproved" style="padding: 4px; margin: 4px;">
         <span class="fltrt">
-            <asp:Button ID="btnSavePersonalInfo" CssClass="buttonGreen medium" runat="server" OnClientClick="btnSavePersonalInfo()"
-                Text="Save" />
-            <asp:LinkButton ID="lnkCancelPersonalInfo" CssClass="secondary medium bottom buttonalignment"
-                runat="server">Cancel</asp:LinkButton></span>
+
+            <input type="button" value="Save" data-ng-click="SaveSchoolInformation()" class="buttonGreen medium" />
+            <%--<input type="button" value="Cancel" data-ng-click="clearMblex()" class="secondary medium bottom buttonalignment" />--%>
+            <%--<asp:LinkButton ID="lnkCancelPersonalInfo" CssClass="secondary medium bottom buttonalignment"
+                runat="server">Cancel</asp:LinkButton></span>--%>
     </div>
 
 </div>
@@ -1435,106 +1455,5 @@
         border: 1px solid #EAEAEA;
         width: 95%;
         margin: 10px auto 0px;
-    }
-
-    .wdtmarauto {
-        width: 96%;
-        margin: 0px a table.tb A 5;
-
-    {
-        line-h x;
-    }
-
-
-    .a {
-        positi ve;
-        marg n-top: - mi -heig bckgrond-color: #FF4F;
-        ing: 12px border: 1p d 5, 5, 28, 0.4);
-        px;
-        -inex: 1;
-    }
-
-    . eqForm5 td {
-        padding 10px p tant;
-    }
-
-    new {
-        he;
-    }
-
-
-    icenseI fo m; w b rder: 1 EEE;
-    }
-
-    NewDiv {
-        : center;
-        height: line-h ight: background-color: #F9FF9;
-        f: bold;
-    }
-
-    .g -other-n me indx t th {
-        px !importan;
-        p 0px 0px 0px 3 x t;
-        l ne-he;
-    }
-
-    .rea {
-        addin: margin-bot o marin-to: 20px;
-        .f sNew m;
-
-    {
-        bordr: 1 i A;
-        dth: 95% : 10px uto;
-    }
-
-    hr {
-        dis k;
-        h ight: 1px;
-        -width: 1px 0 x 0p;
-        border-syle: solid none none border-color: #CCC -mo -use- -moz-use-text-color;
-        r-top-colors: none;
-        -mo ight-colors: none;
-        -m bottom-colors none -moz-b rde-lef none;
-        e none;
-        em 0px ng: 0px;
-    }
-
-
-    ing {
-        wid 0 bakgroud- o fot-we b;
-    }
-
-    ody td {
-        ng: 4px 3px;
-        .listbox;
-
-    {
-        215px;
-        he x;
-        overfow-x: verf o solid DDD;
-        adding: 8px;
-    }
-
-    .gvDivUpr {
-        lor: #000;
-        amily: Aria,Helvet erif;
-        font-s fo t-style font-v riant: font weigh le ter- ormal;
-        text- t;
-        ext-ind text tran white-space: or a word- pacng: 0x;
-        tablebor er_t b solid #DEDEDE;
-        p x;
-    }
-
-    tab order-collapse: c borer-spcing: 0p .fls p {
-        bordr: 1 i A;
-        width: 95%;
-        10px au o 0x;
-    }
-
-    .histo l orm5 td paddin: 2px 0p mportant
-    }
-
-    history .tb e m5 .grid td {
-        padding: 0px 0px 0px 4px !important;
     }
 </style>
