@@ -1,0 +1,111 @@
+@media screen and (Orientation: landscape) {
+    /* body{
+        font-family: 'Segoe UI Light', 'Segoe UI';
+    } */
+    body {
+        font-family: 'Segoe UI',Tahoma,Helvetica,Sans-Serif;
+        font-family: "Helvetica Neue","HelveticaNeue",Arial,Helvetica,sans-serif;
+        overflow-x: hidden;
+    }
+
+    .top {
+        margin-top: 20px;
+    }
+
+    .topr {
+        margin-top: 10px;
+    }
+
+    .gridPanelMinHeight {
+        min-height: 10%;
+    }
+
+    .panel-heading .accordion-toggle div:after {
+        /* symbol for "opening" panels */
+        font-family: 'Glyphicons Halflings';
+        content: "\e260";
+        float: right;
+        color: #000000;
+        overflow: no-display;
+    }
+
+    .panel-heading .accordion-toggle.collapsed div:after {
+        /* symbol for "collapsed" panels */
+        content: "\e259";
+    }
+
+    a.accordion-toggle {
+        text-decoration: none;
+    }
+
+    .table td.fit,
+    .table th.fit {
+        white-space: nowrap;
+        max-width: 100%;
+        table-layout: fixed;
+        overflow: hidden;
+    }
+
+    input, .dropdown, .panel {
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .messageContainer {
+        padding-top: 0.5%;
+        margin-left: -1.5%;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .tableCustomCSS {
+        display: inline-flex;
+        width: auto;
+        margin-right: 1%;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+
+    .dbTableMainDiv {
+        max-height: 600px;
+        overflow-y: scroll;
+    }
+
+    .iframestyle {
+        overflow: auto;
+        height: 800px;
+        width: 100%;
+        margin-top: -1.6%;
+        padding-top: 1%;
+    }
+
+    #popout:hover, img {
+        color: #F8F8F8;
+        font-size: 18px;
+    }
+
+        img:hover {
+            color: #F8F8F8;
+            height: 18px;
+            width: 18px;
+        }
+
+    .close:focus,
+    .close:hover {
+        color: #de5347;
+        text-decoration: none;
+        cursor: pointer;
+        filter: alpha(opacity=50);
+        opacity: 1.2;
+    }
+
+    .close {
+        color: #fff;
+        float: right !important;
+        margin-right: -16px !important;
+        margin-top: -8px !important;
+    }
+}
