@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
@@ -19,6 +20,8 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     public string docTypeName { get; set; }
 
     public bool isSimple { get; set; }
+
+    public bool doValidate { get; set; }
 
     public static readonly List<string> fileExtension = new List<string> { ".TXT", ".DOC", ".PDF", ".DOCX" };
     protected void Page_Load(object sender, EventArgs e)
@@ -50,7 +53,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     public void GetDocumentTypeList()
     {
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Document/DocumentGetDocumentTypeName/" + key + "?DocId=" + docId + "&DocCode=" + docCode;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Document/DocumentGetDocumentTypeName/" + key + "?DocId=" + docId + "&DocCode=" + docCode;
 
         Object obj;
         WebApiUtility.CallWebAPI<DocumentMasterRS>(WebAPIUrl, null, out obj, "GET");
@@ -98,7 +101,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
         rptSimpleDocumentList.DataBind();
 
         string WebAPIUrl = string.Empty;
-        WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderGetProviderDocumentByProviderIdAndDocumentId/" + key + "?ProviderId=" + providerId + "&DocumentId=" + docId + "&ApplicationId=" + applicationId;
+        WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderGetProviderDocumentByProviderIdAndDocumentId/" + key + "?ProviderId=" + providerId + "&DocumentId=" + docId + "&ApplicationId=" + applicationId;
 
         Object obj;
         WebApiUtility.CallWebAPI<ProviderDocumentGETRS>(WebAPIUrl, null, out obj, "GET");
@@ -106,6 +109,9 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
         if (res.Status)
         {
+            if (res.ProviderDocumentGET != null && res.ProviderDocumentGET.Count > 0)
+                hfStatus.Value = "1";
+
             if (isSimple)
             {
                 rptSimpleDocumentList.DataSource = res.ProviderDocumentGET;
@@ -153,7 +159,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     string Base64File = Convert.ToBase64String(fileData);
 
-                    string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentSave/" + key;
+                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentSave/" + key;
 
                     ProviderDocument objUpload = new ProviderDocument()
                     {
@@ -202,9 +208,11 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                         txtDocumentName.Text = "";
 
                         GetAllDocs();
+
                     }
                     else
                     {
+                        lblSuccess.Visible = false;
                         lblError.Visible = true;
                         lblError.Text = "Oops! some error occurred. <br/>" + res.Message;
                     }
@@ -212,12 +220,14 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                 }
                 catch (Exception ex)
                 {
+                    lblSuccess.Visible = false;
                     lblError.Visible = true;
                     lblError.Text = "Oops! some error occurred. <br/>" + ex.Message;
                 }
             }
             else
             {
+                lblSuccess.Visible = false;
                 lblError.Visible = true;
                 lblError.Text = "Only .txt/.doc/.docx/.pdf file types allowed.<br/>";
             }
@@ -228,7 +238,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
 
             Object obj;
             WebApiUtility.CallWebAPI<ProviderDocumentRS>(WebAPIUrl, null, out obj, "POST");
@@ -270,13 +280,13 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     string Base64File = Convert.ToBase64String(fileData);
 
-                    string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentSave/" + key;
+                    string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentSave/" + key;
 
                     ProviderDocument objUpload = new ProviderDocument()
                     {
                         DocumentLkToPageTabSectionCode = "",
                         DocumentLkToPageTabSectionId = 0,
-                        DocumentName = "",
+                        DocumentName = Path.GetFileNameWithoutExtension(fuSimpleDocUpload.FileName),
                         DocumentPath = "",
                         EffectiveDate = null,
                         EndDate = null,
@@ -320,6 +330,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                     }
                     else
                     {
+                        lblSimpleSuccess.Visible = false;
                         lblSimpleError.Visible = true;
                         lblSimpleError.Text = "Oops! some error occurred. <br/>" + res.Message;
                     }
@@ -327,18 +338,21 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                 }
                 catch (Exception ex)
                 {
+                    lblSimpleSuccess.Visible = false;
                     lblSimpleError.Visible = true;
                     lblSimpleError.Text = "Oops! some error occurred. <br/>" + ex.Message;
                 }
             }
             else
             {
+                lblSimpleSuccess.Visible = false;
                 lblSimpleError.Visible = true;
                 lblSimpleError.Text = "Only .txt/.doc/.docx/.pdf file types allowed.<br/>";
             }
         }
         else
         {
+            lblSimpleSuccess.Visible = false;
             lblSimpleError.Visible = true;
             lblSimpleError.Text = "Please fill *required fileds.";
             return;
@@ -349,7 +363,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (e.CommandName == "Delete" && e.CommandArgument.ToString() != "")
         {
-            string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
+            string WebAPIUrl = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/Provider/ProviderDocumentDelete/" + key + "?ProviderDocId=" + e.CommandArgument + "&UserId=" + userId + "&ProviderId=" + providerId + "&ApplicationId=" + applicationId;
 
             Object obj;
             WebApiUtility.CallWebAPI<ProviderDocumentRS>(WebAPIUrl, null, out obj, "POST");
