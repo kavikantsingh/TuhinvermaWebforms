@@ -38,5 +38,16 @@ namespace LAPP.BAL
         {
             return objDAL.Get_Lapp_application_fee_Get_by_Application_ID(G_Application_ID);
         }
+
+        public List<LAPP_MasterTransaction> Get_All_MasterTransaction()
+        {
+            return objDAL.Get_All_LAPP_MasterTransaction();
+        }
+
+        public List<LAPP_DeficiencyTemplate> Get_All_LAPP_DeficiencyTemplate()
+        {
+            return objDAL.Get_All_LAPP_DeficiencyTemplate();
+        }
+
     }
 }

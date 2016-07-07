@@ -154,5 +154,69 @@ namespace LAPP.DAL
 
            return objEntity;
        }
+
+       
+       public List<LAPP_MasterTransaction> Get_All_LAPP_MasterTransaction()
+       {
+           DataSet ds = new DataSet("DS");
+           DBHelper objDB = new DBHelper();
+           ds = objDB.ExecuteDataSet(CommandType.StoredProcedure, "lapp_MasterTransaction_get_all");
+           List<LAPP_MasterTransaction> lstEntity = new List<LAPP_MasterTransaction>();
+           LAPP_MasterTransaction objEntity = null;
+           foreach (DataRow dr in ds.Tables[0].Rows)
+           {
+               objEntity = FetchMasterTransactionEntity(dr);
+               if (objEntity != null)
+                   lstEntity.Add(objEntity);
+           }
+           return lstEntity;
+       }
+
+       public List<LAPP_DeficiencyTemplate> Get_All_LAPP_DeficiencyTemplate()
+       {
+           DataSet ds = new DataSet("DS");
+           DBHelper objDB = new DBHelper();
+           ds = objDB.ExecuteDataSet(CommandType.StoredProcedure, "lapp_deficiencytemplate_get_all");
+           List<LAPP_DeficiencyTemplate> lstEntity = new List<LAPP_DeficiencyTemplate>();
+           LAPP_DeficiencyTemplate objEntity = null;
+           foreach (DataRow dr in ds.Tables[0].Rows)
+           {
+               objEntity = FetchDeficiencyTemplateEntity(dr);
+               if (objEntity != null)
+                   lstEntity.Add(objEntity);
+           }
+           return lstEntity;
+       }
+
+       private LAPP_MasterTransaction FetchMasterTransactionEntity(DataRow dr)
+       {
+           LAPP_MasterTransaction objEntity = new LAPP_MasterTransaction();
+           if (dr.Table.Columns.Contains("MasterTransactionId") && dr["MasterTransactionId"] != DBNull.Value)
+           {
+               objEntity.MasterTransactionId = Convert.ToInt32(dr["MasterTransactionId"]);
+           }
+           if (dr.Table.Columns.Contains("MasterTransactionName") && dr["MasterTransactionName"] != DBNull.Value)
+           {
+               objEntity.MasterTransactionName = Convert.ToString(dr["MasterTransactionName"]);
+           }
+
+           return objEntity;
+       }
+
+       private LAPP_DeficiencyTemplate FetchDeficiencyTemplateEntity(DataRow dr)
+       {
+           LAPP_DeficiencyTemplate objEntity = new LAPP_DeficiencyTemplate();
+           if (dr.Table.Columns.Contains("DeficiencyTemplateID") && dr["DeficiencyTemplateID"] != DBNull.Value)
+           {
+               objEntity.Deficiency_Template_ID = Convert.ToInt32(dr["DeficiencyTemplateID"]);
+           }
+           if (dr.Table.Columns.Contains("DeficiencyTemplateName") && dr["DeficiencyTemplateName"] != DBNull.Value)
+           {
+               objEntity.Deficiency_Template_Name = Convert.ToString(dr["DeficiencyTemplateName"]);
+           }
+
+           return objEntity;
+       }
+
     }
 }
