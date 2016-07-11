@@ -13,11 +13,12 @@ using LAPP.ENTITY.Enumerations;
 using System.Net;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Configuration;
 
 
 public partial class ucCertificationApplication : System.Web.UI.UserControl
 {
-    String webAPIURL = "http://ws.camtc.inlumon.com/api/";
+    String webAPIURL = ConfigurationManager.AppSettings["WebAPIBaseUrl"] + "api/"; // "http://ws.camtc.inlumon.com/api/";
     //string webAPIURL = "http://192.168.0.100:5811/api/";
 
     #region Page Event Handler
@@ -293,13 +294,13 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             //--Basu Sharma--//
 
             //By prem Singh
-            BindGridPreviousSchools();
+            //BindGridPreviousSchools();
 
             //Commented to make defualt navigation dynamic
             // MakeActiveLi(liApplicatinInstructions);
 
             //Make Check correct based on the active tab
-            CallMethodToCheckInitialTabActive();
+            //CallMethodToCheckInitialTabActive();
 
             //TODO: Make content accessible dynamically
             txtFirstNameEdit.Text = "Application Name";
@@ -1555,44 +1556,47 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void btnMassageTherapistApplication_Click(object sender, EventArgs e)
     {
-        ProviderInstructionsRQ rQ = new ProviderInstructionsRQ()
-        {
-            ProviderId = UIHelper.ProviderIdFromSession(),
-            ApplicationId = UIHelper.ApplicationIdFromSession(),
-            ContentItemLkId = 1,
+        //ProviderInstructionsRQ rQ = new ProviderInstructionsRQ()
+        //{
+        //    ProviderId = UIHelper.ProviderIdFromSession(),
+        //    ApplicationId = UIHelper.ApplicationIdFromSession(),
+        //    ContentItemLkId = 1,
 
 
-            #region NotRequiredFields
+        //    #region NotRequiredFields
 
-            //ContentItemLkCode = "Code",
-            //ReferenceNumber = "",
-            //ModifiedBy = 1,
-            //ModifiedOn = DateTime.Now,
+        //    //ContentItemLkCode = "Code",
+        //    //ReferenceNumber = "",
+        //    //ModifiedBy = 1,
+        //    //ModifiedOn = DateTime.Now,
 
-            #endregion
+        //    #endregion
 
-            InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
-            InstructionsAcceptanceDate = DateTime.Now.Date,
-            IsActive = true,
-            IsDeleted = false,
-            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
-            CreatedOn = DateTime.Now,
-            ProviderInstructionsGuid = Guid.NewGuid().ToString(),
-            ProviderInstructionsId = 1
-        };
+        //    InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
+        //    InstructionsAcceptanceDate = DateTime.Now.Date,
+        //    IsActive = true,
+        //    IsDeleted = false,
+        //    CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+        //    CreatedOn = DateTime.Now,
+        //    ProviderInstructionsGuid = Guid.NewGuid().ToString(),
+        //    ProviderInstructionsId = 1
+        //};
 
-        string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
-        Object obj;
-        CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
-        var res = (ProviderLoginRS)obj;
-        if (res.Status)
-        {
-            //TODO
-            //Make Tick mark appear for the instruction tab 
-            imgbtnInstruction.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
-            DisplayPanel(pnlSection1);
-            MakeActiveLi(liMassageTherapistApplication);
-        }
+        //string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
+        //Object obj;
+        //CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
+        //var res = (ProviderLoginRS)obj;
+        //if (res.Status)
+        //{
+        //    //TODO
+        //    //Make Tick mark appear for the instruction tab 
+        //    imgbtnInstruction.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+        //    DisplayPanel(pnlSection1);
+        //    MakeActiveLi(liMassageTherapistApplication);
+        //}
+
+        DisplayPanel(pnlSection1);
+        MakeActiveLi(liMassageTherapistApplication);
     }
 
 
@@ -1661,61 +1665,64 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     protected void btnSection2_Click(object sender, EventArgs e)
     {
 
-        ProviderInformationRQ rQ = new ProviderInformationRQ();
-        rQ.SchoolTelephone = txtSchoolTel.Text;
-        rQ.IsSchoolTelephoneMobile = CheckBox57.Checked;
-        rQ.SchoolWebsite = txtschoolwebsite.Text;
-        rQ.SchoolAddressStreet1 = txtSchoolStreet.Text;
-        rQ.SchoolAddressStreet2 = txtschool_Add.Text;
+        //ProviderInformationRQ rQ = new ProviderInformationRQ();
+        //rQ.SchoolTelephone = txtSchoolTel.Text;
+        //rQ.IsSchoolTelephoneMobile = CheckBox57.Checked;
+        //rQ.SchoolWebsite = txtschoolwebsite.Text;
+        //rQ.SchoolAddressStreet1 = txtSchoolStreet.Text;
+        //rQ.SchoolAddressStreet2 = txtschool_Add.Text;
 
-        rQ.SchoolAddressCity = txtCityResEdit.Text;
-        rQ.SchoolAddressState = ddlStateResEdit.SelectedValue;
-        rQ.SchoolAddressZip = txtZipResEdit.Text;
-        rQ.SchoolAddressIsVerifiedClicked = true;//TODO Need to check and update
-        rQ.SchoolAddressIsNotVerifiedClicked = false;
-        rQ.MailingAddressStreet1 = txtMailingAdd.Text;
-        rQ.MailingAddressStreet2 = TextBox140.Text;
-        rQ.MailingAddressCity = txtMailingCity.Text;
-        rQ.MailingAddressState = ddlMailingState.SelectedValue;
-        rQ.MailingAddressZip = txtMailngZip.Text;
-        rQ.MailingAddressIsVerifiedClicked = true;//TODO Need to check and update
-        rQ.MailingAddressIsNotVerifiedClicked = false;
-        rQ.DirectorFirstName = txtDirFirstName.Text;
-        rQ.DirectorLastName = txtDirLastName.Text;
-        rQ.DirectorAdministratorEmail = txtDirectorEmail.Text;
-        rQ.DirectorJobTitle = txtSclInfoJobTitle.Text;
-        rQ.DirectorPrimaryNumber = txtSclInfoPriNumber.Text;
-        rQ.DirectorPrimaryNumberIsMobile = false; //TODO check if checked and update true or false -- chkSclInfoPriNum
-        rQ.DirectorSecondaryNumber = txtSclInfoSecNumber.Text;
-        rQ.DirectorSecondaryNumberIsMobile = false; //TODO check if checked and update true or false -- chktxtSclInfo
+        //rQ.SchoolAddressCity = txtCityResEdit.Text;
+        //rQ.SchoolAddressState = ddlStateResEdit.SelectedValue;
+        //rQ.SchoolAddressZip = txtZipResEdit.Text;
+        //rQ.SchoolAddressIsVerifiedClicked = true;//TODO Need to check and update
+        //rQ.SchoolAddressIsNotVerifiedClicked = false;
+        //rQ.MailingAddressStreet1 = txtMailingAdd.Text;
+        //rQ.MailingAddressStreet2 = TextBox140.Text;
+        //rQ.MailingAddressCity = txtMailingCity.Text;
+        //rQ.MailingAddressState = ddlMailingState.SelectedValue;
+        //rQ.MailingAddressZip = txtMailngZip.Text;
+        //rQ.MailingAddressIsVerifiedClicked = true;//TODO Need to check and update
+        //rQ.MailingAddressIsNotVerifiedClicked = false;
+        //rQ.DirectorFirstName = txtDirFirstName.Text;
+        //rQ.DirectorLastName = txtDirLastName.Text;
+        //rQ.DirectorAdministratorEmail = txtDirectorEmail.Text;
+        //rQ.DirectorJobTitle = txtSclInfoJobTitle.Text;
+        //rQ.DirectorPrimaryNumber = txtSclInfoPriNumber.Text;
+        //rQ.DirectorPrimaryNumberIsMobile = false; //TODO check if checked and update true or false -- chkSclInfoPriNum
+        //rQ.DirectorSecondaryNumber = txtSclInfoSecNumber.Text;
+        //rQ.DirectorSecondaryNumberIsMobile = false; //TODO check if checked and update true or false -- chktxtSclInfo
 
-        rQ.ContactNameFirstName = TextBox62.Text;
-        rQ.ContactNameLastName = TextBox64.Text;
-        rQ.ContactNameAdministratorEmail = txtApplicationEmail.Text;
-        rQ.ContactNameJobTitle = txtSchInfoSecJobtitle.Text;
-        rQ.ContactNamePrimaryNumber = txtApplicationNum.Text;
-        rQ.ContactNamePrimaryNumberIsMobile = false; //TODO check if checked and update true or false -- CheckBox17
-        rQ.ContactNameSecondaryNumber = TextBox143.Text;
-        rQ.ContactNameSecondaryNumberIsMobile = false; //TODO check if checked and update true or false -- CheckBox18
-        rQ.CreatedBy = UIHelper.UserIDBySession();
-        rQ.ProviderId = UIHelper.GetProviderId();
-        rQ.IndividualId = UIHelper.GetIndividualId();
-        rQ.ApplicationId = UIHelper.GetApplicationId();
+        //rQ.ContactNameFirstName = TextBox62.Text;
+        //rQ.ContactNameLastName = TextBox64.Text;
+        //rQ.ContactNameAdministratorEmail = txtApplicationEmail.Text;
+        //rQ.ContactNameJobTitle = txtSchInfoSecJobtitle.Text;
+        //rQ.ContactNamePrimaryNumber = txtApplicationNum.Text;
+        //rQ.ContactNamePrimaryNumberIsMobile = false; //TODO check if checked and update true or false -- CheckBox17
+        //rQ.ContactNameSecondaryNumber = TextBox143.Text;
+        //rQ.ContactNameSecondaryNumberIsMobile = false; //TODO check if checked and update true or false -- CheckBox18
+        //rQ.CreatedBy = UIHelper.UserIDBySession();
+        //rQ.ProviderId = UIHelper.GetProviderId();
+        //rQ.IndividualId = UIHelper.GetIndividualId();
+        //rQ.ApplicationId = UIHelper.GetApplicationId();
 
-        string WebAPIUrl = webAPIURL + "Provider/SaveSchoolInformation";
-        Object obj;
-        CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
-        var res = (PreviousSchoolRS)obj;
-        if (res.Status)
-        {
-            txtSatelliteLoc.Text = "";
-            TextBox144.Text = "";
-            txtSatelliteCity.Text = "";
-            txtSatelliteZip.Text = "";
-            imgMassageTherapistApplication.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
-            DisplayPanel(pnlSection2);
-            MakeActiveLi(liSection2);
-        }
+        //string WebAPIUrl = webAPIURL + "Provider/SaveSchoolInformation";
+        //Object obj;
+        //CallWebAPI<PreviousSchoolRS>(WebAPIUrl, rQ, out obj);
+        //var res = (PreviousSchoolRS)obj;
+        //if (res.Status)
+        //{
+        //    txtSatelliteLoc.Text = "";
+        //    TextBox144.Text = "";
+        //    txtSatelliteCity.Text = "";
+        //    txtSatelliteZip.Text = "";
+        //    imgMassageTherapistApplication.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+        //    DisplayPanel(pnlSection2);
+        //    MakeActiveLi(liSection2);
+        //}
+
+        DisplayPanel(pnlSection2);
+        MakeActiveLi(liSection2);
     }
 
 

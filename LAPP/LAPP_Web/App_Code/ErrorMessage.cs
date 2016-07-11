@@ -116,4 +116,13 @@ public class ErrorMessage
     public static string SiteInspector = "Please select site inspector.";
     public static string Comment = "Please enter comment.";
 
+    public static string fluLocalBusiness = "Please upload document for Local Business License.";
+    public static string fluOrgChart = "Please upload document for Organizational Chart.";
+
+    public static string fluFloorPlan = "Please upload document for Floor Plan (including approximate square footage).";
+    public static string fluExteriorSign = "Please upload document for Photograph(s) of Exterior Signage.";
+    public static string fluBuildExterior = "Please upload document for Photograph(s) of Buiding exterior.";
+    public static string fluMassageClassroom = "Please upload document for Photograph(s) of Massage Classroom(s).";
+    public static string fluMassageClinic = "Please upload document for Photograph(s) of Massage Clinic(s).";
+    
 }

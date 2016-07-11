@@ -30,7 +30,7 @@ public partial class LAPP_UI_School_UI_ProviderLogin : System.Web.UI.Page
 
         ProviderLoginRQ rQ = new ProviderLoginRQ() { Email = txtEmail.Text.Trim(), Password = txtPassword.Text.Trim() };
 
-        string WebAPIUrl = "http://96.31.91.68/lappws/api/Provider/ProviderLogin/key";
+        string WebAPIUrl = "http://ws.camtc.inlumon.com/api/Provider/ProviderLogin/key";
 
         Object obj;
         WebApiUtility.CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj, "POST");
