@@ -29,16 +29,16 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
 
         #region Staff
-        fuStaff1.docId = "5";
-        fuStaff1.docCode = "D1005";
+        fuStaff1.docId = "38";
+        fuStaff1.docCode = "D1038";
         fuStaff1.isSimple = true;
 
-        fuStaff2.docId = "6";
-        fuStaff2.docCode = "D1006";
+        fuStaff2.docId = "39";
+        fuStaff2.docCode = "D1039";
         fuStaff2.isSimple = true;
 
-        fuStaff3.docId = "5";
-        fuStaff3.docCode = "D1005";
+        fuStaff3.docId = "40";
+        fuStaff3.docCode = "D1040";
         fuStaff3.isSimple = true;
         #endregion
 
@@ -106,56 +106,56 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         #region Doc-Upload-BASU
         #region EnrollAgreement
-        fuEnrollAgree1.docId = "5";
-        fuEnrollAgree1.docCode = "D1005";
+        fuEnrollAgree1.docId = "26";
+        fuEnrollAgree1.docCode = "D1026";
         fuEnrollAgree1.isSimple = true;
 
-        fuEnrollAgree2.docId = "5";
-        fuEnrollAgree2.docCode = "D1005";
+        fuEnrollAgree2.docId = "27";
+        fuEnrollAgree2.docCode = "D1027";
         fuEnrollAgree2.isSimple = true;
         #endregion EnrollAgreement
 
         #region CourseCatalog
-        fuCourseCatalog1.docId = "5";
-        fuCourseCatalog1.docCode = "D1005";
+        fuCourseCatalog1.docId = "28";
+        fuCourseCatalog1.docCode = "D1028";
         fuCourseCatalog1.isSimple = true;
 
-        fuCourseCatalog2.docId = "5";
-        fuCourseCatalog2.docCode = "D1005";
+        fuCourseCatalog2.docId = "29";
+        fuCourseCatalog2.docCode = "D1029";
         fuCourseCatalog2.isSimple = true;
         #endregion CourseCatalog
 
         #region Curriculum
-        fuCurriculum1.docId = "5";
-        fuCurriculum1.docCode = "D1005";
+        fuCurriculum1.docId = "30";
+        fuCurriculum1.docCode = "D1030";
         fuCurriculum1.isSimple = true;
 
-        fuCurriculum2.docId = "5";
-        fuCurriculum2.docCode = "D1005";
+        fuCurriculum2.docId = "31";
+        fuCurriculum2.docCode = "D1031";
         fuCurriculum2.isSimple = true;
 
-        fuCurriculum3.docId = "5";
-        fuCurriculum3.docCode = "D1005";
+        fuCurriculum3.docId = "32";
+        fuCurriculum3.docCode = "D1032";
         fuCurriculum3.isSimple = true;
 
-        fuCurriculum4.docId = "5";
-        fuCurriculum4.docCode = "D1005";
+        fuCurriculum4.docId = "33";
+        fuCurriculum4.docCode = "D1033";
         fuCurriculum4.isSimple = true;
 
-        fuCurriculum5.docId = "5";
-        fuCurriculum5.docCode = "D1005";
+        fuCurriculum5.docId = "34";
+        fuCurriculum5.docCode = "D1034";
         fuCurriculum5.isSimple = true;
 
-        fuCurriculum6.docId = "5";
-        fuCurriculum6.docCode = "D1005";
+        fuCurriculum6.docId = "35";
+        fuCurriculum6.docCode = "D1035";
         fuCurriculum6.isSimple = true;
 
-        fuCurriculum7.docId = "5";
-        fuCurriculum7.docCode = "D1005";
+        fuCurriculum7.docId = "36";
+        fuCurriculum7.docCode = "D1036";
         fuCurriculum7.isSimple = true;
 
-        fuCurriculum8.docId = "3";
-        fuCurriculum8.docCode = "D1003";
+        fuCurriculum8.docId = "37";
+        fuCurriculum8.docCode = "D1037";
         fuCurriculum8.isSimple = false;
 
         #endregion Curriculum
@@ -165,28 +165,28 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         #region Transcript
 
-        fuTranscript1.docId = "5";
-        fuTranscript1.docCode = "D1005";
+        fuTranscript1.docId = "19";
+        fuTranscript1.docCode = "D1019";
         fuTranscript1.isSimple = true;
 
-        fuTranscript2.docId = "6";
-        fuTranscript2.docCode = "D1006";
+        fuTranscript2.docId = "20";
+        fuTranscript2.docCode = "D1020";
         fuTranscript2.isSimple = true;
 
-        fuTranscript3.docId = "5";
-        fuTranscript3.docCode = "D1005";
+        fuTranscript3.docId = "21";
+        fuTranscript3.docCode = "D1021";
         fuTranscript3.isSimple = true;
 
-        fuTranscript4.docId = "6";
-        fuTranscript4.docCode = "D1006";
+        fuTranscript4.docId = "23";
+        fuTranscript4.docCode = "D1023";
         fuTranscript4.isSimple = true;
 
-        fuTranscript5.docId = "5";
-        fuTranscript5.docCode = "D1005";
+        fuTranscript5.docId = "24";
+        fuTranscript5.docCode = "D1024";
         fuTranscript5.isSimple = true;
 
-        fuTranscript6.docId = "6";
-        fuTranscript6.docCode = "D1006";
+        fuTranscript6.docId = "25";
+        fuTranscript6.docCode = "D1025";
         fuTranscript6.isSimple = true;
 
         #endregion
@@ -267,7 +267,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             BindGridMassageProgrameName();
             BindStaff();
             BindGraduatesNumber(); // Shekhar
-
+            BindOtherProgram();
             BindGridRelatedSchool();
             BindGridWorkInfo1();
             BindGridWorkInfo2();
@@ -1910,43 +1910,43 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void btnProgHourReqWork_Click(object sender, EventArgs e)
     {
-        ProviderInstructionsRQ rQ = new ProviderInstructionsRQ()
-        {
-            ProviderId = UIHelper.ProviderIdFromSession(),
-            ApplicationId = UIHelper.ApplicationIdFromSession(),
-            ContentItemLkId = 1,
+        //ProviderInstructionsRQ rQ = new ProviderInstructionsRQ()
+        //{
+        //    ProviderId = UIHelper.ProviderIdFromSession(),
+        //    ApplicationId = UIHelper.ApplicationIdFromSession(),
+        //    ContentItemLkId = 1,
 
-            #region NotRequiredFields
+        //    #region NotRequiredFields
 
-            //ContentItemLkCode = "Code",
-            //ModifiedBy = 1,
-            //ModifiedOn = DateTime.Now,
+        //    //ContentItemLkCode = "Code",
+        //    //ModifiedBy = 1,
+        //    //ModifiedOn = DateTime.Now,
 
-            #endregion
+        //    #endregion
 
-            ReferenceNumber = "Course Catalog",
-            InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
-            InstructionsAcceptanceDate = DateTime.Now.Date,
-            IsActive = true,
-            IsDeleted = false,
-            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
-            CreatedOn = DateTime.Now,
-            ProviderInstructionsGuid = Guid.NewGuid().ToString(),
-            ProviderInstructionsId = 1
-        };
+        //    ReferenceNumber = "Course Catalog",
+        //    InstructionsAcceptedBy = UIHelper.GetProviderUserIdFromSession(),
+        //    InstructionsAcceptanceDate = DateTime.Now.Date,
+        //    IsActive = true,
+        //    IsDeleted = false,
+        //    CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+        //    CreatedOn = DateTime.Now,
+        //    ProviderInstructionsGuid = Guid.NewGuid().ToString(),
+        //    ProviderInstructionsId = 1
+        //};
 
-        string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
-        Object obj;
-        CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
-        var res = (ProviderLoginRS)obj;
-        if (res.Status)
-        {
-            //TODO
-            //Make Tick mark appear for the instruction tab 
-            imgCourCataCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
-            DisplayPanel(PnlProHoReqWorksheet);
-            MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
-        }
+        //string WebAPIUrl = webAPIURL + "Provider/SaveButtonOfInstructions";
+        //Object obj;
+        //CallWebAPI<ProviderLoginRS>(WebAPIUrl, rQ, out obj);
+        //var res = (ProviderLoginRS)obj;
+        //if (res.Status)
+        //{
+        //    //TODO
+        //    //Make Tick mark appear for the instruction tab 
+        //    imgCourCataCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+        //    DisplayPanel(PnlProHoReqWorksheet);
+        //    MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
+        //}
         MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
         DisplayPanel(PnlProHoReqWorksheet);
     }
@@ -4889,6 +4889,58 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     #region About the School - Shekhar Changes
 
+    protected void btnSaveOtname_Click(object sender, EventArgs e)
+    {
+
+
+        ProviderOtherProgramRQ rQ = new ProviderOtherProgramRQ()
+        {
+            ProviderOtherProgramId = 0, //UIHelper.ProviderIndvNameInfoIdFromSession(),
+            ProviderId = UIHelper.ProviderIdFromSession(),
+            ApplicationId = UIHelper.ApplicationIdFromSession(),
+            ProgramOtherName = txtOtherProgramNameEdit.Text,
+            ReferenceNumber = "",
+            IsActive = true,
+            IsDeleted = false,
+            CreatedBy = UIHelper.GetProviderUserIdFromSession(),
+            CreatedOn = DateTime.Now,
+            ProviderOtherProgramGuid = Guid.NewGuid().ToString(),
+            Action = "I"
+        };
+
+        string WebAPIUrl = webAPIURL + "Provider/SaveProviderOtherProgram/{key}";
+        Object obj;
+        CallWebAPI<CommonRS>(WebAPIUrl, rQ, out obj);
+        var res = (CommonRS)obj;
+        if (res.Status)
+        {
+            txtOtherProgramNameEdit.Text = "";
+        }
+
+        BindOtherProgram();
+    }
+
+    public void BindOtherProgram()
+    {
+
+        string ApplicationId = UIHelper.ApplicationIdFromSession().ToString();
+        string ProviderId = UIHelper.ProviderIdFromSession().ToString();
+        string Key = UIHelper.GetKey();
+
+        string WebAPIUrl = webAPIURL + "Provider/GetAllProviderOtherProgram/?Key=" + Key + "&ApplicationId=" + ApplicationId + "&ProviderId=" + ProviderId + "";
+        Object obj;
+
+        WebApiUtility.CallWebAPI<ProviderOtherProgramRS>(WebAPIUrl, null, out obj, "GET");
+
+        var res = (ProviderOtherProgramRS)obj;
+        if (res.Status)
+        {
+            //gvOtherProgramNameEdit.EditIndex = this.EditIndexStaff;
+            gvOtherProgramNameEdit.DataSource = res.ProviderOtherProgramList;
+            gvOtherProgramNameEdit.DataBind();
+        }
+    }
+
     public void BindBusinessOrganization()
     {
 
@@ -5209,7 +5261,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         }
     }
-
+    
     protected void btnRelatedSchoolUpdate_Click(object sender, EventArgs e)
     {
         string strErrEditRelatedSchools;
@@ -17921,6 +17973,38 @@ public class TabStatusRS
     public Int32 StatusCode { get; set; }
     public string ResponseReason { get; set; }
     public List<TabStatusRQ> ProviderTabStatusList { get; set; }
+}
+
+public class ProviderOtherProgram
+{
+    public int ProviderOtherProgramId { get; set; }
+    public string ProgramOtherName { get; set; }
+}
+
+public class ProviderOtherProgramRQ
+{
+    public int ProviderOtherProgramId { get; set; }
+    public int ProviderId { get; set; }
+    public int ApplicationId { get; set; }
+    public string ProgramOtherName { get; set; }
+    public string ReferenceNumber { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderOtherProgramGuid { get; set; }
+    public string Action { get; set; }
+}
+
+public class ProviderOtherProgramRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<ProviderOtherProgram> ProviderOtherProgramList { get; set; }
 }
 
 //public class CommonRS

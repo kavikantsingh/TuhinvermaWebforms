@@ -118,11 +118,32 @@ public class ErrorMessage
 
     public static string fluLocalBusiness = "Please upload document for Local Business License.";
     public static string fluOrgChart = "Please upload document for Organizational Chart.";
-
     public static string fluFloorPlan = "Please upload document for Floor Plan (including approximate square footage).";
     public static string fluExteriorSign = "Please upload document for Photograph(s) of Exterior Signage.";
     public static string fluBuildExterior = "Please upload document for Photograph(s) of Buiding exterior.";
     public static string fluMassageClassroom = "Please upload document for Photograph(s) of Massage Classroom(s).";
     public static string fluMassageClinic = "Please upload document for Photograph(s) of Massage Clinic(s).";
-    
+
+    public static string fluStaffHiring = "Please upload document for Hiring, Training, Evaluating and Discipling Policies.";
+    public static string fluStaffFacility = "Please upload document for Facility Meeting Minutes/Agenda/Memos.";
+    public static string fluStaffStTeRatio = "Please upload document for Student-Teacher Ratio.";
+
+    public static string fluTrans1 = "Please upload document for Sample Transcripts.";
+    public static string fluTrans2 = "Please upload document for Sample transcript of unique security measures.";
+    public static string fluTrans3 = "Please upload document for Sample diploma.";
+    public static string fluTrans4 = "Please upload document for Sample envelope (Front) from the school.";
+    public static string fluTrans5 = "Please upload document for Sample envelope (Back) from the school.";
+
+    //----curriculum error messages----//basu
+    public static string fuCurriculum1 = "Please upload document for Massage Program Calendar.";
+
+    public static string fuCurriculum2 = "Please upload document for Syllabi for Massage Course.";
+    public static string fuCurriculum3 = "Please upload document for List of Textbooks.";
+
+    public static string fuCurriculum4 = "Please upload document for List of Educational Materials.";
+    public static string fuCurriculum5 = "Please upload document for List of Classroom Equipment.";
+    public static string fuCurriculum6 = "Please upload document for Curriculum Review Policy.";
+    public static string fuCurriculum7 = "Please upload document for Hygiene & Dress Code Policies .";
+    public static string fuCurriculum8 = "Please upload document for Document Name.";
+
 }
