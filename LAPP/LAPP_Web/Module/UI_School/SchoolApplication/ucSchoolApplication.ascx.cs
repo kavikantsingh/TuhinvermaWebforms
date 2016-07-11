@@ -17381,7 +17381,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             if (imgbtnRelatedSchoolEdit != null)
             {
                 int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
-                this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+                this.EditIndexPHRW1 = ID;//Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
                 //---find controls----//
 
                 HiddenField hdnCourseTitleID = (HiddenField)gvCourseL2.Rows[EditIndexPHRW1].FindControl("hdnCourseTitleID");

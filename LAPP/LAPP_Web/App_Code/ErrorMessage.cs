@@ -146,4 +146,15 @@ public class ErrorMessage
     public static string fuCurriculum7 = "Please upload document for Hygiene & Dress Code Policies .";
     public static string fuCurriculum8 = "Please upload document for Document Name.";
 
+    //----course catlog messages----//basu
+    public static string fuCourseCatalog1 = "Please upload document for Current Course Catalog.";
+
+    public static string fuCourseCatalog2 = "Please upload document for Massage Program Addendum.";
+
+
+    //----enroll agreement messages----//basu
+    public static string fuEnrollAgree1 = "Please upload document for Bank Enrollment Agreement.";
+
+    public static string fuEnrollAgree2 = "Please upload document for Massage Program Addendum.";
+
 }
