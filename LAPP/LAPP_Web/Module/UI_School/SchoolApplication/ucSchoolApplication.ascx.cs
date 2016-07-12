@@ -1772,6 +1772,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             MakeActiveLi(li_Background_Checklist);//
         }
 
+        imgSection3.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
+            
     }
 
     protected void btnSection5_Click(object sender, EventArgs e)
@@ -1906,6 +1908,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     {
         DisplayPanel(PnlCoCatChecklist);
         MakeActiveLi(li_Course_Catalog_Checklist);
+
+        imgEnrollAgreeCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
     }
 
     protected void btnProgHourReqWork_Click(object sender, EventArgs e)
@@ -1949,6 +1953,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         //}
         MakeActiveLi(li_Program_Hour_Requirement_Worksheet);
         DisplayPanel(PnlProHoReqWorksheet);
+
+        imgCourCataCheck.ImageUrl = "~/App_Themes/Theme1/images/check_icon.png";
     }
 
     protected void btnSchFacList_Click(object sender, EventArgs e)
@@ -16888,6 +16894,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
     int ROWPHRW1 = 0;
+    public int TotalHours = 0;
 
     protected void gvCourseL2_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -16905,6 +16912,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 lblCourseHours.Text = (res.ProvReqCourseTitle[e.Row.RowIndex].CourseHours).ToString();
                 hdnCourseTitleID.Value = (res.ProvReqCourseTitle[e.Row.RowIndex].ProvReqCourseTitleId).ToString();
 
+                //--------adding up total number of hours-------//
+
+                TotalHours += Convert.ToInt32(lblCourseHours.Text);
+                Session["TotalHours"] = TotalHours;
                 //---for binding labels of selected row of outer grid---//
                 //lblReqCouStdy.Text = Session["lblReqCouStdy"].ToString();------
                 //lblMinReqHrs.Text = Session["lblMinReqHrs"].ToString();------
@@ -16991,6 +17002,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             else
             {
                 Session["ProvReqCourseTitleRS"] = null;
+                //------since in row bound this session did not get assigned any value. It has to be initialized here so that it works properly in validategcCourseL2 method-----//
+                Session["TotalHours"] = 0;
             }
         }
         catch (Exception ex)
@@ -17133,9 +17146,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         divAddCourseReq.Visible = false;
         try
         {
-
             string CourseTitle = TextBox63.Text.Trim();
             int NoOfHours = Convert.ToInt32(TextBox1450.Text.Trim());
+            bool result = ValidategvCourseL2(NoOfHours);
             if (CourseTitle != null && NoOfHours > 0)
             {
                 Lapp_ProvReqCourseTitle rQ = new Lapp_ProvReqCourseTitle()
@@ -17153,14 +17166,25 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     CreatedOn = DateTime.Now,
                     ModifiedBy = 0,
                     ModifiedOn = DateTime.Now,
-                    ProviderOtherProgramGuid = ""
+                    ProviderOtherProgramGuid = Guid.NewGuid().ToString()
                 };
 
-                object obj;
+                object obj = null;
                 string Key = UIHelper.GetProviderKeyFromSession();
                 //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvReqCourseTitle/Key=" + Key;
                 string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitle/Key=" + Key;
-                CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+
+                //-----saving if the vlaue is not exceeding the minimum no of hours given in outer grid------//
+                if (result)
+                {
+                    //trGridErr.Visible = false;
+                    CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+                }
+                else//----display error in label----//
+                {
+                    trGridErr.Visible = true;
+                    lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hours for " + Session["lblReqCouStdy"].ToString();
+                }
                 gvCourseL2_Bind(EditIndexAdminInfo20);
                 var res = (ProvReqCourseTitleRS)obj;
                 if (res.Status)
@@ -17172,6 +17196,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
 
         }
+        gvCourseL2_Bind(EditIndexAdminInfo20);
     }
 
     protected void txtcarculam_TextChanged(object sender, EventArgs e)
@@ -17432,6 +17457,129 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         }
     }
 
+    //---------Helper Method for InnerGrid Validation of Curriculum Tab---------//basu
+    protected bool ValidategvCourseL2(int Number)
+    {
+        try
+        {
+            if (Session["TotalHours"] != null)
+            {
+                string MinReqHrs = Convert.ToString(Session["lblMinReqHrs"]);// Minimum required course hours in 1st grid..
+                switch (MinReqHrs)
+                {
+                    case "64":
+                        if (Number > 0 && Number <= 64)
+                        {
+                            int value = Number + Convert.ToInt32(Session["TotalHours"]);
+                            if (value <= 64)
+                            {
+                                if ((64 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (64 - value) + " hours";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        break;
+
+                    case "13":
+                        if (Number > 0 && Number <= 13)
+                        {
+                            int value = Number + Convert.ToInt32(Session["TotalHours"]);
+                            if (value <= 13)
+                            {
+                                if ((13 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (13 - value) + " hours";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        break;
+
+                    case "5":
+                        if (Number > 0 && Number <= 5)
+                        {
+                            int value = Number + Convert.ToInt32(Session["TotalHours"]);
+                            if (value <= 5)
+                            {
+                                if ((5 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (5 - value) + " hours";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        break;
+
+                    case "18":
+                        if (Number > 0 && Number <= 18)
+                        {
+                            int value = Number + Convert.ToInt32(Session["TotalHours"]);
+                            if (value <= 18)
+                            {
+                                if ((18 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (18 - value) + " hours";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                        break;
+
+                    default:
+                        return false;
+                        break;
+                }// end of switch
+            }//end of 1st 'if' block
+            else
+            {
+                return false;
+            }
+        }//end of try
+        catch (Exception ex)
+        {
+
+        }
+        return false;
+
+    }
 
     //--basu--//
     #endregion Basu_Curriculum
@@ -18007,6 +18155,46 @@ public class ProviderOtherProgramRS
     public List<ProviderOtherProgram> ProviderOtherProgramList { get; set; }
 }
 
+public class ProviderRelatedSchools 
+{
+    public int ProviderRelatedSchoolId { get; set; }
+    public int ProviderId { get; set; }
+    public int ProviderNameId { get; set; }
+    public int ApplicationId { get; set; }
+    public DateTime DateAssociated { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsDeleted { get; set; }
+    public int CreatedBy { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public int? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+    public string ProviderRelatedSchoolGuid { get; set; }
+    public string Action { get; set; }
+
+    public string ProviderName { get; set; }
+    public string StreetLine1 { get; set; }
+    public string StreetLine2 { get; set; }
+    public string City { get; set; }
+    public string StateCode { get; set; }
+    public string ZIP { get; set; }
+    public int CountyId { get; set; }
+    public int CountryId { get; set; }
+
+    public string ContactFirstName { get; set; }
+    public string ContactLastName { get; set; }
+    public string Phone { get; set; }
+    public string Website { get; set; }
+    public string Email { get; set; }
+}
+
+public class ProviderRelatedSchoolsRS
+{
+    public string Message { get; set; }
+    public Boolean Status { get; set; }
+    public Int32 StatusCode { get; set; }
+    public string ResponseReason { get; set; }
+    public List<ProviderRelatedSchools> ProviderRelatedSchoolsList { get; set; }
+}
 //public class CommonRS
 //{
 //    public string Message { get; set; }

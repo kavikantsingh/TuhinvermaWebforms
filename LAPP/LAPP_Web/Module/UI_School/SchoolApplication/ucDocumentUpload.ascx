@@ -126,7 +126,7 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td style="width: 110px; text-align: center;"><%# Eval("DocumentTypeIdName") %></td>
+                                        <td style="width: 110px; text-align: center;"><%# Eval("OtherDocumentTypeName") %></td>
                                         <td style="width: 148px;"><%# Eval("DocumentName") %></td>
                                         <td style="width: 145px;">
                                             <a id="hlkURL3" class="documentdetail" target="_blank"

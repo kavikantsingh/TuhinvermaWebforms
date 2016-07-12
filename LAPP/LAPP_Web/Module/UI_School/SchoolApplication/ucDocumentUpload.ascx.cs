@@ -94,6 +94,9 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
     public void GetAllDocs()
     {
+        lblSimpleSuccess.Visible = false;
+        lblSuccess.Visible = false;
+
         rptDocumentList.DataSource = null;// new List<ProviderDocumentGET>();
         rptDocumentList.DataBind();
 
@@ -114,11 +117,15 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
 
             if (isSimple)
             {
+                lblSimpleSuccess.Visible = false;
+                        
                 rptSimpleDocumentList.DataSource = res.ProviderDocumentGET;
                 rptSimpleDocumentList.DataBind();
             }
             else
             {
+                lblSuccess.Visible = false;
+
                 rptDocumentList.DataSource = res.ProviderDocumentGET;
                 rptDocumentList.DataBind();
             }
@@ -268,6 +275,10 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
     {
         if (fuSimpleDocUpload.HasFile)
         {
+
+            docTypeName = lblSimpleDocText.Text;
+            //docTypeId = ddlDocType.SelectedValue;
+
             string extension = Path.GetExtension(fuSimpleDocUpload.FileName);
             if (fileExtension.Contains(extension.ToUpperInvariant()))
             {
@@ -296,7 +307,7 @@ public partial class Module_UI_School_SchoolApplication_ucDocumentUpload : Syste
                         IsDocumentUploadedbyStaff = false,
                         ModifiedBy = 0,
                         ModifiedOn = null,
-                        OtherDocumentTypeName = "",
+                        OtherDocumentTypeName = lblSimpleDocText.Text,
                         ProviderDocumentGuid = "",
                         ProviderDocumentId = 0,
                         ReferenceNumber = "",
