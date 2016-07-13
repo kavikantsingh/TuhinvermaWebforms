@@ -4819,6 +4819,17 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             gvStaff.DataSource = res.ListOfProviderStaffDetails;
             gvStaff.DataBind();
         }
+
+        int count = 0; 
+        
+        for (int i=0; i<res.ListOfProviderStaffDetails.Count; i++)
+        {
+            if (res.ListOfProviderStaffDetails[i].IsBackgroundCheckReq.ToString() == "True")
+                count++;
+        }
+        
+        TextBox104.Text = count.ToString();
+        TextBox106.Text = "$ " + (41 * count).ToString();
     }
 
 
@@ -16894,8 +16905,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
     }
 
     int ROWPHRW1 = 0;
-    public int TotalHours = 0;
 
+    public int TotalHours = 0;
     protected void gvCourseL2_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         Label lblCourseTitle = e.Row.FindControl("lblCourseTitle") as Label;
@@ -16976,33 +16987,15 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             {
                 Session["ProvReqCourseTitleRS"] = res;
                 gvCourseL2.DataSource = res.ProvReqCourseTitle;
+                TotalHours = 0;
                 gvCourseL2.DataBind();
                 Session["ProvReqCourseTitleRS"] = null;
-                //return res;
-                //List<ProvReqCourseTitle> list = res.ProvReqCourseTitle;
-                //gvCourseL2.DataSource = list;
-                //gvCourseL2.DataBind();
-                //int objInternalCount = res.ProvReqCourseTitle.Count();
-                //System.Data.DataTable dt = new System.Data.DataTable();
-                //System.Data.DataColumn dc1 = new System.Data.DataColumn("CourseTitleName");
-                //System.Data.DataColumn dc2 = new System.Data.DataColumn("CourseHours");
-                //dt.Columns.Add(dc1);
-                //dt.Columns.Add(dc2);
-                //for (int i = 0; i < objInternalCount; i++)
-                //{
-                //    LAPP.ENTITY.Lapp_ProvReqCourseTitle objProv = res.ProvReqCourseTitle[i];
-                //    System.Data.DataRow dr = dt.NewRow();
-                //    dr[0] = objProv.CourseTitleName;
-                //    dr[1] = objProv.CourseHours;
-                //    dt.Rows.Add(dr);
-                //}
-                //gvCourseL2.DataSource = dt;
-                //gvProgHrWrkSheet.DataBind();
+
             }
             else
             {
                 Session["ProvReqCourseTitleRS"] = null;
-                //------since in row bound this session did not get assigned any value. It has to be initialized here so that it works properly in validategcCourseL2 method-----//
+                //------since in row bound this session did not get assigned any value. It has to be initialized here so that it works properly in validategvCourseL2 method-----//
                 Session["TotalHours"] = 0;
             }
         }
@@ -17053,14 +17046,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
     protected void gvProgHrWrkSheet_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        //if(e.CommandName== "lnkCourses")
-        //{
-        //    //Get rowindex
-        //    int rowindex = Convert.ToInt32(e.CommandArgument);
-        //    //GridViewRow gvr = gvProgHrWrkSheet.Rows[rowindex];
-        //    Session["gvProgHrWrkSheet_RowIndex"] = rowindex;
-        //    gvCourseL2.Visible = true;
-        //}
+
     }
 
     public ProvReqCourseOfStudyRS gvProgHrWrkSheet_Bind()
@@ -17078,24 +17064,6 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             if (res.Status)
             {
                 return res;
-                //int objInternalCount= res.ProvReqCourseOfStudy.Count();
-                //    gvProgHrWrkSheet.DataSource = res.ProvReqCourseOfStudy;
-                //    gvProgHrWrkSheet.DataBind();
-                //    System.Data.DataTable dt = new System.Data.DataTable();
-                //System.Data.DataColumn dc1 = new System.Data.DataColumn("RequiredCourseofStudy");
-                //System.Data.DataColumn dc2 = new System.Data.DataColumn("MinimumRequiredCourseHours");
-                //dt.Columns.Add(dc1);
-                //dt.Columns.Add(dc2);
-                //for (int i=0;i< objInternalCount;i++)
-                //{
-                //    LAPP.CORE.ProvReqCourseOfStudy objProv = res.ProvReqCourseOfStudy[i];
-                //    System.Data.DataRow dr = dt.NewRow();
-                //    dr[0] = objProv.ReqCourseofStudyName;
-                //    dr[1] = objProv.MinimumReqCourseHours;
-                //    dt.Rows.Add(dr);
-                //}
-                //    gvProgHrWrkSheet.DataSource= dt;
-                //    gvProgHrWrkSheet.DataBind();
             }
         }
         catch (Exception ex)
@@ -17148,7 +17116,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
             string CourseTitle = TextBox63.Text.Trim();
             int NoOfHours = Convert.ToInt32(TextBox1450.Text.Trim());
-            bool result = ValidategvCourseL2(NoOfHours);
+            bool result = ValidategvCourseL2(NoOfHours, "Insert");
             if (CourseTitle != null && NoOfHours > 0)
             {
                 Lapp_ProvReqCourseTitle rQ = new Lapp_ProvReqCourseTitle()
@@ -17180,11 +17148,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     //trGridErr.Visible = false;
                     CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
                 }
-                else//----display error in label----//
-                {
-                    trGridErr.Visible = true;
-                    lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hours for " + Session["lblReqCouStdy"].ToString();
-                }
+
                 gvCourseL2_Bind(EditIndexAdminInfo20);
                 var res = (ProvReqCourseTitleRS)obj;
                 if (res.Status)
@@ -17287,6 +17251,8 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             string hdnCourseTitleID = Session["hdnCourseTitleID"].ToString(); // this Session["hdnCourseTitleID"] is assigned values in on click of edit event
             string CourseTitle = null;
             int CourseHours = 0;
+            int OldNumber = 0;
+            int NewNumber = 0;
             //---- find controls in the row that was clicked ----- //
             TextBox txtCourseTitleEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseTitleEdit"); // here EditIndexPHRW1 is row index of the edit button that wa clicked.
             TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
@@ -17295,8 +17261,14 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 CourseTitle = txtCourseTitleEdit.Text.Trim();
                 CourseHours = Convert.ToInt32(txtCourseHrsEdit.Text);
 
+                //----assigning values in variables to pass in ValidategvCourseL2 method..-----//
+                OldNumber = Convert.ToInt32(Session["lblCourseHours"]);// This session got assigned in Edit Event..
+                NewNumber = Convert.ToInt32(txtCourseHrsEdit.Text);
             }
-            //int NoOfHours = Convert.ToInt32(TextBox1450.Text.Trim());
+
+            //----validating update-----//
+            bool isvalidupdate = ValidategvCourseL2(OldNumber, NewNumber);
+
             if (CourseTitle != null && CourseHours > 0)
             {
                 Lapp_ProvReqCourseTitle rQ = new Lapp_ProvReqCourseTitle()
@@ -17317,12 +17289,17 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     ProviderOtherProgramGuid = Guid.NewGuid().ToString()
                 };
 
-                object obj;
+                object obj = null;
                 string Key = UIHelper.GetProviderKeyFromSession();
                 //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvReqCourseTitleEdit/Key=" + Key;
                 string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleEdit/Key=" + Key;
-                CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
-                gvCourseL2_Bind(EditIndexAdminInfo20);
+
+                //----update if validation is correct----//
+                if (isvalidupdate)
+                {
+                    CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+                }
+                //gvCourseL2_Bind(EditIndexAdminInfo20);
                 var res = (ProvReqCourseTitleRS)obj;
                 if (res.Status)
                 {
@@ -17333,7 +17310,9 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
 
         }
+        gvCourseL2_Bind(EditIndexAdminInfo20);
         Session["hdnCourseTitleID"] = null;
+        Session["lblCourseHours"] = null;
     }
 
     protected void lnkCancelCourseTitleUpdate_Click(object sender, EventArgs e)
@@ -17367,6 +17346,7 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                 TextBox txtCourseHrsEdit = (TextBox)gvCourseL2.Rows[EditIndexPHRW1].FindControl("txtCourseHrsEdit");
 
                 Session["hdnCourseTitleID"] = hdnCourseTitleID.Value;
+                Session["lblCourseHours"] = lblCourseHours.Text;// the session value will be used as a parameter1 in ValidategvCourseL2(int OldNumber, int NewNumber )
                 //BindGridPHRW1();
                 //FillControlPHRWInnerGrid(gvAdminInfo2, this.EditIndexPHRW1);
                 if (this.EditIndexPHRW1 >= 0)
@@ -17406,12 +17386,18 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
             if (imgbtnRelatedSchoolEdit != null)
             {
                 int ID = Convert.ToInt32(imgbtnRelatedSchoolEdit.CommandArgument);
-                this.EditIndexPHRW1 = ID;//Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+                this.EditIndexPHRW1 = Convert.ToInt32(imgbtnRelatedSchoolEdit.Attributes["RowIndex"]);
+
+                //----find the row count of gvCourseL2 grid----//
+                int rowCount = gvCourseL2.Rows.Count;
+
                 //---find controls----//
 
                 HiddenField hdnCourseTitleID = (HiddenField)gvCourseL2.Rows[EditIndexPHRW1].FindControl("hdnCourseTitleID");
+                Label lblCourseHours = (Label)gvCourseL2.Rows[EditIndexPHRW1].FindControl("lblCourseHours");
                 Session["hdnCourseTitleID"] = hdnCourseTitleID.Value;
                 int CourseTitleID = Convert.ToInt32(hdnCourseTitleID.Value);
+                int CourseHours = Convert.ToInt32(lblCourseHours.Text); // This variable is passedto ValidategvCourseL2 method.
                 //= Session["hdnCourseTitleID"].ToString();
                 if (EditIndexPHRW1 >= 0)
                 {
@@ -17440,6 +17426,13 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                         //string WebApiUrl = "http:'//localhost:1530/api/providercurriculum/ProvReqCourseTitleDelete/Key=" + Key;
                         string WebApiUrl = webAPIURL + "providercurriculum/ProvReqCourseTitleDelete/Key=" + Key;
                         CallWebAPI_POST_ProvReqCourseTitle<ProvReqCourseTitleRS>(WebApiUrl, rQ, out obj);
+                        //----Sending negative value of coursehours in parameter----//
+                        ValidategvCourseL2(CourseHours, "Delete");
+                        if (rowCount == 1)
+                        {
+                            //---bind the outer grid---//
+                            BindGridAdminInfo20();
+                        }
                         gvCourseL2_Bind(EditIndexAdminInfo20);
                         var res = (ProvReqCourseTitleRS)obj;
                         if (res.Status)
@@ -17455,21 +17448,36 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
         {
 
         }
+        gvCourseL2_Bind(EditIndexAdminInfo20);
     }
 
     //---------Helper Method for InnerGrid Validation of Curriculum Tab---------//basu
-    protected bool ValidategvCourseL2(int Number)
+    protected bool ValidategvCourseL2(int Number, string Operation)
     {
         try
         {
             if (Session["TotalHours"] != null)
             {
                 string MinReqHrs = Convert.ToString(Session["lblMinReqHrs"]);// Minimum required course hours in 1st grid..
+                //----if the user enter Zero (0) hours. Then simply return false..
+                if (Number == 0)
+                {
+                    trGridErr.Visible = true;
+                    lblGridError.Text = "You cannot add zero hours";
+                    return false;
+                }
+
+
                 switch (MinReqHrs)
                 {
                     case "64":
                         if (Number > 0 && Number <= 64)
                         {
+                            if (Operation == "Delete")
+                            {
+                                Number = Number * (-1);
+                            }
+
                             int value = Number + Convert.ToInt32(Session["TotalHours"]);
                             if (value <= 64)
                             {
@@ -17478,15 +17486,24 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                                     trGridErr.Visible = true;
                                     lblGridError.Text = "You need to add more " + (64 - value) + " hours";
                                 }
+                                else if ((64 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
                                 return true;
                             }
                             else
                             {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                                 return false;
                             }
                         }
                         else
                         {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                             return false;
                         }
                         break;
@@ -17494,6 +17511,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     case "13":
                         if (Number > 0 && Number <= 13)
                         {
+                            if (Operation == "Delete")
+                            {
+                                Number = Number * (-1);
+                            }
                             int value = Number + Convert.ToInt32(Session["TotalHours"]);
                             if (value <= 13)
                             {
@@ -17502,15 +17523,24 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                                     trGridErr.Visible = true;
                                     lblGridError.Text = "You need to add more " + (13 - value) + " hours";
                                 }
+                                else if ((13 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
                                 return true;
                             }
                             else
                             {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                                 return false;
                             }
                         }
                         else
                         {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                             return false;
                         }
                         break;
@@ -17518,6 +17548,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     case "5":
                         if (Number > 0 && Number <= 5)
                         {
+                            if (Operation == "Delete")
+                            {
+                                Number = Number * (-1);
+                            }
                             int value = Number + Convert.ToInt32(Session["TotalHours"]);
                             if (value <= 5)
                             {
@@ -17526,15 +17560,24 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                                     trGridErr.Visible = true;
                                     lblGridError.Text = "You need to add more " + (5 - value) + " hours";
                                 }
+                                else if ((5 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
                                 return true;
                             }
                             else
                             {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                                 return false;
                             }
                         }
                         else
                         {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                             return false;
                         }
                         break;
@@ -17542,6 +17585,10 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                     case "18":
                         if (Number > 0 && Number <= 18)
                         {
+                            if (Operation == "Delete")
+                            {
+                                Number = Number * (-1);
+                            }
                             int value = Number + Convert.ToInt32(Session["TotalHours"]);
                             if (value <= 18)
                             {
@@ -17550,15 +17597,23 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
                                     trGridErr.Visible = true;
                                     lblGridError.Text = "You need to add more " + (18 - value) + " hours";
                                 }
+                                else if ((18 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
                                 return true;
                             }
                             else
                             {
-                                return false;
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString(); return false;
                             }
                         }
                         else
                         {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
                             return false;
                         }
                         break;
@@ -17578,6 +17633,182 @@ public partial class ucCertificationApplication : System.Web.UI.UserControl
 
         }
         return false;
+
+    }
+
+
+    //---------Helper Method for InnerGrid Validation of Curriculum Tab--------//basu
+    protected bool ValidategvCourseL2(int OldNumber, int NewNumber)
+    {
+        try
+        {
+            if (Session["TotalHours"] != null)
+            {
+                string MinReqHrs = Convert.ToString(Session["lblMinReqHrs"]);// Minimum required course hours in 1st grid..
+                //----if the user enter Zero (0) hours. Then simply return false..
+                if (NewNumber == 0)
+                {
+                    trGridErr.Visible = true;
+                    lblGridError.Text = "You cannot add zero hours";
+                    return false;
+                }
+
+
+                switch (MinReqHrs)
+                {
+                    case "64":
+                        if (NewNumber > 0 && NewNumber <= 64)
+                        {
+                            int value = (Convert.ToInt32(Session["TotalHours"]) - OldNumber) + NewNumber;
+                            if (value <= 64)
+                            {
+                                if ((64 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (64 - value) + " hours";
+                                }
+                                else if ((64 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                            return false;
+                        }
+                        break;
+
+                    case "13":
+                        if (OldNumber > 0 && OldNumber <= 13)
+                        {
+                            int value = (Convert.ToInt32(Session["TotalHours"]) - OldNumber) + NewNumber;
+                            if (value <= 13)
+                            {
+                                if ((13 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (13 - value) + " hours";
+                                }
+                                else if ((13 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                            return false;
+                        }
+                        break;
+
+                    case "5":
+                        if (OldNumber > 0 && OldNumber <= 5)
+                        {
+                            int value = (Convert.ToInt32(Session["TotalHours"]) - OldNumber) + NewNumber;
+                            if (value <= 5)
+                            {
+                                if ((5 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (5 - value) + " hours";
+                                }
+                                else if ((5 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                            return false;
+                        }
+                        break;
+
+                    case "18":
+                        if (OldNumber > 0 && OldNumber <= 18)
+                        {
+                            int value = (Convert.ToInt32(Session["TotalHours"]) - OldNumber) + NewNumber;
+                            if (value <= 18)
+                            {
+                                if ((18 - value) > 0)
+                                {
+                                    trGridErr.Visible = true;
+                                    lblGridError.Text = "You need to add more " + (18 - value) + " hours";
+                                }
+                                else if ((18 - value) == 0)
+                                {
+                                    trGridErr.Visible = false;
+                                    lblGridError.Text = "";
+                                }
+                                return true;
+                            }
+                            else
+                            {
+                                trGridErr.Visible = true;
+                                lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString(); return false;
+                            }
+                        }
+                        else
+                        {
+                            trGridErr.Visible = true;
+                            lblGridError.Text = "Total number of hours should not exceed " + Session["lblMinReqHrs"].ToString() + " hour(s) for " + Session["lblReqCouStdy"].ToString();
+                            return false;
+                        }
+                        break;
+
+                    default:
+                        return false;
+                        break;
+                }// end of switch
+            }//end of 1st 'if' block
+            else
+            {
+                return false;
+            }
+        }//end of try
+        catch (Exception ex)
+        {
+
+        }
+        return false;
+
+    }
+
+
+    //--------AUTOMATE GRID VALIDATION ON SAVE N NEXT CLICK-------//
+    public void AutomateGridValidation()
+    {
 
     }
 
@@ -18030,6 +18261,10 @@ public class ProviderStaffRQ
     public DateTime? ModifiedOn { get; set; }
     public string ProviderStaffGuid { get; set; }
     public int ActionType { get; set; }
+
+    public string ids { get; set; }
+    public string titles { get; set; }
+
 }
 
 public class ProviderNameTitleRQ : ProviderStaffRQ
